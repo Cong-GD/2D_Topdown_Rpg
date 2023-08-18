@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb3f746d7747c9a4a83ec541910d5921, type: 3}
+  m_Name: Sword
+  m_EditorClassIdentifier: 
+  <EquipmentName>k__BackingField: Basic sword
+  <EquipSlot>k__BackingField: 0
+  <Description>k__BackingField: Just a sword use for testing
+  <Icon>k__BackingField: {fileID: 21300000, guid: 7a1f5a7a92d6fe344a9ba162f0d50773, type: 3}
+  <MainStats>k__BackingField:
+  - {fileID: 11400000, guid: 665970b8fb21e77409dca6343f2a8c87, type: 2}
+  subEffects: []

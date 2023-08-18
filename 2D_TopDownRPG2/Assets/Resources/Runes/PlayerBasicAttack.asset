@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9494ceb600e8b49bb6ef5ea3f5ae64, type: 3}
+  m_Name: PlayerBasicAttack
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Basic attack
+  <Description>k__BackingField: Fire a bullet deal damage when hit enemy
+  <Icon>k__BackingField: {fileID: 713082596, guid: 1f16be29f6c79814282f20b5a120d507, type: 3}
+  <AbilityIcon>k__BackingField: {fileID: 713082596, guid: 1f16be29f6c79814282f20b5a120d507, type: 3}
+  <Rarity>k__BackingField: 0
+  <TargetType>k__BackingField: 1
+  <BaseCastDelay>k__BackingField: 0.3
+  <BaseManaConsume>k__BackingField: 0
+  <BaseCooldown>k__BackingField: 0.6
+  <MaxUseRange>k__BackingField: 7
+  effectsApplyToTarget:
+  - {fileID: 11400000, guid: 337a8527d79dff442a2aa3440342808c, type: 2}
+  <SpellReleaseWhenUse>k__BackingField: {fileID: 200943339672918756, guid: 01f8c257e6882a6449291f5caf4aed28, type: 3}
