@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 1000
   MaxMana: 0
-  MoveSpeed: 2.7
+  MoveSpeed: 3.6
   AttackPower: 100
   Defence: 20
   BlockChance: 10

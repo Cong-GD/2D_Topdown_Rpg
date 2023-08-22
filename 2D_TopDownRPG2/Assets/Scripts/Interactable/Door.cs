@@ -1,28 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour, IInteractable
+public class Door : MonoBehaviour
 {
     [SerializeField] private GameObject openingDoor;
     [SerializeField] private GameObject closingDoor;
 
-    public bool isOpening;
+    private bool _isOpenning;
 
     private void Awake()
     {
-        Switch();
+        _isOpenning = openingDoor.gameObject.activeSelf;
     }
 
-    public void Interact()
+
+    public void SwicthState()
     {
-        isOpening = !isOpening;
-        Switch();
+        if(_isOpenning)
+        {
+            CloseDoor();
+        }
+        else
+        {
+            OpenDoor();
+        }
     }
 
-    public void Switch()
+    public void CloseDoor()
     {
-        openingDoor.SetActive(isOpening);
-        closingDoor.SetActive(!isOpening);
+        openingDoor.SetActive(false);
+        closingDoor.SetActive(true);
+        _isOpenning = false;
+    }
+
+    public void OpenDoor()
+    {
+        openingDoor.SetActive(true);
+        closingDoor.SetActive(false);
+        _isOpenning = true;
     }
 }

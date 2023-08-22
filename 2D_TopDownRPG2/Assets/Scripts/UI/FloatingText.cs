@@ -1,5 +1,4 @@
 using CongTDev.ObjectPooling;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -9,29 +8,34 @@ public class FloatingText : PoolObject
 
     [SerializeField] private Animator animator;
 
-    private static readonly WaitForEndOfFrame wait = new();
+    private Collider2D _followColider;
+    private Vector2 _offset;
+
+    private void OnDisable()
+    {
+        _followColider = null;
+    }
+
+    private void LateUpdate()
+    {
+        if (_followColider != null)
+        {
+            transform.position = (Vector2)_followColider.bounds.center + _offset;
+        }
+    }
     public void DisplayText(DamageBlock damageBlock)
     {
-        StopAllCoroutines();
-        StartCoroutine(FollowCoroutine(damageBlock.Target.HitBox));
+        _followColider = damageBlock.Target.HitBox;
+        _offset = new Vector2(0, _followColider.bounds.extents.y) + Random.insideUnitCircle * 0.5f;
         textMeshProUGUI.color = ColorHelper.GetDamageFeedBackTextColor(damageBlock.DamageType);
         textMeshProUGUI.text = damageBlock.State switch
         {
-            DamageStates.NormalDamage => $"{damageBlock.CurrentDamage}",
-            DamageStates.CriticalDamage => $"{damageBlock.CurrentDamage}!",
-            DamageStates.BlockDamage => $"d{damageBlock.CurrentDamage}b",
-            DamageStates.Miss => "Miss",
+            DamageState.NormalDamage => $"{damageBlock.CurrentDamage}",
+            DamageState.CriticalDamage => $"{damageBlock.CurrentDamage}!",
+            DamageState.BlockDamage => $"( {damageBlock.CurrentDamage} )",
+            DamageState.Miss => "Miss",
             _ => string.Empty
         };
     }
 
-    private IEnumerator FollowCoroutine(Collider2D collider2)
-    {
-        var offSet = new Vector2(0, collider2.bounds.extents.y) + Random.insideUnitCircle * 0.5f;
-        while (collider2 != null)
-        {
-            transform.position = (Vector2)collider2.bounds.center + offSet;
-            yield return wait;
-        }
-    }
 }

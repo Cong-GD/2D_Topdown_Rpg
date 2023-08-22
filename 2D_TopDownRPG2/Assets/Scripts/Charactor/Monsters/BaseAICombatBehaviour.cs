@@ -74,6 +74,7 @@ public abstract class BaseAICombatBehaviour : MonoBehaviour
     {
         DrawCircle(attackRange, Color.red);
         DrawCircle(vision, Color.blue);
+        DrawCircle(maxMoveRange, Color.gray);
     }
 
     protected void DrawCircle(float radius, Color color)

@@ -18,7 +18,7 @@ MonoBehaviour:
   <AbilityIcon>k__BackingField: {fileID: -415026892, guid: 1f16be29f6c79814282f20b5a120d507, type: 3}
   <Rarity>k__BackingField: 0
   <TargetType>k__BackingField: 1
-  <BaseCastDelay>k__BackingField: 0.3
+  <BaseCastDelay>k__BackingField: 0.18
   <BaseManaConsume>k__BackingField: 0
   <BaseCooldown>k__BackingField: 1.5
   <MaxUseRange>k__BackingField: 0

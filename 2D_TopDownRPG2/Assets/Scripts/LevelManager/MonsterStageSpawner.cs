@@ -7,18 +7,7 @@ using UnityEngine;
 
 public class MonsterStageSpawner : MonoBehaviour
 {
-    [Serializable]
-    public class MonsterSpawnInfo
-    {
-        public Prefab prefab;
-        public BaseStatData statData;
-        public int level;
-        public int count;
-        public int xp;
-    }
-
-    [SerializeField] private List<MonsterSpawnInfo> intialMonsters;
-    [SerializeField] private List<MonsterSpawnInfo> stage2Monsters;
+    [SerializeField] private List<MonsterSpawnInfo> monsterLists;
     [SerializeField] private Prefab spawningEffect;
     [SerializeField] private float spawnRange;
     [SerializeField] private float spawnDelay;
@@ -32,16 +21,11 @@ public class MonsterStageSpawner : MonoBehaviour
 
     private IEnumerator SpawnCoroutine(Action onSpawningEnded)
     {
-        foreach (MonsterSpawnInfo spawnInfo in intialMonsters)
+        foreach (MonsterSpawnInfo spawnInfo in monsterLists)
         {
             SpawnMonsters(spawnInfo);
+            yield return new WaitUntil(() => CurrentMonster <= 0);
         }
-        yield return new WaitUntil(() => CurrentMonster <= 0);
-        foreach (var spawnInfo in stage2Monsters)
-        {
-            SpawnMonsters(spawnInfo);
-        }
-        yield return new WaitUntil(() => CurrentMonster <= 0);
         onSpawningEnded?.Invoke();
     }
 
@@ -83,8 +67,8 @@ public class MonsterStageSpawner : MonoBehaviour
 
         if(PoolManager.Get<MonstersController>(spawnInfo.prefab, out var monster))
         {
-            monster.Initialize(spawnInfo.statData, spawnInfo.level);
             monster.transform.position = spawnPosition;
+            monster.Initialize(spawnInfo.statData, spawnInfo.level);
             monster.StageSupportDeathEvent += _ => CurrentMonster--;
             if(spawnInfo.xp > 0)
             {
@@ -99,7 +83,7 @@ public class MonsterStageSpawner : MonoBehaviour
 
     private bool CanSpawnAtThisPoint(Vector2 position)
     {
-        return !Physics2D.OverlapPoint(position, LayerMaskHelper.ObstacleMask);
+        return !Physics2D.OverlapCircle(position, 1f, LayerMaskHelper.ObstacleMask);
     }
 
 #if UNITY_EDITOR
@@ -110,5 +94,15 @@ public class MonsterStageSpawner : MonoBehaviour
     } 
 #endif
 
+}
+
+[Serializable]
+public class MonsterSpawnInfo
+{
+    public Prefab prefab;
+    public BaseStatData statData;
+    public int level;
+    public int count;
+    public int xp;
 }
 

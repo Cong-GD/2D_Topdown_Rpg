@@ -47,6 +47,7 @@ public static class ColorHelper
     {
         DamageType.PhysicalDamage => data.physicsDamageFeedBackText,
         DamageType.MagicDamage => data.magicDamageFeedBackText,
+        DamageType.EnviromentDamage => data.enviromentDamageText,
         _ => Color.white
     };
 }

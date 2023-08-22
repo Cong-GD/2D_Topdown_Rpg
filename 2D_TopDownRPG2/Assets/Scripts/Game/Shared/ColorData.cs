@@ -18,5 +18,6 @@ public class ColorData : ScriptableObject
     [Header("Damage feedback text color")]
     public Color physicsDamageFeedBackText;
     public Color magicDamageFeedBackText;
+    public Color enviromentDamageText;
 
 }

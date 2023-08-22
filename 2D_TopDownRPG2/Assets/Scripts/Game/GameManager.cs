@@ -2,6 +2,7 @@ using CongTDev.EventManagers;
 using CongTDev.IOSystem;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : GlobalReference<GameManager>
 {

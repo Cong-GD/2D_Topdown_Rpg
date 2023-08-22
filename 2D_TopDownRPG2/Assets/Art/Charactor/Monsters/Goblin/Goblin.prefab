@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 2284435559178645681}
   - component: {fileID: 8548184679517032736}
   - component: {fileID: 3677278126221363769}
+  - component: {fileID: 8749356210986983204}
   m_Layer: 7
   m_Name: Goblin
   m_TagString: Untagged
@@ -148,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6183781278473601354}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.56, y: -4.37, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
@@ -263,6 +264,19 @@ MonoBehaviour:
   <AbilityCaster>k__BackingField: {fileID: 3535275996100139877}
   <Animator>k__BackingField: {fileID: 9168216342168082278}
   <MonsterName>k__BackingField: Goblin
+--- !u!114 &8749356210986983204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6183781278473601354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7115b32b386fde64baa3e544f29fe639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UniquePrefabID>k__BackingField: Goblin001
 --- !u!1 &7865846350460363958
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +289,7 @@ GameObject:
   - component: {fileID: 537862832514633674}
   - component: {fileID: 7034774245978252843}
   - component: {fileID: 6313924898520700656}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: AIHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -341,7 +355,7 @@ MonoBehaviour:
   nextWaypointDistance: 0.1
   moveRange: 4
   directChangeInterval: 5
-  detectRange: 5
+  detectRange: 12
   updateInterval: 0.5
   <Controller>k__BackingField: {fileID: 3677278126221363769}
 --- !u!114 &6313924898520700656
@@ -356,11 +370,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53429514cea17b64bb0e6a38a379a099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveRange: 20
-  attackRange: 1.6
-  vision: 7
+  maxMoveRange: 30
+  attackRange: 2
+  vision: 15
   firstRune: {fileID: 11400000, guid: 904f5ebd41049784680c7cd2e997b363, type: 2}
-  movingRange: 2
+  movingRange: 1.85
+  combatExitTime: 3
   secondaryRune: {fileID: 11400000, guid: 3f414ddac2d9e744abebaff8380b7b2e, type: 2}
   healThreshHold: 0.5
   abilityCheckInterval: 1

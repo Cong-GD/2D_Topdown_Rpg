@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3754352919905639752}
   - component: {fileID: 7111517506517205250}
   - component: {fileID: 6625993542779874890}
+  - component: {fileID: 7745506901309644320}
   m_Layer: 7
   m_Name: Mushroom
   m_TagString: Untagged
@@ -143,6 +144,19 @@ MonoBehaviour:
   <AbilityCaster>k__BackingField: {fileID: 8032224846895635388}
   <Animator>k__BackingField: {fileID: 4513203728718167055}
   <MonsterName>k__BackingField: Mushroom
+--- !u!114 &7745506901309644320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277500996863876430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7115b32b386fde64baa3e544f29fe639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <UniquePrefabID>k__BackingField: Mushroom001
 --- !u!1 &2766273653268484655
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +343,7 @@ MonoBehaviour:
   nextWaypointDistance: 0.1
   moveRange: 5
   directChangeInterval: 5
-  detectRange: 5
+  detectRange: 12
   updateInterval: 1
   <Controller>k__BackingField: {fileID: 6625993542779874890}
 --- !u!114 &1697186886195991694
@@ -344,13 +358,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6031a906a643634db233ef34e503e3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxMoveRange: 20
+  maxMoveRange: 30
   attackRange: 7
-  vision: 10
+  vision: 15
   activeRuneSO: {fileID: 11400000, guid: b818488325f46e8498e999d05f599846, type: 2}
   movingRange: 5
   movingAngle: 150
   aimTime: 0.2
+  combatExitTime: 3
   damageZoneRune: {fileID: 11400000, guid: d5fed93cbd788934aa59a34ee71a008c, type: 2}
   secondAbilityStartUseTime: 5
   secondAbilityCheckInterval: 1

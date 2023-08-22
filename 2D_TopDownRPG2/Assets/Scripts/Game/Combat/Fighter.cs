@@ -73,13 +73,25 @@ public class Fighter : MonoBehaviour
         }
     }
 
+    public void RemoveAllEffect()
+    {
+        foreach (IEffect effect in _effects)
+        {
+            effect.CleanUp();
+        }
+        _effects.Clear();
+    }
+
     public void TakeDamage(DamageBlock damageBlock)
     {
         if (IsInvisibility)
             return;
 
         damageBlock.CalculateFinalDamage(this);
-        damageBlock.Source.OnDealDamage?.Invoke(damageBlock);
+        if(damageBlock.DamageType != DamageType.EnviromentDamage)
+        {
+            damageBlock.Source.OnDealDamage?.Invoke(damageBlock);
+        }
         damageBlock.Target.OnTakeDamage?.Invoke(damageBlock);
         Health.Draw(damageBlock.CurrentDamage);
         DamageFeedback.Instance.DisplayDamageFeedback(damageBlock);

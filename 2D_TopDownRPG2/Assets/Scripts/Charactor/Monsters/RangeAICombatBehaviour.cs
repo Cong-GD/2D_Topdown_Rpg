@@ -9,6 +9,7 @@ public class RangeAICombatBehaviour : BaseAICombatBehaviour
     [SerializeField] protected float movingRange;
     [SerializeField] protected float movingAngle;
     [SerializeField] protected float aimTime;
+    [SerializeField] protected float combatExitTime;
 
     [Header("Secondary ability")]
     [SerializeField] private OrientationRuneSO damageZoneRune;
@@ -31,11 +32,12 @@ public class RangeAICombatBehaviour : BaseAICombatBehaviour
     protected override IEnumerator CombatHandler()
     {
         var secondAbilityRoutine = StartCoroutine(SecondAbilityCoroutine());
+        var exitTime = Time.time + combatExitTime;
         while (IsAlive())
         {
             var distanceToPlayer = Vector2.Distance(transform.position, monsterAI.PlayerPosition);
             var distanceToStartPosition = Vector2.Distance(transform.position, monsterAI.StartPosition);
-            if (distanceToPlayer > vision || distanceToStartPosition > maxMoveRange)
+            if (Time.time > exitTime && (distanceToPlayer > vision || distanceToStartPosition > maxMoveRange))
             {
                 if (secondAbilityRoutine != null)
                 {

@@ -20,14 +20,13 @@ public class DamageFeedback : GlobalReference<DamageFeedback>
 
     private void DisplayHitVFX(DamageBlock damageBlock)
     {
-        if (!isUseVFX || damageBlock.State == DamageStates.Miss)
+        if (!isUseVFX || damageBlock.State == DamageState.Miss)
             return;
 
         if(PoolManager.Get<HitVFX>(damageVFXPrefab, out var hitVfx))
         {
             hitVfx.RunAnimation(damageBlock);
         }
-        
     }
 
     private void DisplayFloatingText(DamageBlock damageBlock)
@@ -37,8 +36,8 @@ public class DamageFeedback : GlobalReference<DamageFeedback>
 
         if(PoolManager.Get<FloatingText>(floatingTextPrefab, out var floatingText))
         {
-            floatingText.DisplayText(damageBlock);
             floatingText.transform.SetParent(worldSpaceCanvas);
+            floatingText.DisplayText(damageBlock);
         }
     }
 }

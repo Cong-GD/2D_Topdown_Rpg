@@ -38,6 +38,7 @@ public class MonstersController : BaseCombatCharactorController, IPoolObject
     public void Initialize(BaseStatData statData, int level = 1)
     {
         Combat.Stats.ClearAllBonus();
+        Combat.RemoveAllEffect();
         Combat.InstanciateFromStatsData(statData);
         SetLevel(statData, level);
         Combat.Health.Fill();

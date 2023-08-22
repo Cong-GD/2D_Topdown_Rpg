@@ -7,6 +7,7 @@ public class MeleeAICombatBehaviour : BaseAICombatBehaviour
     [Header("Meele AI fields")]
     [SerializeField] protected ActiveRuneSO firstRune;
     [SerializeField] protected float movingRange;
+    [SerializeField] protected float combatExitTime;
 
     [Header("Secondary Ability")]
     [SerializeField] private ActiveRuneSO secondaryRune;
@@ -28,11 +29,12 @@ public class MeleeAICombatBehaviour : BaseAICombatBehaviour
     protected override IEnumerator CombatHandler()
     {
         var secondaryAbilityRoutine = StartCoroutine(SecondaryAbilityHandler());
+        var exitTime = Time.time + combatExitTime;
         while (IsAlive())
         {
             var distanceToPlayer = Vector2.Distance(transform.position, monsterAI.PlayerPosition);
             var distanceToStartPosition = Vector2.Distance(transform.position, monsterAI.StartPosition);
-            if (distanceToPlayer > vision || distanceToStartPosition > maxMoveRange)
+            if (Time.time > exitTime && (distanceToPlayer > vision || distanceToStartPosition > maxMoveRange))
             {
                 StopCoroutine(secondaryAbilityRoutine);
                 yield break;

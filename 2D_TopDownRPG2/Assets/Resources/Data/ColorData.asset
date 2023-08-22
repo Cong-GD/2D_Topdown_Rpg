@@ -22,3 +22,4 @@ MonoBehaviour:
   equipment: {r: 0.8396226, g: 0.7498068, b: 0.019010298, a: 0}
   physicsDamageFeedBackText: {r: 0.8862745, g: 0.6784314, b: 0, a: 1}
   magicDamageFeedBackText: {r: 0.010964713, g: 0.21796843, b: 0.8301887, a: 1}
+  enviromentDamageText: {r: 0.7924528, g: 0.76553935, b: 0.76553935, a: 1}

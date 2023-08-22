@@ -1,9 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 
+public enum DamageState
+{
+    NormalDamage,
+    CriticalDamage,
+    BlockDamage,
+    Miss
+}
+
+public enum DamageType
+{
+    PhysicalDamage,
+    MagicDamage,
+    EnviromentDamage
+}
+
 public class DamageBlock
 {
-    #region Static
+    #region Static Member
     private const float BLOCKMULTILIER = -0.7f;
     private static readonly IReadOnlyDictionary<DamageType, IEnumerable<Action<DamageBlock>>> _actionMap
         = new Dictionary<DamageType, IEnumerable<Action<DamageBlock>>>()
@@ -18,19 +33,17 @@ public class DamageBlock
             }
         },
         {
-            DamageType.FireDamage, new Action<DamageBlock>[]
-            {
-                CriticalCalculater,
-                MissCalculator
-            }
-        },
-        {
             DamageType.MagicDamage, new Action<DamageBlock>[]
             {
                 CriticalCalculater,
                 BlockCalculator,
                 MissCalculator
 
+            }
+        },
+            {
+            DamageType.EnviromentDamage, new Action<DamageBlock>[]
+            {
             }
         }
     };
@@ -45,7 +58,7 @@ public class DamageBlock
             return;
 
         damageBlock.AddMutiplier(-10f);
-        damageBlock.State = DamageStates.Miss;
+        damageBlock.State = DamageState.Miss;
     }
 
     private static void BlockCalculator(DamageBlock damageBlock)
@@ -58,7 +71,7 @@ public class DamageBlock
             return;
 
         damageBlock.AddMutiplier(BLOCKMULTILIER);
-        damageBlock.State = DamageStates.BlockDamage;
+        damageBlock.State = DamageState.BlockDamage;
     }
 
     private static void CriticalCalculater(DamageBlock damageBlock)
@@ -67,13 +80,13 @@ public class DamageBlock
             return;
 
         damageBlock.AddMutiplier(damageBlock.Source.Stats[Stat.CritticalHitDamage].FinalValue / 100);
-        damageBlock.State = DamageStates.CriticalDamage;
+        damageBlock.State = DamageState.CriticalDamage;
     }
     #endregion
 
     public DamageType DamageType { get; private set; }
     public float RawDamage { get; private set; }
-    public DamageStates State { get; private set; }
+    public DamageState State { get; private set; }
     public Fighter Source { get; private set; }
     public Fighter Target { get; private set; }
     public float CurrentDamage { get; private set; }
@@ -81,10 +94,18 @@ public class DamageBlock
 
     public void Init(DamageType damageType, Fighter source, float damage)
     {
-        State = DamageStates.NormalDamage;
+        State = DamageState.NormalDamage;
         DamageType = damageType;
         RawDamage = damage;
         Source = source;
+        Multiplier = 1f;
+        CurrentDamage = damage;
+    }
+
+    public void Init(float damage)
+    {
+        DamageType = DamageType.EnviromentDamage;
+        RawDamage = damage;
         Multiplier = 1f;
         CurrentDamage = damage;
     }
@@ -93,6 +114,7 @@ public class DamageBlock
     {
         Multiplier += value;
         CurrentDamage = RawDamage * Multiplier;
+        State = DamageState.NormalDamage;
         if (CurrentDamage < 0) CurrentDamage = 0;
     }
 

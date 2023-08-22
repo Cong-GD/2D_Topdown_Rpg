@@ -19,10 +19,13 @@ public class MonstersAI : SeekerMovingAI
     public Fighter Player { get; private set; }
     public Vector2 PlayerPosition => Player.HitBox.bounds.center;
 
+    private bool _wasTakenHit;
+
     private void Awake()
     {
         SetCombatBehaviour(GetComponent<BaseAICombatBehaviour>());
         Controller.OnDoneSetup += StartAICoroutine;
+        Controller.Combat.OnTakeDamage += TakeHit;
     }
 
     private void OnDestroy()
@@ -30,8 +33,14 @@ public class MonstersAI : SeekerMovingAI
         if (Controller != null)
         {
             Controller.OnDoneSetup -= StartAICoroutine;
+            if (Controller.Combat != null)
+            {
+                Controller.Combat.OnTakeDamage -= TakeHit;
+            }
         }
     }
+
+    public bool IsAlive() => !Controller.Combat.Health.IsEmpty;
 
     private void StartAICoroutine()
     {
@@ -57,13 +66,16 @@ public class MonstersAI : SeekerMovingAI
     {
         Player = PlayerController.Instance.Combat;
         StartPosition = transform.position;
+        _wasTakenHit = false;
         float walkTime = 0;
-        while (!Controller.Combat.Health.IsEmpty)
+        yield return 1f.Wait();
+        while (IsAlive())
         {
             var distanceToPlayer = Vector2.Distance(transform.position, PlayerPosition);
-            if (distanceToPlayer < detectRange)
+            if (distanceToPlayer < detectRange || _wasTakenHit)
             {
                 yield return _combatBehaviour.StartCombatState();
+                _wasTakenHit = false;
                 continue;
             }
             RandomWalk(ref walkTime);
@@ -82,6 +94,11 @@ public class MonstersAI : SeekerMovingAI
             walkTime = Time.time + directChangeInterval;
             MoveTo(randomPosition);
         }
+    }
+
+    private void TakeHit(DamageBlock _)
+    {
+        _wasTakenHit = true;
     }
 
 #if UNITY_EDITOR
