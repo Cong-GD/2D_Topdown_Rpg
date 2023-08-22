@@ -8,6 +8,7 @@ using UnityEngine.Pool;
 
 namespace CongTDev.TheBoss
 {
+
     public class BossMinionSpawnSpell : PoolObject, ISpell
     {
         [SerializeField] private Prefab monionPrefab;
@@ -25,18 +26,23 @@ namespace CongTDev.TheBoss
 
         private IEnumerator SpawningCoroutine(Vector2 position)
         {
-            yield return null;
             var spawnPositions = ListPool<Vector2>.Get();
-            for (int i = 0; i < count; i++)
-            {
-                var spawnPosition = position + Random.insideUnitCircle * Random.Range(minRange, maxRange);
-                spawnPositions.Add(spawnPosition);
-            }
+            CalculateSpawnPoints(position, spawnPositions);
             yield return SpawnEffectState(spawnPositions);
             SpawnMonions(spawnPositions);
             ListPool<Vector2>.Release(spawnPositions);
             ReturnToPool();
         }
+
+        private void CalculateSpawnPoints(Vector2 position, List<Vector2> spawnPositions)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                var spawnPosition = position + Random.insideUnitCircle * Random.Range(minRange, maxRange);
+                spawnPositions.Add(spawnPosition);
+            }
+        }
+
 
         private IEnumerator SpawnEffectState(List<Vector2> spawnPositions)
         {
@@ -62,7 +68,7 @@ namespace CongTDev.TheBoss
         {
             foreach (var spawnPosition in spawnPositions)
             {
-                if(PoolManager.Get<MonstersController>(monionPrefab, out var minion))
+                if (PoolManager.Get<MonstersController>(monionPrefab, out var minion))
                 {
                     minion.transform.position = spawnPosition;
                     minion.Initialize(statData);

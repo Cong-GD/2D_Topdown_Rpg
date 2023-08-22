@@ -11,8 +11,8 @@ public abstract class BaseMovementInput : MonoBehaviour
         {
             if (!value.Equals(_inputVector))
             {
-                OnInputChange?.Invoke(value);
                 _inputVector = value;
+                OnInputChange?.Invoke(value);
             }
         }
     }

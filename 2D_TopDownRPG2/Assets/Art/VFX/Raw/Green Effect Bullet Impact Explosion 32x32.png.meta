@@ -542,6 +542,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Green Effect Bullet Impact Explosion 32x32_20
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 357a1b6798fa374479ac7762daa44bbe
+      internalID: 2062115536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Green Effect Bullet Impact Explosion 32x32_21
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6298ea95cd06d674b80e25a1cd835d35
+      internalID: 932432209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Green Effect Bullet Impact Explosion 32x32_22
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8984856ba11217f48866e7d0cfae8a46
+      internalID: -1429835274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Green Effect Bullet Impact Explosion 32x32_23
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42665f4bab5b50347b51fc281707a807
+      internalID: -222206372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -566,6 +650,10 @@ TextureImporter:
       Green Effect Bullet Impact Explosion 32x32_18: 610334438
       Green Effect Bullet Impact Explosion 32x32_19: 978066164
       Green Effect Bullet Impact Explosion 32x32_2: -1904670349
+      Green Effect Bullet Impact Explosion 32x32_20: 2062115536
+      Green Effect Bullet Impact Explosion 32x32_21: 932432209
+      Green Effect Bullet Impact Explosion 32x32_22: -1429835274
+      Green Effect Bullet Impact Explosion 32x32_23: -222206372
       Green Effect Bullet Impact Explosion 32x32_3: 1501676344
       Green Effect Bullet Impact Explosion 32x32_4: 1941374820
       Green Effect Bullet Impact Explosion 32x32_5: 1183138333

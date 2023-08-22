@@ -1,5 +1,6 @@
-﻿using DG.Tweening;
-using CongTDev.AbilitySystem;
+﻿using CongTDev.AbilitySystem;
+using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,8 @@ public class ActiveAbilitySlot : ItemSlot<IActiveAbility>
     [SerializeField] private Image cooldownMask;
 
     [SerializeField] private Image backGround;
+
+    private Tween _tween;
 
     public override bool IsMeetSlotRequiment(IItem item)
     {
@@ -18,7 +21,7 @@ public class ActiveAbilitySlot : ItemSlot<IActiveAbility>
     {
         base.OnItemGetIn(ability);
         ability.Install(PlayerController.Instance.AbilityCaster);
-        if(backGround != null)
+        if (backGround != null)
         {
             backGround.gameObject.SetActive(false);
         }
@@ -52,10 +55,8 @@ public class ActiveAbilitySlot : ItemSlot<IActiveAbility>
         if (IsSlotEmpty)
             return;
 
+        _tween?.Kill();
         cooldownMask.fillAmount = 1;
-        cooldownMask.DOFillAmount(0, Item.GetCooldownTime()).SetEase(Ease.Linear);
+        _tween = cooldownMask.DOFillAmount(0, Item.GetCooldownTime()).SetEase(Ease.Linear);
     }
-
 }
-
-

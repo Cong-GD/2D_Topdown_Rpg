@@ -22,4 +22,8 @@ MonoBehaviour:
   Evasion: 10
   CriticalChance: 10
   CritticalHitDamage: 170
-  CooldownReduction: 0
+  growStat:
+    Health: 300
+    Mana: 0
+    AttackPower: 20
+    Defence: 10

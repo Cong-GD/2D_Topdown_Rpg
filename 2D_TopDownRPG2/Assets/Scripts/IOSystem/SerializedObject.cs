@@ -1,6 +1,4 @@
-﻿using CongTDev.AbilitySystem;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace CongTDev.IOSystem
 {
@@ -21,6 +19,6 @@ namespace CongTDev.IOSystem
 
         public override SerializedType GetSerializedType() => SerializedType.Null;
 
-        public readonly static SerializedNullObject intance = new ();
+        public readonly static SerializedNullObject intance = new();
     }
 }

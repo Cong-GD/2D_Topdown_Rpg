@@ -21,12 +21,21 @@ public abstract class BaseCombatCharactorController : MonoBehaviour
 
     protected virtual void OnDestroy()
     {
-        //Movement.OnStartMoving -= StartMoving;
-        //Movement.OnStopMoving -= StopMoving;
-        //MovementInput.OnInputChange -= OnInputValueChange;
-        //Combat.OnTakeDamage -= OnTakeDamage;
-        //Combat.OnDead -= OnDead;
-        //AbilityCaster.OnCastingStart -= ShowCastingBar;
+        if(Movement != null)
+        {
+            Movement.OnStartMoving -= StartMoving;
+            Movement.OnStopMoving -= StopMoving;
+            MovementInput.OnInputChange -= OnInputValueChange;
+        }
+        if(Combat != null)
+        {
+            Combat.OnTakeDamage -= OnTakeDamage;
+            Combat.OnDead -= OnDead;
+        }
+        if(AbilityCaster != null)
+        {
+            AbilityCaster.OnCastingStart -= ShowCastingBar;
+        }
     }
 
     protected virtual void StartMoving()
@@ -49,7 +58,7 @@ public abstract class BaseCombatCharactorController : MonoBehaviour
         AbilityCaster.CollapseCasting();
     }
 
-    protected virtual void OnDead()
+    protected virtual void OnDead(Fighter _)
     {
         Animator.TriggerDeathAnimation();
         AbilityCaster.CollapseCasting();

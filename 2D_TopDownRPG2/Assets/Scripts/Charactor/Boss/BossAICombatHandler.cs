@@ -9,7 +9,7 @@ namespace CongTDev.TheBoss
 {
     public class BossAICombatHandler : MonoBehaviour
     {
-        private static readonly int idleHash = Animator.StringToHash("Idle");
+        private readonly int idleHash = Animator.StringToHash("Idle");
 
         [Header("BasicReference")]
         [SerializeField] private BaseStatData bossStats;
@@ -40,34 +40,26 @@ namespace CongTDev.TheBoss
         [Serializable]
         public class AbilityWorkFlowNode
         {
+            public AbilityName abilityToUse;
             public float cooldown;
-            public int connect;
         }
 
-        [Header("Event")]
-        public UnityEvent OnStartCombat;
-        public UnityEvent OnEndCombat;
+        public enum AbilityName
+        {
+            HandFire,
+            SpikeFire,
+            LazerFire,
+            StormSpell,
+            SpawnMonster,
+            DamageZone
+        }
 
         private Fighter _playerCombat;
         private float _allowAbilityUseTime;
-        private int _currentAbility;
+        private int _currentNode;
 
-        private void OnValidate()
-        {
-            while (workFlowState1.Count < abilityHandlers.Count)
-            {
-                workFlowState1.Add(new());
-            }
-            while (workFlowState2.Count < abilityHandlers.Count)
-            {
-                workFlowState2.Add(new());
-            }
-        }
-        private void Awake()
-        {
-            workFlowState1.ForEach(node => node.connect = Mathf.Clamp(node.connect, 0, abilityHandlers.Count));
-            workFlowState2.ForEach(node => node.connect = Mathf.Clamp(node.connect, 0, abilityHandlers.Count));
-        }
+        private bool IsDead() => abilityCaster.Owner.Health.IsEmpty;
+
 
         public IEnumerator StartCombatState()
         {
@@ -79,21 +71,21 @@ namespace CongTDev.TheBoss
 
         private IEnumerator PreStartCombat()
         {
-            OnStartCombat.Invoke();
             abilityCaster.Owner.Stats.SetStatBase(bossStats);
+            animator.Play("Unimmune");
             while (!abilityCaster.Owner.Health.IsFull)
             {
-                abilityCaster.Owner.Health.RecorverByRatio(0.05f);
+                abilityCaster.Owner.Health.RecorverByRatio(0.02f);
                 yield return CoroutineHelper.fixedUpdateWait;
             }
             InitAbilities();
-            yield break;
+            yield return 1f.Wait();
         }
 
         private IEnumerator State1()
         {
             _allowAbilityUseTime = Time.time;
-            _currentAbility = 0;
+            _currentNode = 0;
             while (abilityCaster.Owner.Health.Ratio > 0.5f)
             {
                 yield return AbilityUseCoroutine(workFlowState1);
@@ -103,8 +95,8 @@ namespace CongTDev.TheBoss
         private IEnumerator State2()
         {
             _allowAbilityUseTime = Time.time;
-            _currentAbility = 0;
-            while (!abilityCaster.Owner.Health.IsEmpty)
+            _currentNode = 0;
+            while (!IsDead())
             {
                 yield return AbilityUseCoroutine(workFlowState2);
                 yield return updateInterval.Wait();
@@ -115,7 +107,6 @@ namespace CongTDev.TheBoss
         {
             animator.Play("Death");
             yield return 2f.Wait();
-            yield break;
         }
 
         private void InitAbilities()
@@ -132,18 +123,19 @@ namespace CongTDev.TheBoss
         }
         private IEnumerator AbilityUseCoroutine(List<AbilityWorkFlowNode> workFlowState)
         {
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") && Time.time > _allowAbilityUseTime)
+            if (Time.time > _allowAbilityUseTime)
             {
-                yield return UseAbility(abilityHandlers[_currentAbility]);
-                if(abilityCaster.Owner.Health.IsEmpty)
+                yield return UseAbility(abilityHandlers[(int)workFlowState[_currentNode].abilityToUse]);
+                if(IsDead())
                 {
                     yield break;
                 }
-                _allowAbilityUseTime = Time.time + workFlowState[_currentAbility].cooldown;
-                _currentAbility = workFlowState[_currentAbility].connect;
+                _allowAbilityUseTime = Time.time + workFlowState[_currentNode].cooldown;
+                _currentNode++;
+                _currentNode %= workFlowState.Count;
                 animator.Play(idleHash);
             }
-            yield break;
+            
         }
 
         private IEnumerator UseAbility(AbilityHandler handler)
@@ -153,7 +145,7 @@ namespace CongTDev.TheBoss
                 animator.Play(handler.animationHash);
             }
             yield return handler.prefixWait.Wait();
-            if (abilityCaster.Owner.Health.IsEmpty)
+            if (IsDead())
             {
                 yield break;
             }

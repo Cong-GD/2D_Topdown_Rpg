@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CongTDev.TheBoss
 {
@@ -15,6 +16,9 @@ namespace CongTDev.TheBoss
         [Header("Prepare state field")]
         [SerializeField] private float detectRange;
 
+        [field: SerializeField] public UnityEvent OnStartCombat { get; private set; }
+        [field: SerializeField] public UnityEvent OnEndCombat { get; private set; }
+
         private void Start()
         {
             StartCoroutine(BossFireCoroutine());
@@ -25,6 +29,7 @@ namespace CongTDev.TheBoss
             yield return WaitForPlayerInRange();
             yield return BeforCombatState();
             yield return combatHandler.StartCombatState();
+            yield return EndCombatState();
         }
 
         private IEnumerator WaitForPlayerInRange()
@@ -43,8 +48,13 @@ namespace CongTDev.TheBoss
 
         private IEnumerator BeforCombatState()
         {
-            animator.Play("Unimmune");
-            yield return new WaitWhile(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Unimmune"));
+            OnStartCombat.Invoke();
+            yield break;
+        }
+
+        private IEnumerator EndCombatState()
+        {
+            OnStartCombat.Invoke();
             yield break;
         }
 

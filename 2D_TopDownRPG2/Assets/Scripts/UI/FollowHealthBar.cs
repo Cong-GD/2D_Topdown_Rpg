@@ -1,24 +1,22 @@
 using CongTDev.ObjectPooling;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class FollowHealthBar : PoolObject
 {
     [SerializeField] private Image fillImage;
-    [SerializeField] private Vector3 offset;
+    [SerializeField] private Vector2 offset;
 
-    private Vector3 _finalOffset;
+    private Vector2 _finalOffset;
     private Fighter _attachedFighter;
 
     public void AttachToFighter(Fighter fighter)
     {
         DeAttached();
         _attachedFighter = fighter;
-        _finalOffset = offset + new Vector3(0, fighter.HitBox.bounds.extents.y);
+        _finalOffset = offset + new Vector2(0, fighter.HitBox.bounds.extents.y);
         fighter.Health.OnValueChange += ChangeValueUI;
         ChangeValueUI(fighter.Health.Current, fighter.Health.Capacity);
-        StartCoroutine(FollowCoroutine());
     }
 
     private void OnDisable()
@@ -26,12 +24,11 @@ public class FollowHealthBar : PoolObject
         DeAttached();
     }
 
-    private IEnumerator FollowCoroutine()
+    private void LateUpdate()
     {
-        while (_attachedFighter != null)
+        if (_attachedFighter != null)
         {
-            transform.position = _attachedFighter.HitBox.bounds.center + _finalOffset;
-            yield return CoroutineHelper.endOfFrameWait;
+            transform.position = _attachedFighter.Position + _finalOffset;
         }
     }
 

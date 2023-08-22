@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9494ceb600e8b49bb6ef5ea3f5ae64, type: 3}
   m_Name: BossLazerAbility
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
+  <Name>k__BackingField: Ultimate
   <Description>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 0}
-  <AbilityIcon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: -156865266, guid: b357522e2cb1b014292b3bbaba87c6cd, type: 3}
+  <AbilityIcon>k__BackingField: {fileID: -156865266, guid: b357522e2cb1b014292b3bbaba87c6cd, type: 3}
   <Rarity>k__BackingField: 4
   <TargetType>k__BackingField: 1
   <BaseCastDelay>k__BackingField: 0

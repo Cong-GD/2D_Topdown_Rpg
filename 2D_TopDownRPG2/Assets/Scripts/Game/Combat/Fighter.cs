@@ -24,7 +24,7 @@ public class Fighter : MonoBehaviour
     public Team team;
     public event Action<DamageBlock> OnDealDamage;
     public event Action<DamageBlock> OnTakeDamage;
-    public event Action OnDead;
+    public event Action<Fighter> OnDead;
 
     public bool IsInvisibility => Health.IsEmpty || invisibility;
 
@@ -94,7 +94,7 @@ public class Fighter : MonoBehaviour
     {
         if (current <= Mathf.Epsilon)
         {
-            OnDead?.Invoke();
+            OnDead?.Invoke(this);
         }
     }  
 }

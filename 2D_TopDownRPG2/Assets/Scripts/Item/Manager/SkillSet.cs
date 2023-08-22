@@ -3,63 +3,86 @@ using CongTDev.EventManagers;
 using CongTDev.IOSystem;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SkillSet : MonoBehaviour, ISerializable
 {
     [SerializeField] private ActiveAbilitySlot[] activeAbilitySlots;
-
     [SerializeField] private ConsumableSlot consumableSlotX;
-
     [SerializeField] private ConsumableSlot consumableSlotC;
-
     [SerializeField] private List<ActiveRuneSO> defaultAbility;
+    [SerializeField] private ActiveAbilitySlot basicAbilitySlot;
+    [SerializeField] private ActiveRuneSO basicAbilityRune;
 
-    private void Awake()
+    private void OnEnable()
     {
         SubscribeEvents();
+    }
+    private void OnDisable()
+    {
+        UnsubscribeEvents();
     }
 
     private void Start()
     {
+        basicAbilitySlot.TryPushItem(basicAbilityRune.GetAbility(), out _);
         AcquipDefaultAbility();
     }
 
-    private void Update()
+    private void UseAbility0(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            activeAbilitySlots[0].TryUseSlotAbility();
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha2))
-        {
-            activeAbilitySlots[1].TryUseSlotAbility();
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
-            activeAbilitySlots[2].TryUseSlotAbility();
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha4))
-        {
-            activeAbilitySlots[3].TryUseSlotAbility();
-        }
-        if (Input.GetKeyUp(KeyCode.Alpha5))
-        {
-            activeAbilitySlots[4].TryUseSlotAbility();
-        }
+        basicAbilitySlot.TryUseSlotAbility();
     }
 
-    private void OnDestroy()
+    private void UseAbility1(InputAction.CallbackContext context)
     {
-        UnsubscribeEvents();
+
+        activeAbilitySlots[0].TryUseSlotAbility();
     }
+    private void UseAbility2(InputAction.CallbackContext context)
+    {
+        activeAbilitySlots[1].TryUseSlotAbility();
+    }
+    private void UseAbility3(InputAction.CallbackContext context)
+    {
+        activeAbilitySlots[2].TryUseSlotAbility();
+    }
+    private void UseAbility4(InputAction.CallbackContext context)
+    {
+        activeAbilitySlots[3].TryUseSlotAbility();
+    }
+    private void UseAbility5(InputAction.CallbackContext context)
+    {
+        activeAbilitySlots[4].TryUseSlotAbility();
+    }
+
     private void SubscribeEvents()
     {
         EventManager<IItemSlot>.AddListener("TryEquipActiveAbility", AcquipAbility);
+        var abilityInput = GameManager.Instance.InputActions.PlayerAbilityTrigger;
+        abilityInput.BasicAttack.performed += UseAbility0;
+        abilityInput.Ability1.performed += UseAbility1;
+        abilityInput.Ability2.performed += UseAbility2;
+        abilityInput.Ability3.performed += UseAbility3;
+        abilityInput.Ability4.performed += UseAbility4;
+        abilityInput.Ability5.performed += UseAbility5;
     }
 
     private void UnsubscribeEvents()
     {
         EventManager<IItemSlot>.RemoveListener("TryEquipActiveAbility", AcquipAbility);
+        if (GameManager.Instance == null)
+        {
+            return;
+        }
+
+        var abilityInput = GameManager.Instance.InputActions.PlayerAbilityTrigger;
+        abilityInput.BasicAttack.performed -= UseAbility0;
+        abilityInput.Ability1.performed -= UseAbility1;
+        abilityInput.Ability2.performed -= UseAbility2;
+        abilityInput.Ability3.performed -= UseAbility3;
+        abilityInput.Ability4.performed -= UseAbility4;
+        abilityInput.Ability5.performed -= UseAbility5;
     }
 
     private void AcquipAbility(IItemSlot inventorySlot)

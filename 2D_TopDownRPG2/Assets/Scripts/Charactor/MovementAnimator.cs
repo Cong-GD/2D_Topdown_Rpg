@@ -8,7 +8,7 @@ public class MovementAnimator : MonoBehaviour
 
     public void ClearState()
     {
-        Animator.Play("Idle");
+        Animator.Rebind();
     }
 
     public void SetMovingState(bool isMoving)

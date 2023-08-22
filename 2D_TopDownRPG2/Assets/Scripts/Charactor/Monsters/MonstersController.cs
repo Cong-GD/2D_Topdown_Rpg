@@ -4,22 +4,65 @@ using UnityEngine;
 
 public class MonstersController : BaseCombatCharactorController, IPoolObject
 {
-    [SerializeField] private BaseStatData statsData;
+    public event Action OnDoneSetup;
+    public event Action<Fighter> StageSupportDeathEvent;
 
-    protected void OnEnable()
+    [field: SerializeField] public string MonsterName { get; private set; }
+    public int Level { get; private set; }
+
+    private FollowMonsterInfo _monsterInfo;
+
+    protected override void Awake()
     {
-        Initialize(statsData);
+        base.Awake();
+        Combat.OnDead += DeathEventRaise;
     }
 
-    public void Initialize(BaseStatData statData)
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
+        if(Combat != null )
+        {
+            Combat.OnDead -= DeathEventRaise;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if(_monsterInfo != null)
+        {
+            _monsterInfo.ReturnToPool();
+        }
+    }
+
+    public void Initialize(BaseStatData statData, int level = 1)
+    {
+        Combat.Stats.ClearAllBonus();
         Combat.InstanciateFromStatsData(statData);
+        SetLevel(statData, level);
         Combat.Health.Fill();
         Combat.Mana.Fill();
         Movement.ClearState();
         Animator.ClearState();
-        Animator.SetMovingState(Movement.IsMoving);
         Movement.MoveDirect = MovementInput.InputVector;
+        _monsterInfo = MonsterWorldSpaceUIManager.Instance.GetMonsterInfo(this);
+        OnDoneSetup?.Invoke();
+    }
+
+    private void SetLevel(BaseStatData statData, int level)
+    {
+        Level = level;
+        var statModifiers = statData.growStat.GetGrowingStat(level);
+        foreach( var modifier in statModifiers )
+        {
+            Combat.Stats.ApplyModifier(modifier.Key, modifier.Value);
+        }
+    }
+
+    private void DeathEventRaise(Fighter fighter)
+    {
+        StageSupportDeathEvent?.Invoke(fighter);
+        StageSupportDeathEvent = null;
     }
 
     #region Pooling

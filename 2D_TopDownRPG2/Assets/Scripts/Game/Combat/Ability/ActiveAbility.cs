@@ -26,7 +26,7 @@ namespace CongTDev.AbilitySystem
         public bool IsInstantCast() => Rune.BaseCastDelay <= Mathf.Epsilon;
 
         public float GetCooldownTime()
-            => Rune.BaseCooldown - (Caster.Owner.Stats[Stat.CooldownReduce].FinalValue / 100) * Rune.BaseCooldown;
+            => Rune.BaseCooldown;
 
         public float CurrentCoolDown => Mathf.Max(0, NextUseTime - Time.time);
 

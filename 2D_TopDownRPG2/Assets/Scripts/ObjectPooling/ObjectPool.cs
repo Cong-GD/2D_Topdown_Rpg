@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 namespace CongTDev.ObjectPooling
@@ -10,9 +9,13 @@ namespace CongTDev.ObjectPooling
     {
         private readonly GameObject _prefab;
 
-        private readonly Queue<IPoolObject> _pool;
+        private readonly Queue<IPoolObject> _pool = new();
 
         private readonly List<IPoolObject> _allInstance = new();
+
+        public int CountActive => CountAll - CountInactive;
+        public int CountInactive => _pool.Count;
+        public int CountAll => _allInstance.Count;
 
         public ObjectPool(GameObject prefab)
         {
@@ -21,7 +24,6 @@ namespace CongTDev.ObjectPooling
                 throw new ArgumentException("GameObject must have a component that implements IPoolObject", nameof(prefab));
             }
             _prefab = prefab;
-            _pool = new Queue<IPoolObject>();
         }
 
         public IPoolObject Get()
@@ -30,7 +32,7 @@ namespace CongTDev.ObjectPooling
             if (_pool.Any())
             {
                 instance = _pool.Dequeue();
-                if((MonoBehaviour)instance == null) 
+                if ((MonoBehaviour)instance == null)
                 {
                     instance = Instanciate();
                 }
@@ -48,7 +50,7 @@ namespace CongTDev.ObjectPooling
         {
             foreach (var instance in _allInstance)
             {
-                if((MonoBehaviour)instance != null)
+                if ((MonoBehaviour)instance != null)
                 {
                     UnityEngine.Object.Destroy(instance.gameObject);
                 }

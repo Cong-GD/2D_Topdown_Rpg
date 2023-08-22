@@ -33,7 +33,7 @@ public class PlayerController : BaseCombatCharactorController
 
     protected void OnEnable()
     {
-        _camera = GameManager.Instance.Cam;
+        _camera = CameraManager.MainCam;
 
         Combat.InstanciateFromStatsData(statsData);
         Combat.Health.Fill();

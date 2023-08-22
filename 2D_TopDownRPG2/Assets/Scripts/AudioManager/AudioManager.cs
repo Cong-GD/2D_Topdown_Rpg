@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CongTDev.ObjectPooling;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -75,4 +76,37 @@ namespace CongTDev.AudioManagement
             }
         }
     }
+}
+
+public class PoolingAudioSource : PoolObject
+{
+    [SerializeField] private AudioSource audioSource;
+
+    private void FixedUpdate()
+    {
+        if(!audioSource.isPlaying)
+        {
+            ReturnToPool();
+        }
+    }
+
+    public void Play()
+    {
+
+    }
+}
+
+public class AudioAsset : ScriptableObject
+{
+
+    
+    public enum MixerGroup
+    {
+        Music,
+        Combat,
+        UI
+    }
+
+    [field: SerializeField] public AudioClip AudioClip {  get; private set; }
+    [field: SerializeField] public MixerGroup Mixer {  get; private set; }
 }

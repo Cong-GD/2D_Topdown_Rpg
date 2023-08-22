@@ -22,9 +22,18 @@ public class MonstersAI : SeekerMovingAI
     private void Awake()
     {
         SetCombatBehaviour(GetComponent<BaseAICombatBehaviour>());
+        Controller.OnDoneSetup += StartAICoroutine;
     }
 
-    private void OnEnable()
+    private void OnDestroy()
+    {
+        if (Controller != null)
+        {
+            Controller.OnDoneSetup -= StartAICoroutine;
+        }
+    }
+
+    private void StartAICoroutine()
     {
         StartCoroutine(AICoroutine());
     }

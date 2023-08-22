@@ -15,7 +15,6 @@ public class StatPanel : MonoBehaviour
         Stat.Evasion => "Evasion",
         Stat.CriticalChance => "Critical chance",
         Stat.CritticalHitDamage => "Critical hit damage",
-        Stat.CooldownReduce => "Cooldown redution",
         _ => "Unknow stat"
     };
 

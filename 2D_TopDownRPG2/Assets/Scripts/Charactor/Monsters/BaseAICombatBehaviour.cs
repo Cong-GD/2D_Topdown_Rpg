@@ -8,11 +8,11 @@ public abstract class BaseAICombatBehaviour : MonoBehaviour
     public const float COMMON_UPDATE_INTERVAL = 0.5f;
 
     [Header("Base fields")]
-    [SerializeField] protected AbilityCaster abilityCaster;
     [SerializeField] protected float maxMoveRange;
     [SerializeField] protected float attackRange;
     [SerializeField] protected float vision;
 
+    protected AbilityCaster abilityCaster;
     protected MonstersAI monsterAI;
     private FollowHealthBar _healthBar;
 
@@ -26,6 +26,7 @@ public abstract class BaseAICombatBehaviour : MonoBehaviour
     public virtual void Prepare(MonstersAI monsterAI)
     {
         this.monsterAI = monsterAI;
+        abilityCaster = monsterAI.Controller.AbilityCaster;
     }
 
     public IEnumerator StartCombatState()
@@ -38,7 +39,7 @@ public abstract class BaseAICombatBehaviour : MonoBehaviour
     protected virtual IEnumerator CombatStateEnter()
     {
         GiveBackHealthBar();
-        _healthBar = FollowHealthBarManager.Instance.ReceiveHealthBar(abilityCaster.Owner);
+        _healthBar = MonsterWorldSpaceUIManager.Instance.ReceiveHealthBar(abilityCaster.Owner);
         yield break;
     }
 
@@ -47,8 +48,11 @@ public abstract class BaseAICombatBehaviour : MonoBehaviour
     protected virtual IEnumerator CombatStateExit()
     {
         GiveBackHealthBar();
-        monsterAI.MoveTo(monsterAI.StartPosition);
-        yield return COMBAT_BREAK_TIME.Wait();
+        if(IsAlive())
+        {
+            monsterAI.MoveTo(monsterAI.StartPosition);
+            yield return COMBAT_BREAK_TIME.Wait();
+        }
     }
 
     private void GiveBackHealthBar()

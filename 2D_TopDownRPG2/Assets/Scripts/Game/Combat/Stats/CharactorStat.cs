@@ -1,6 +1,20 @@
 using System;
 using System.Collections.Generic;
 
+public enum Stat
+{
+    MaxHealth,
+    MaxMana,
+    MoveSpeed,
+    AttackPower,
+    Defence,
+    BlockChance,
+    Accuracy,
+    Evasion,
+    CriticalChance,
+    CritticalHitDamage
+}
+
 [Serializable]
 public class CharactorStat
 {
@@ -29,7 +43,6 @@ public class CharactorStat
         _stats[Stat.Evasion].BaseValue = data.Evasion;
         _stats[Stat.CriticalChance].BaseValue = data.CriticalChance;
         _stats[Stat.CritticalHitDamage].BaseValue = data.CritticalHitDamage;
-        _stats[Stat.CooldownReduce].BaseValue = data.CooldownReduction;
     }
 
     public void ClearAllBonus()
@@ -53,24 +66,5 @@ public class CharactorStat
     public BaseStats GetStats(Stat statType)
     {
         return _stats[statType];
-    }
-
-    public OffensiveStats GetOffensiveStats()
-    {
-        return new(this);
-    }
-
-    public readonly struct OffensiveStats
-    {
-        public readonly float Accuracy;
-        public readonly float CriticalChance;
-        public readonly float CritticalHitDamage;
-
-        public OffensiveStats(CharactorStat stats)
-        {
-            Accuracy = stats[Stat.Accuracy].FinalValue;
-            CriticalChance = stats[Stat.CriticalChance].FinalValue;
-            CritticalHitDamage = stats[Stat.CritticalHitDamage].FinalValue;
-        }
     }
 }

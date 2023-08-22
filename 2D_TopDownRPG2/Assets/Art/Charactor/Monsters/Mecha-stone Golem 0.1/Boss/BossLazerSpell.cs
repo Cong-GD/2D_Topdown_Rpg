@@ -37,10 +37,12 @@ public class BossLazerSpell : PoolObject, ISpell
         if (startPosition != null)
         {
             transform.position = startPosition.position;
+            transform.SetParent(startPosition);
         }
         else
         {
             transform.position = ability.Caster.Owner.Position;
+            transform.SetParent(ability.Caster.transform);
         }
         transform.rotation = Quaternion.identity;
         _ability = ability;
