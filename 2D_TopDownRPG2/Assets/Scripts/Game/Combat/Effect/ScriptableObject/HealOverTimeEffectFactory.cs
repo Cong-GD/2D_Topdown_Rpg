@@ -5,7 +5,7 @@ using UnityEngine;
 namespace CongTDev.AbilitySystem
 {
     [CreateAssetMenu(fileName = "Effects", menuName = "Effects/Duration/Over time/Recorvery")]
-    public class HealOverTimeEffectFactory : BaseEffectFactorySO
+    public class HealOverTimeEffectFactory : BaseEffectFactory
     {
         [SerializeField] protected StatBasedValue basedValue;
 

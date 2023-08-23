@@ -16,7 +16,7 @@ MonoBehaviour:
     <EffectTypeSelect>k__BackingField: 1
     <Description>k__BackingField: Deal 130% attack power + 50 magic damage
     _descriptionColor: {r: 0.9245283, g: 0.26862925, b: 0.038376607, a: 0}
-  damageType: 2
+  damageType: 1
   damageBased:
     <BaseOn>k__BackingField: 3
     <PercentValue>k__BackingField: 1.3

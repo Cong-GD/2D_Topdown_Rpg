@@ -9,7 +9,7 @@ public class PlayerCombatInput : BaseMovementInput
 
     private void Awake()
     {
-        _inputActions = GameManager.Instance.InputActions;
+        _inputActions = InputCentral.InputActions;
         _inputActions.PlayerAbilityTrigger.BasicAttack.started += TriggerBasicAttack;
     }
 

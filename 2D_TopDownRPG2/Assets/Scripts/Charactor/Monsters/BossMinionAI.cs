@@ -48,7 +48,7 @@ public class BossMinionAI : SeekerMovingAI
     private IEnumerator AICoroutine()
     {
         _target = PlayerController.Instance.Combat;
-        _ability = (IActiveAbility)abilityRune.GetAbility();
+        _ability = (IActiveAbility)abilityRune.CreateItem();
         _ability.Install(_caster);
         var timeToUseAbility = Time.time;
 

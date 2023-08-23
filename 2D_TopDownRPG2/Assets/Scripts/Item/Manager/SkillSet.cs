@@ -25,7 +25,7 @@ public class SkillSet : MonoBehaviour, ISerializable
 
     private void Start()
     {
-        basicAbilitySlot.TryPushItem(basicAbilityRune.GetAbility(), out _);
+        basicAbilitySlot.TryPushItem(basicAbilityRune.CreateItem(), out _);
         AcquipDefaultAbility();
     }
 
@@ -59,7 +59,7 @@ public class SkillSet : MonoBehaviour, ISerializable
     private void SubscribeEvents()
     {
         EventManager<IItemSlot>.AddListener("TryEquipActiveAbility", AcquipAbility);
-        var abilityInput = GameManager.Instance.InputActions.PlayerAbilityTrigger;
+        var abilityInput = InputCentral.InputActions.PlayerAbilityTrigger;
         abilityInput.BasicAttack.performed += UseAbility0;
         abilityInput.Ability1.performed += UseAbility1;
         abilityInput.Ability2.performed += UseAbility2;
@@ -71,12 +71,7 @@ public class SkillSet : MonoBehaviour, ISerializable
     private void UnsubscribeEvents()
     {
         EventManager<IItemSlot>.RemoveListener("TryEquipActiveAbility", AcquipAbility);
-        if (GameManager.Instance == null)
-        {
-            return;
-        }
-
-        var abilityInput = GameManager.Instance.InputActions.PlayerAbilityTrigger;
+        var abilityInput = InputCentral.InputActions.PlayerAbilityTrigger;
         abilityInput.BasicAttack.performed -= UseAbility0;
         abilityInput.Ability1.performed -= UseAbility1;
         abilityInput.Ability2.performed -= UseAbility2;
@@ -107,7 +102,7 @@ public class SkillSet : MonoBehaviour, ISerializable
             {
                 if (abilitySlot.IsSlotEmpty)
                 {
-                    abilitySlot.TryPushItem(rune.GetAbility(), out _);
+                    abilitySlot.TryPushItem(rune.CreateItem(), out _);
                     break;
                 }
             }

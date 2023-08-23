@@ -13,8 +13,8 @@ public class Equipment : IItem
     public event Action OnDestroy;
 
     private readonly BuffEffectFactory[] mainStats;
-    private readonly List<BaseEffectFactorySO> subEffects;
-    private readonly EquipmentFactorySO sourceInfo;
+    private readonly List<BaseEffectFactory> subEffects;
+    private readonly EquipmentFactory sourceInfo;
     private readonly List<IEffect> appliedEffect = new();
     private readonly List<string> _types = new();
     private Fighter equiper;
@@ -25,7 +25,7 @@ public class Equipment : IItem
     public Slot EquipSlot => sourceInfo.EquipSlot;
     public string ItemType => ITEM_TYPE;
 
-    public Equipment(EquipmentFactorySO sourceInfo, BuffEffectFactory[] mainStats)
+    public Equipment(EquipmentFactory sourceInfo, BuffEffectFactory[] mainStats)
     {
         this.mainStats = mainStats;
         this.sourceInfo = sourceInfo;
@@ -40,7 +40,7 @@ public class Equipment : IItem
         OnDestroy?.Invoke();
     }
 
-    public void AddSubEffect(BaseEffectFactorySO subEffect)
+    public void AddSubEffect(BaseEffectFactory subEffect)
     {
         subEffects.Add(subEffect);
         var effectType = subEffect.EffectInfo.EffectTypeInfo;
@@ -141,7 +141,7 @@ public class Equipment : IItem
                 mainEffects[i] = (BuffEffectFactory)JsonHelper.WrappedJsonToObject(mainEffectJsons[i]);
             }
 
-            var sourceInfo = (EquipmentFactorySO)JsonHelper.WrappedJsonToObject(sourceInfoJson);
+            var sourceInfo = (EquipmentFactory)JsonHelper.WrappedJsonToObject(sourceInfoJson);
             var equipment = new Equipment(sourceInfo, mainEffects);
 
             foreach (var subEffectsJson in subEffectsJsons)

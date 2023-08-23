@@ -41,7 +41,7 @@ namespace CongTDev.AbilitySystem
             }
         }
 
-        protected void AddSubTypeByEffects(IEnumerable<BaseEffectFactorySO> effectBuiders)
+        protected void AddSubTypeByEffects(IEnumerable<BaseEffectFactory> effectBuiders)
         {
             foreach (var effectBuider in effectBuiders)
             {

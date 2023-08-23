@@ -15,12 +15,12 @@ namespace CongTDev.IOSystem
             { SerializedType.Null, typeof(SerializedNullObject) },
             { SerializedType.PassiveAbility, typeof(PassiveAbility.PassiveAbilitySerialize) },
             { SerializedType.OrientationAbility, typeof(OrientationAbility.SerializedOrientationAbility) },
-            { SerializedType.Inventory, typeof(Inventory.SerializedInventory) },
             { SerializedType.EquipmentManager, typeof(EquipmentManager.SerializedEquipmentManager) },
             { SerializedType.SkillSet, typeof(SkillSet.SerializedSkillSet) },
             { SerializedType.SeflActiveAbility, typeof(SeflActiveAbility.SerializedSeflActiveAbility) },
             { SerializedType.TargetingAbility, typeof(TargetingAbility.SerializedTargetingAbility) },
             { SerializedType.ConsumableItem, typeof(ConsumableItem.SerializedConsumableItem) },
+            { SerializedType.ItemArray, typeof(ItemArray) },
 
         };
 
@@ -93,12 +93,12 @@ namespace CongTDev.IOSystem
         ResourceAsset,
         PassiveAbility,
         OrientationAbility,
-        Inventory,
         EquipmentManager,
         SkillSet,
         SeflActiveAbility,
         TargetingAbility,
-        ConsumableItem
+        ConsumableItem,
+        ItemArray
     }
 
     [Serializable]

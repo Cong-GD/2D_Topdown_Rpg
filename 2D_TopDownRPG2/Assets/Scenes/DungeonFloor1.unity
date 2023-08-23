@@ -27977,7 +27977,7 @@ MonoBehaviour:
   - prefab: {fileID: 7745506901309644320, guid: 48a2aed4e681e6748b4cb4822e9cef9a, type: 3}
     statData: {fileID: 11400000, guid: 63f6180d168bff44c879026c92e62d08, type: 2}
     level: 2
-    count: 4
+    count: 3
     xp: 20
   - prefab: {fileID: 7745506901309644320, guid: 48a2aed4e681e6748b4cb4822e9cef9a, type: 3}
     statData: {fileID: 11400000, guid: 63f6180d168bff44c879026c92e62d08, type: 2}

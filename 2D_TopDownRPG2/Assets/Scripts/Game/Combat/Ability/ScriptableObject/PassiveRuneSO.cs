@@ -8,11 +8,11 @@ namespace CongTDev.AbilitySystem
     [CreateAssetMenu(fileName = "Passive rune", menuName = "Rune/Passive")]
     public class PassiveRuneSO : RuneSO
     {
-        [SerializeField] private List<BaseEffectFactorySO> effectsApplyWhenEquip;
+        [SerializeField] private List<BaseEffectFactory> effectsApplyWhenEquip;
 
-        public IEnumerable<BaseEffectFactorySO> EffectsApplyWhenEquip => effectsApplyWhenEquip;
+        public IEnumerable<BaseEffectFactory> EffectsApplyWhenEquip => effectsApplyWhenEquip;
 
-        public override IAbility GetAbility()
+        public override IItem CreateItem()
         {
             return new PassiveAbility(this);
         }

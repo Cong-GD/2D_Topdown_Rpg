@@ -7,15 +7,15 @@ public class ConsumableItem : IItem, IStackableItem, IUsableItem
 {
     public const string ITEM_TYPE = "Consumable";
 
-    private readonly ConsumableItemFactorySO sourceItem;
+    private readonly ConsumableItemFactory sourceItem;
 
-    public ConsumableItem(ConsumableItemFactorySO sourceItem)
+    public event Action OnDestroy;
+
+    public ConsumableItem(ConsumableItemFactory sourceItem)
     {
         this.sourceItem = sourceItem;
         Count = 1;
     }
-
-    public event Action OnDestroy;
 
     public Sprite Icon => sourceItem.Icon;
 
@@ -107,7 +107,7 @@ public class ConsumableItem : IItem, IStackableItem, IUsableItem
 
         public override object Deserialize()
         {
-            var sourceInfo = (ConsumableItemFactorySO)JsonHelper.WrappedJsonToObject(sourceItemJson);
+            var sourceInfo = (ConsumableItemFactory)JsonHelper.WrappedJsonToObject(sourceItemJson);
             var consumableItem = new ConsumableItem(sourceInfo)
             {
                 Count = count

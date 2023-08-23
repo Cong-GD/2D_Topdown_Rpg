@@ -1,6 +1,6 @@
 namespace CongTDev.AbilitySystem
 {
-    public abstract class BaseEffectAndFactorySO : BaseEffectFactorySO, IEffect
+    public abstract class BaseEffectAndFactorySO : BaseEffectFactory, IEffect
     {
         public virtual void CleanUp() { }
         public abstract void Instanciate(Fighter source, Fighter target);

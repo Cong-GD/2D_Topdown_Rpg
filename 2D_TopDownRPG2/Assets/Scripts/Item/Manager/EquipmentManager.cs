@@ -1,7 +1,9 @@
 using CongTDev.AbilitySystem;
 using CongTDev.EventManagers;
 using CongTDev.IOSystem;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EquipmentManager : MonoBehaviour
@@ -73,29 +75,61 @@ public class EquipmentManager : MonoBehaviour
 
     private void LoadEquipment()
     {
-        var serializedEquipmentsManager = (SerializedEquipmentManager)SaveLoadHandler.LoadFromFile(FileNameData.Equiments);
-        serializedEquipmentsManager.Load(this);
+        try
+        {
+            var serializedEquipmentsManager = (SerializedEquipmentManager)SaveLoadHandler.LoadFromFile(FileNameData.Equiments);
+            serializedEquipmentsManager.Load(this);
+        }
+        catch 
+        {
+            foreach (var slot in equipmentSlotsMap.Values)
+            {
+                slot.PushItem(null);
+            }
+            foreach (var slot in passiveAbilitySlots)
+            {
+                slot.PushItem(null);
+            }
+        }
+        
     }
 
     public class SerializedEquipmentManager : SerializedObject, ISerializable
     {
-        public string weaponJson;
-        public string shieldJson;
+        public JsonWrapper weaponJson;
+        public JsonWrapper shieldJson;
+        public JsonWrapper shoseJson;
+        public JsonWrapper arrmorJson;
+        public JsonWrapper[] passiveAbilityJsons;
 
         public SerializedEquipmentManager() { }
 
         public SerializedEquipmentManager(EquipmentManager equipmentManager)
         {
-            weaponJson = equipmentManager.equipmentSlotsMap[Equipment.Slot.Weapon].Item.ToWrappedJson();
-            shieldJson = equipmentManager.equipmentSlotsMap[Equipment.Slot.Shield].Item.ToWrappedJson();
+            weaponJson = equipmentManager.equipmentSlotsMap[Equipment.Slot.Weapon].Item.ToJsonWrapper();
+            shieldJson = equipmentManager.equipmentSlotsMap[Equipment.Slot.Shield].Item.ToJsonWrapper();
+            shoseJson = equipmentManager.equipmentSlotsMap[Equipment.Slot.Shoe].Item.ToJsonWrapper();
+            arrmorJson = equipmentManager.equipmentSlotsMap[Equipment.Slot.Armor].Item.ToJsonWrapper();
+            passiveAbilityJsons = equipmentManager.passiveAbilitySlots.Select(slot => slot.Item.ToJsonWrapper()).ToArray();
         }
 
         public void Load(EquipmentManager equipmentManager)
         {
-            var weapon = (Equipment)JsonHelper.WrappedJsonToObject(weaponJson);
-            var shield = (Equipment)JsonHelper.WrappedJsonToObject(shieldJson);
+            var weapon = (Equipment)weaponJson.ToObject();
+            var shield = (Equipment)shieldJson.ToObject();
+            var shose = (Equipment)shieldJson.ToObject();
+            var arrmor = (Equipment)shieldJson.ToObject();
             equipmentManager.equipmentSlotsMap[Equipment.Slot.Weapon].PushItem(weapon);
             equipmentManager.equipmentSlotsMap[Equipment.Slot.Shield].PushItem(shield);
+            equipmentManager.equipmentSlotsMap[Equipment.Slot.Shoe].PushItem(shose);
+            equipmentManager.equipmentSlotsMap[Equipment.Slot.Armor].PushItem(arrmor);
+
+            var passiveAbilities = new PassiveAbility[passiveAbilityJsons.Length];
+            for (int i = 0; i < passiveAbilities.Length; i++)
+            {
+                passiveAbilities[i] = (PassiveAbility)passiveAbilityJsons[i].ToObject();
+                equipmentManager.passiveAbilitySlots[i].PushItem(passiveAbilities[i]);
+            }
         }
 
         public override SerializedType GetSerializedType() => SerializedType.EquipmentManager;

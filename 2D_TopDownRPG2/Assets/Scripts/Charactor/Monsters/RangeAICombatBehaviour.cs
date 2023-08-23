@@ -23,9 +23,9 @@ public class RangeAICombatBehaviour : BaseAICombatBehaviour
     public override void Prepare(MonstersAI monstersAI)
     {
         base.Prepare(monstersAI);
-        _ability = (IActiveAbility)activeRuneSO.GetAbility();
+        _ability = (IActiveAbility)activeRuneSO.CreateItem();
         _ability.Install(abilityCaster);
-        _damageZoneAbility = (IActiveAbility)damageZoneRune.GetAbility();
+        _damageZoneAbility = (IActiveAbility)damageZoneRune.CreateItem();
         _damageZoneAbility.Install(abilityCaster);
     }
 

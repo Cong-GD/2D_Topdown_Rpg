@@ -79,7 +79,7 @@ public class InventorySlot : ItemSlot<IItem>
         if (slot.Item is not RuneSO rune)
             return;
 
-        slot.PushItem(rune.GetAbility());
+        slot.PushItem(rune.CreateItem());
     } 
     #endregion
 

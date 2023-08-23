@@ -2,14 +2,13 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class NPC : MonoBehaviour, IInteractable
+public class NPC : BaseInteractable
 {
     [SerializeField] private Canvas chatBox;
     [TextArea]
     public string message;
 
-
-    public void Interact()
+    public override void Interact()
     {
         StopAllCoroutines();
         StartCoroutine(ChatBoxDisplay());

@@ -2,13 +2,9 @@ using CongTDev.EventManagers;
 using CongTDev.IOSystem;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : GlobalReference<GameManager>
 {
-    private InputActions _inputActions;
-    public InputActions InputActions => _inputActions ??= new InputActions();
-
     public static bool IsPausing { get; private set; } = false;
 
     private void Start()
@@ -23,7 +19,7 @@ public class GameManager : GlobalReference<GameManager>
         }
 
         EventManager<string>.RaiseEvent("SendSystemMessage", "Wellcome to summorner's rift!");
-        InputActions.Enable();
+        InputCentral.Enable();
 
         //MailBox.Instance.ReceiveMail(new Mail("Wellcome", "Greeting deer hero"));
     }

@@ -1,18 +1,20 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine;
 
 namespace CongTDev.ObjectPooling
 {
-    public class PoolManager : GlobalReference<PoolManager>
+    public static class PoolManager
     {
-        private static readonly Dictionary<string, ObjectPool> _pools = new();
+        private static readonly Dictionary<string, ObjectPool> _pools;
 
-        public static bool Get<T>(Prefab prefab, out T instance) where T : IPoolObject
+        static PoolManager()
         {
-            return Instance.InstanceGet(prefab, out instance);
+            _pools = new();
+            SceneManager.sceneUnloaded += ClearPool;
         }
 
-        public bool InstanceGet<T>(Prefab prefab, out T instance) where T : IPoolObject
+        public static bool Get<T>(Prefab prefab, out T instance) where T : IPoolObject
         {
             try
             {
@@ -26,26 +28,24 @@ namespace CongTDev.ObjectPooling
             }
             catch
             {
+                string info = prefab == null ? "Null prefab" : $"prefab with id : {prefab.UniquePrefabID}";
+                Debug.LogError($"Error when try to get {nameof(T)} from pool by {info}");
                 instance = default;
                 return false;
             }
         }
-        protected override void Awake()
-        {
-            base.Awake();
-            SceneManager.sceneUnloaded += ClearPool;
-        }
-        private void OnDestroy()
-        {
-            SceneManager.sceneUnloaded -= ClearPool;
-        }
 
-        private static void ClearPool(Scene arg0)
+        public static void ClearPool()
         {
             foreach (var pool in _pools.Values)
             {
                 pool.ClearPool();
             }
+        }
+
+        private static void ClearPool(Scene _)
+        {
+            ClearPool();
         }
     }
 }

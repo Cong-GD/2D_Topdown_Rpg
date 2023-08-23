@@ -5,7 +5,7 @@ using UnityEngine.Pool;
 namespace CongTDev.AbilitySystem
 {
     [CreateAssetMenu(fileName = "Damage", menuName = "Effects/Duration/Over time/Damage")]
-    public class DamageOverTimeEffectFactory : BaseEffectFactorySO
+    public class DamageOverTimeEffectFactory : BaseEffectFactory
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected StatBasedValue basedValue;

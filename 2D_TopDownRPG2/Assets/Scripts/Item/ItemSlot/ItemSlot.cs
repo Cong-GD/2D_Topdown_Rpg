@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public abstract class ItemSlot<T> : MonoBehaviour, IItemSlot, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDropHandler, IEndDragHandler, IDragHandler, IPointerClickHandler where T : IItem
+public abstract class ItemSlot<T> : MonoBehaviour, IItemSlot, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDropHandler, IEndDragHandler, IDragHandler, IPointerClickHandler where T : class, IItem
 {
     [SerializeField] protected Image iconUI;
 
@@ -49,7 +49,7 @@ public abstract class ItemSlot<T> : MonoBehaviour, IItemSlot, IPointerEnterHandl
             IsSlotEmpty = true;
         }
         var oldItem = Item;
-        Item = (T)item;
+        Item = item as T;
         if (Item is not null)
         {
             OnItemGetIn(Item);

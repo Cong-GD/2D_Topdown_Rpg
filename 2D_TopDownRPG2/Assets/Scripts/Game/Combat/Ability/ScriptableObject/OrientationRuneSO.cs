@@ -10,13 +10,13 @@ namespace CongTDev.AbilitySystem
     {
         private static readonly string[] _types = new string[] { "Rune", "Orientation" };
 
-        [SerializeField] private List<BaseEffectFactorySO> effectsApplyToTarget;
+        [SerializeField] private List<BaseEffectFactory> effectsApplyToTarget;
 
         [field: SerializeField] public Prefab SpellReleaseWhenUse { get; private set; }
 
-        public IReadOnlyCollection<BaseEffectFactorySO> EffectsApplyToTarget => effectsApplyToTarget;
+        public IReadOnlyCollection<BaseEffectFactory> EffectsApplyToTarget => effectsApplyToTarget;
 
-        public override IAbility GetAbility()
+        public override IItem CreateItem()
         {
             return new OrientationAbility(this);
         }

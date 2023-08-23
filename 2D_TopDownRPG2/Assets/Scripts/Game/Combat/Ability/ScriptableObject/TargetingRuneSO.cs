@@ -10,10 +10,10 @@ namespace CongTDev.AbilitySystem
     {
         [field: SerializeField] public Prefab VfxPlayWhenActive { get; private set; }
 
-        [SerializeField] private List<BaseEffectFactorySO> effectsApplyToTarget;
-        public IEnumerable<BaseEffectFactorySO> EffectsApplyToTarget => effectsApplyToTarget;
+        [SerializeField] private List<BaseEffectFactory> effectsApplyToTarget;
+        public IEnumerable<BaseEffectFactory> EffectsApplyToTarget => effectsApplyToTarget;
 
-        public override IAbility GetAbility()
+        public override IItem CreateItem()
         {
             return new TargetingAbility(this);
         }

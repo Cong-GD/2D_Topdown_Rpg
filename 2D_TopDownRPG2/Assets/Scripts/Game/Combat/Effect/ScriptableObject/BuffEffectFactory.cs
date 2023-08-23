@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CongTDev.AbilitySystem
 {
     [CreateAssetMenu(fileName = "BuffDeBuff", menuName = "Effects/Permanent/BuffDeBuff")]
-    public class BuffEffectFactory : BaseEffectFactorySO
+    public class BuffEffectFactory : BaseEffectFactory
     {
         [SerializeField] protected Stat targetType;
         [SerializeField] protected float modifierValue;

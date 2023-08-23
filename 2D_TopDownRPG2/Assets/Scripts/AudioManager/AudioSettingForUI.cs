@@ -7,18 +7,24 @@ namespace CongTDev.AudioManagement
     {
         [SerializeField] private Slider masterSlider;
         [SerializeField] private Slider musicSlider;
+        [SerializeField] private Slider sfxSlider;
 
         private void OnEnable()
         {
             if(masterSlider != null)
             {
-                masterSlider.value = AudioManager.Instance.MasterVolume;
+                masterSlider.value = AudioManager.MasterVolume;
                 masterSlider.onValueChanged.AddListener(OnMasterSliderChange);
             }
             if(musicSlider != null)
             {
-                musicSlider.value = AudioManager.Instance.MusicVolume;
+                musicSlider.value = AudioManager.MusicVolume;
                 musicSlider.onValueChanged.AddListener(OnMusicSliderChange);
+            }
+            if (sfxSlider != null)
+            {
+                sfxSlider.value = AudioManager.SFXVolume;
+                sfxSlider.onValueChanged.AddListener(OnSFXSliderChange);
             }
         }
 
@@ -32,16 +38,25 @@ namespace CongTDev.AudioManagement
             {
                 musicSlider.onValueChanged.RemoveListener(OnMusicSliderChange);
             }
+            if (sfxSlider != null)
+            {
+                sfxSlider.onValueChanged.RemoveListener(OnSFXSliderChange);
+            }
         }
 
         public void OnMasterSliderChange(float value)
         {
-            AudioManager.Instance.MasterVolume = value;
+            AudioManager.MasterVolume = value;
         }
 
         public void OnMusicSliderChange(float value)
         {
-            AudioManager.Instance.MusicVolume = value;
+            AudioManager.MusicVolume = value;
+        }
+
+        public void OnSFXSliderChange(float value)
+        {
+            AudioManager.SFXVolume = value;
         }
     }
 }

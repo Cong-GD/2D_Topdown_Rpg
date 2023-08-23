@@ -52,10 +52,10 @@ public static class CheatCode
     public static void GetEquipmentCheat(string equipmentName)
     {
         var path = FileNameData.GetEquimentResourcePath(equipmentName);
-        var equipment = Resources.Load<EquipmentFactorySO>(path);
+        var equipment = Resources.Load<EquipmentFactory>(path);
         if (equipment != null)
         {
-            SendItemToMailBox(equipment.CreateEquipment());
+            SendItemToMailBox(equipment.CreateItem());
         }
     }
 }

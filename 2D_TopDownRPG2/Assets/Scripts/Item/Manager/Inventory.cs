@@ -2,37 +2,25 @@ using CongTDev.EventManagers;
 using CongTDev.IOSystem;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
     public const string TRY_ADD_ITEM_TO_INVENTROY = "OnTryAddItemToInventory";
+    public const int DEFAULT_CAPACITY = 30;
 
     [SerializeField] private Transform contentCanvas;
     [SerializeField] private InventorySlot itemSlotPrefabs;
-    [SerializeField] private int _capacity;
+    [SerializeField] private List<BaseItemFactory> defaultIntialItems;
 
     private readonly List<InventorySlot> slots = new();
 
-    public int Capacity
-    {
-        get
-        {
-            return _capacity;
-        }
-        set
-        {
-            if (value < 0)
-                return;
-
-            ChangeCapacity(value);
-            _capacity = value;
-        }
-    }
+    public int Capacity => slots.Count;
 
     private void Awake()
     {
-        ChangeCapacity(Capacity);
+        LoadInventory();
         SubscribeEvents();
     }
 
@@ -91,7 +79,7 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    private bool AddItem(IItem item)
+    public bool AddItem(IItem item)
     {
         InventorySlot emptySlot = GetEmptySlot();
         if (emptySlot == null)
@@ -121,58 +109,35 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    #region IOSystem
+    private void InitDefault()
+    {
+        ChangeCapacity(DEFAULT_CAPACITY);
+        for (int i = 0; i < defaultIntialItems.Count && i < Capacity; i++)
+        {
+            slots[i].PushItem(defaultIntialItems[i].CreateItem());
+        }
+    }
+
     private void SaveInventory()
     {
-        SaveLoadHandler.SaveToFile(FileNameData.Inventory, new SerializedInventory(this));
+        SaveLoadHandler.SaveToFile(FileNameData.Inventory, 
+            ItemArray.GetIntance(slots.AsEnumerable().Select(slot => slot.Item).ToArray()));
     }
     private void LoadInventory()
     {
-        var serializedInventory = (SerializedInventory)SaveLoadHandler.LoadFromFile(FileNameData.Inventory);
-        serializedInventory.Load(this);
-    }
-
-    [Serializable]
-    public class SerializedInventory : SerializedObject, ISerializable
-    {
-        public string[] items;
-
-        public SerializedInventory() { }
-
-        public SerializedInventory(Inventory inventory)
+        try
         {
-            var capacity = inventory.slots.Count;
-            items = new string[capacity];
-
-            for (int i = 0; i < capacity; i++)
+            var items = ((ItemArray)SaveLoadHandler.LoadFromFile(FileNameData.Inventory)).items;
+            ChangeCapacity(items.Length);
+            for (int i = 0; i< Capacity;i++)
             {
-                items[i] = inventory.slots[i].Item.ToWrappedJson();
+                slots[i].PushItem(items[i]);
             }
         }
-
-        public override SerializedType GetSerializedType() => SerializedType.Inventory;
-
-        public void Load(Inventory inventory)
+        catch 
         {
-            int capacity = items.Length;
-            inventory.Capacity = capacity;
-            for (int i = 0; i < capacity; i++)
-            {
-                var item = (IItem)JsonHelper.WrappedJsonToObject(items[i]);
-                inventory.slots[i].PushItem(item);
-            }
-        }
-
-        public SerializedObject Serialize()
-        {
-            return this;
-        }
-
-        public override object Deserialize()
-        {
-            return this;
+            InitDefault();
         }
     }
-    #endregion
 
 }

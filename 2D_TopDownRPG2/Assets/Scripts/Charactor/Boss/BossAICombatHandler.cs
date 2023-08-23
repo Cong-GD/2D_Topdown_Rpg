@@ -117,7 +117,7 @@ namespace CongTDev.TheBoss
             {
                 handler.animationHash = Animator.StringToHash(handler.animationName);
                 handler.hasAnimation = animator.HasState(0, handler.animationHash);
-                handler.ability = (IActiveAbility)handler.rune.GetAbility();
+                handler.ability = (IActiveAbility)handler.rune.CreateItem();
                 handler.ability.Install(abilityCaster);
             }
         }

@@ -13,6 +13,9 @@
 
     public void UseItem()
     {
+        if (IsSlotEmpty)
+            return;
+
         Item.Use(PlayerController.Instance.Combat);
     }
 }

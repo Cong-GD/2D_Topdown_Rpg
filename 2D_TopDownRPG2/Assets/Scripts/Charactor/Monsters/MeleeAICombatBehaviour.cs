@@ -20,9 +20,9 @@ public class MeleeAICombatBehaviour : BaseAICombatBehaviour
     public override void Prepare(MonstersAI monstersAI)
     {
         base.Prepare(monstersAI);
-        _ability = (IActiveAbility)firstRune.GetAbility();
+        _ability = (IActiveAbility)firstRune.CreateItem();
         _ability.Install(abilityCaster);
-        _secondaryAbility = (IActiveAbility)secondaryRune.GetAbility();
+        _secondaryAbility = (IActiveAbility)secondaryRune.CreateItem();
         _secondaryAbility.Install(abilityCaster);
     }
 

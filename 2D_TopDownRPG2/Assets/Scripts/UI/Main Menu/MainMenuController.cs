@@ -15,7 +15,7 @@ namespace CongTDev.MainMenu
 
         private void Start()
         {
-            AudioManager.PlaySound("MenuBackgroundMusic");
+            AudioManager.Play("MenuBackgroundMusic").WhileTrue();
         }
 
         public void QuitGame()

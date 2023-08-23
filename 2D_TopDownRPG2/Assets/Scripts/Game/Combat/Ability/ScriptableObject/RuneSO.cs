@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace CongTDev.AbilitySystem
 {
-    public abstract class RuneSO : ScriptableObject, IItem
+    public abstract class RuneSO : BaseItemFactory, IItem
     {
         public const string ITEM_TYPE = "Rune";
 
@@ -25,8 +25,6 @@ namespace CongTDev.AbilitySystem
         public string ItemType => ITEM_TYPE;
 
         public abstract IEnumerable<string> GetSubTypes();
-
-        public abstract IAbility GetAbility();
 
         public abstract string GetDescription();
 
