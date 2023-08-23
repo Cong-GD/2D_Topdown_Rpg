@@ -9789,7 +9789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconUI: {fileID: 5158910472510849187}
-  <EquipSlot>k__BackingField: 0
+  <EquipSlot>k__BackingField: 3
   background: {fileID: 3560915139228439656}
 --- !u!1 &701863912767489949
 GameObject:
@@ -11802,7 +11802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconUI: {fileID: 5848787080807885775}
-  <EquipSlot>k__BackingField: 0
+  <EquipSlot>k__BackingField: 1
   background: {fileID: 2871563811888463620}
 --- !u!222 &2307073167356797693
 CanvasRenderer:
@@ -12253,7 +12253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconUI: {fileID: 7747000802501166283}
-  <EquipSlot>k__BackingField: 0
+  <EquipSlot>k__BackingField: 2
   background: {fileID: 2121240372275793920}
 --- !u!222 &2693060160398656068
 CanvasRenderer:
@@ -12924,7 +12924,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentCanvas: {fileID: 8984272796197554675}
   itemSlotPrefabs: {fileID: 4620069945471056102, guid: 214537f5ee3231b4197096c7fe7f74f7, type: 3}
-  defaultIntialItems: []
+  defaultIntialItems:
+  - {fileID: 11400000, guid: b083a52557159874ab2934223ba62f0b, type: 2}
+  - {fileID: 11400000, guid: 14ad5e53200e4ca43b05b610dff637a6, type: 2}
+  - {fileID: 11400000, guid: 82f18b54df6c6254b86cc2dca172b150, type: 2}
+  - {fileID: 11400000, guid: e08643273f3481d41b8f0c27f6c1f7a3, type: 2}
+  - {fileID: 11400000, guid: f5067a40f906a694bb9adc504dc43a98, type: 2}
+  - {fileID: 11400000, guid: 75ee74cce3299d14ca4bab3d5d99a4fc, type: 2}
+  - {fileID: 11400000, guid: 017ef920f67e2e846a43c94170cc8225, type: 2}
+  - {fileID: 11400000, guid: 69243cc9280542c46a4dab0ab6f54cdc, type: 2}
+  - {fileID: 11400000, guid: d48cee9d90fcedd42aba389201a22ff9, type: 2}
+  - {fileID: 11400000, guid: 2a727e2d3342f5c40b0ca23a2b8fdf81, type: 2}
+  - {fileID: 11400000, guid: 5ada80a50c2151f419309a7f0fdc1652, type: 2}
+  - {fileID: 11400000, guid: 5a324717313412b4e9c6990c0234a6e4, type: 2}
+  - {fileID: 11400000, guid: 60b50c8b998e52b44bf0b42abda5d428, type: 2}
+  - {fileID: 11400000, guid: e9e712ecd696c8e4484b4118ba779439, type: 2}
+  - {fileID: 11400000, guid: fce529dbc21099c47839d574239f13d0, type: 2}
+  - {fileID: 11400000, guid: 561e62e06b4b3e84ba7f7ddba299845a, type: 2}
 --- !u!224 &3509976751686773663
 RectTransform:
   m_ObjectHideFlags: 0

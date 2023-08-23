@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf8b0a6e926a2434084847283f691c37, type: 3}
-  m_Name: Sumamo's armor
+  m_Name: Sumamo's shield
   m_EditorClassIdentifier: 
   <EquipmentName>k__BackingField: Sumamo's staff
-  <EquipSlot>k__BackingField: 1
-  <Description>k__BackingField: Armor of Sumamo. It's maybe very dubarity
-  <Icon>k__BackingField: {fileID: 21300000, guid: 35c8dc188f1e03b4585a592b27628545, type: 3}
+  <EquipSlot>k__BackingField: 3
+  <Description>k__BackingField: Shield of Sumamo. It's maybe very dubarity!
+  <Icon>k__BackingField: {fileID: 21300000, guid: 0e875035eaf0bd14bbd1099fd9991235, type: 3}
   <MainStats>k__BackingField:
   - {fileID: 11400000, guid: 874d90d014e71b1408e2c1ab237be14b, type: 2}
-  - {fileID: 11400000, guid: 525d929813eb88446b211fee6b7d1c41, type: 2}
+  - {fileID: 11400000, guid: b41041725440191488f4e209a1b31c34, type: 2}
   randomEffects:
   - effectFactory: {fileID: 11400000, guid: c92648761ed895c4b83b4f053c2dd4bd, type: 2}
     chanceToAppear: 24

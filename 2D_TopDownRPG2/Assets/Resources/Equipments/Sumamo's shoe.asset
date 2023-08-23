@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8b0a6e926a2434084847283f691c37, type: 3}
+  m_Name: Sumamo's shoe
+  m_EditorClassIdentifier: 
+  <EquipmentName>k__BackingField: Wood staff
+  <EquipSlot>k__BackingField: 2
+  <Description>k__BackingField: Shoe of Sumamo. It's very fast!
+  <Icon>k__BackingField: {fileID: 21300000, guid: 867030f363eb7a84caaef68c6a2538bd, type: 3}
+  <MainStats>k__BackingField:
+  - {fileID: 11400000, guid: 6d501ad879ef293409dd10ba51b831e2, type: 2}
+  - {fileID: 11400000, guid: fb0d08aea3613d741b1b428a0059384c, type: 2}
+  randomEffects:
+  - effectFactory: {fileID: 11400000, guid: c92648761ed895c4b83b4f053c2dd4bd, type: 2}
+    chanceToAppear: 30
+  - effectFactory: {fileID: 11400000, guid: 485b5c99a66fcf647b5fae08dd5cb281, type: 2}
+    chanceToAppear: 30
+  - effectFactory: {fileID: 11400000, guid: b492e52d24fdc6d4fa6c6dce826776f9, type: 2}
+    chanceToAppear: 30
+  - effectFactory: {fileID: 11400000, guid: 525d929813eb88446b211fee6b7d1c41, type: 2}
+    chanceToAppear: 30
+  - effectFactory: {fileID: 11400000, guid: 73b450e15340ba24999a7e74e8f8409a, type: 2}
+    chanceToAppear: 30

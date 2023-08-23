@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf8b0a6e926a2434084847283f691c37, type: 3}
-  m_Name: Barbari's armor
+  m_Name: Barbari's shield
   m_EditorClassIdentifier: 
   <EquipmentName>k__BackingField: Sumamo's staff
-  <EquipSlot>k__BackingField: 1
+  <EquipSlot>k__BackingField: 3
   <Description>k__BackingField: Staff of Sumamo. It's maybe very strong
-  <Icon>k__BackingField: {fileID: 21300000, guid: b03f0ea6996beee43ae8423ce44efe69, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 7f37e8071ef1dc84cbced16a0b5e18e8, type: 3}
   <MainStats>k__BackingField:
   - {fileID: 11400000, guid: c92648761ed895c4b83b4f053c2dd4bd, type: 2}
   - {fileID: 11400000, guid: ab13ca0bf2754a04e94317ddd627cfe4, type: 2}
   randomEffects:
   - effectFactory: {fileID: 11400000, guid: a62e2457102c6664cb349428bfb7b42e, type: 2}
-    chanceToAppear: 24
+    chanceToAppear: 30
   - effectFactory: {fileID: 11400000, guid: c92648761ed895c4b83b4f053c2dd4bd, type: 2}
     chanceToAppear: 30
-  - effectFactory: {fileID: 11400000, guid: fbf485025fa02c74aadcceb54ee5a1d9, type: 2}
+  - effectFactory: {fileID: 11400000, guid: 874d90d014e71b1408e2c1ab237be14b, type: 2}
     chanceToAppear: 30
   - effectFactory: {fileID: 11400000, guid: 28eea78535b08b04f8083254a62c16f1, type: 2}
     chanceToAppear: 30

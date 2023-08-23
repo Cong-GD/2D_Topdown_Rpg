@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d50cc5c87ec9f64782ee4d5433e1244, type: 3}
-  m_Name: Barbari's staff
+  m_Name: Tutorial staff
   m_EditorClassIdentifier: 
-  <EquipmentName>k__BackingField: Barbari's Sword
+  <EquipmentName>k__BackingField: Wood staff
   <EquipSlot>k__BackingField: 0
-  <Description>k__BackingField: Staff of barbari.
+  <Description>k__BackingField: A wood staff
   <Icon>k__BackingField: {fileID: 21300000, guid: f82e47d4e381c97499ad5265925c677f, type: 3}
   <MainStats>k__BackingField:
-  - {fileID: 11400000, guid: e2f7b48b016f36b41b19fa977996396b, type: 2}
+  - {fileID: 11400000, guid: 665970b8fb21e77409dca6343f2a8c87, type: 2}
   subEffects:
-  - {fileID: 11400000, guid: d4fe67f045c73b4459d65c9557a4a66c, type: 2}
+  - {fileID: 11400000, guid: fbf485025fa02c74aadcceb54ee5a1d9, type: 2}
