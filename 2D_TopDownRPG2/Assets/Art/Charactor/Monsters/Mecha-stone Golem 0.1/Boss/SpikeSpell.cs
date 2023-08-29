@@ -1,7 +1,7 @@
-﻿using CongTDev.ObjectPooling;
+﻿using CongTDev.AudioManagement;
+using CongTDev.ObjectPooling;
 using DG.Tweening;
 using System.Collections;
-using UnityEditor.Playables;
 using UnityEngine;
 
 namespace CongTDev.AbilitySystem.Spell
@@ -41,10 +41,13 @@ namespace CongTDev.AbilitySystem.Spell
             damageZone.localScale = Vector3.zero;
             animator.Play("SpikeUp");
             yield return timeOffsetAfterAnimation.Wait();
+            AudioManager.Play("SpikeUp").SetVolume(0.4f);
             collider2d.enabled = true;
             DealRangeDamage(ability, damageRadius);
             yield return spikeLifeTime.Wait();
+            AudioManager.Play("RockExplosion").SetVolume(0.4f);
             collider2d.enabled = false;
+            yield return 0.1f.Wait();
             Explosion(ability);
             ReturnToPool();
         }
@@ -63,9 +66,10 @@ namespace CongTDev.AbilitySystem.Spell
 
         private void Explosion(OrientationAbility ability)
         {
-            if(PoolManager.Get<PoolObject>(explosionPrefab, out var intance))
+            if (PoolManager.Get<PoolObject>(explosionPrefab, out var intance))
             {
                 intance.transform.position = damageZone.position;
+                
                 DealRangeDamage(ability, explosionRadius);
             }
         }
@@ -77,7 +81,7 @@ namespace CongTDev.AbilitySystem.Spell
             Gizmos.DrawWireSphere(damageZone.position, damageRadius);
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(damageZone.position, explosionRadius);
-        } 
+        }
 #endif
 
     }

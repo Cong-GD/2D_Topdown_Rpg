@@ -1,5 +1,6 @@
 using CongTDev.AbilitySystem;
 using CongTDev.AbilitySystem.Spell;
+using CongTDev.AudioManagement;
 using CongTDev.ObjectPooling;
 using System.Collections;
 using UnityEngine;
@@ -69,6 +70,7 @@ public class BossLazerSpell : PoolObject, ISpell
         var endTime = Time.time + duration;
         while (Time.time < endTime)
         {
+            AudioManager.Play("LazerFiring");
             collider2d.enabled = true;
             yield return damageInterval.Wait();
             collider2d.enabled = false;

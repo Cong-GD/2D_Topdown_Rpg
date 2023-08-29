@@ -1,5 +1,6 @@
 ﻿using CongTDev.AbilitySystem;
 using CongTDev.AbilitySystem.Spell;
+using CongTDev.AudioManagement;
 using CongTDev.ObjectPooling;
 using System.Collections;
 using UnityEngine;
@@ -45,6 +46,7 @@ namespace CongTDev.TheBoss
         private IEnumerator Explosion(OrientationAbility ability)
         {
             explosion.SetActive(true);
+            AudioManager.Play("IceCircleExplosion");
             var effectList = ListPool<IPoolObject>.Get();
             Fighter hitTarget = null;
             var hits = Physics2D.OverlapCircleAll(transform.position, damageRange, LayerMaskHelper.FigherMask);

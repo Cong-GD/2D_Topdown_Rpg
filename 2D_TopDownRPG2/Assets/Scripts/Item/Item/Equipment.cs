@@ -42,6 +42,9 @@ public class Equipment : IItem
 
     public void AddSubEffect(BaseEffectFactory subEffect)
     {
+        if(subEffect == null)
+            return;
+
         subEffects.Add(subEffect);
         var effectType = subEffect.EffectInfo.EffectTypeInfo;
         if (!string.IsNullOrEmpty(effectType) && !_types.Contains(effectType))
@@ -146,7 +149,7 @@ public class Equipment : IItem
 
             foreach (var subEffectsJson in subEffectsJsons)
             {
-                var effectFactory = (BaseEffectAndFactorySO)JsonHelper.WrappedJsonToObject(subEffectsJson);
+                var effectFactory = (BaseEffectFactory)JsonHelper.WrappedJsonToObject(subEffectsJson);
                 equipment.AddSubEffect(effectFactory);
             }
 

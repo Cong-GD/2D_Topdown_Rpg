@@ -1,5 +1,7 @@
+using CongTDev.AudioManagement;
 using CongTDev.EventManagers;
 using CongTDev.IOSystem;
+using CongTDev.ObjectPooling;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,9 +18,11 @@ public class PlayerLevelSystem : MonoBehaviour
     public static int CapacityXp { get; private set; } = 100;
 
     public static event Action OnValueChange;
+    public static event Action OnLevelUp;
 
     [SerializeField] private Fighter player;
     [SerializeField] private BaseStatData statData;
+    [SerializeField] private Prefab VFXWhenLevelUp;
 
     private Dictionary<Stat, StatModifier> _statModifiers = new();
 
@@ -28,6 +32,7 @@ public class PlayerLevelSystem : MonoBehaviour
         EventManager.AddListener("OnGameSave", SaveToFile);
         EventManager.AddListener("OnGameLoad", LoadFromFile);
         EventManager<int>.AddListener("OnReceiveXp", AddXp);
+        EventManager.AddListener("OnPlayerDead", SubtractLevel);
     }
 
     private void OnDestroy()
@@ -35,6 +40,7 @@ public class PlayerLevelSystem : MonoBehaviour
         EventManager.RemoveListener("OnGameSave", SaveToFile);
         EventManager.RemoveListener("OnGameLoad", LoadFromFile);
         EventManager<int>.RemoveListener("OnReceiveXp", AddXp);
+        EventManager.RemoveListener("OnPlayerDead", SubtractLevel);
     }
 
     public void SaveToFile()
@@ -63,6 +69,7 @@ public class PlayerLevelSystem : MonoBehaviour
             CapacityXp = levelDate.capacityXp;
         }
         UpdateLevelStat();
+        OnValueChange?.Invoke();
     }
 
     public void AddXp(int amount)
@@ -70,12 +77,38 @@ public class PlayerLevelSystem : MonoBehaviour
         CurrentXp += amount;
         while (CurrentXp >= CapacityXp)
         {
-            CurrentXp -= CapacityXp;
-            CapacityXp = (int)(CapacityXp * XP_GROW);
-            CurrentLevel++;
+            LevelUp();
+            LevelUpEffect();
             UpdateLevelStat();
         }
         OnValueChange?.Invoke();
+    }
+
+    private void LevelUp()
+    {
+        CurrentXp -= CapacityXp;
+        CapacityXp = (int)(CapacityXp * XP_GROW);
+        CurrentLevel++;
+        OnLevelUp?.Invoke();
+    }
+
+    private void LevelUpEffect()
+    {
+        AudioManager.Play("LevelUp");
+        if(PoolManager.Get<PoolObject>(VFXWhenLevelUp, out var instance))
+        {
+            instance.transform.position = player.Position;
+        }
+    }
+
+    private void SubtractLevel()
+    {
+        if(CurrentLevel == 1)
+        {
+            return;
+        }
+        CurrentLevel--;
+        CurrentXp = (int)(CapacityXp * 0.8f);
     }
 
     private void UpdateLevelStat()

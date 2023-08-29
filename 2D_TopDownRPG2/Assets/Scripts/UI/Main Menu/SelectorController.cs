@@ -3,6 +3,7 @@ using CongTDev.IOSystem;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace CongTDev.MainMenu
@@ -35,10 +36,10 @@ namespace CongTDev.MainMenu
             if (string.IsNullOrEmpty(currentUserText.text))
                 return;
 
-            ConfirmPanel.Instance.AskForComfirm(DeleteCurrenUserWithoutConfirm, null, "Are you sure to delete this user?");
+            ConfirmPanel.Ask("Are you sure to delete this user?", DeleteCurrenUserExcute);
         }
 
-        public void DeleteCurrenUserWithoutConfirm()
+        public void DeleteCurrenUserExcute()
         {
             FileNameData.DeleteUser(currentUserText.text);
             RefreshUserToggle();
@@ -49,7 +50,8 @@ namespace CongTDev.MainMenu
             if (string.IsNullOrEmpty(currentUserText.text))
                 return;
 
-            MainMenuController.Instance.StartGameWithUserName(currentUserText.text);
+            FileNameData.SetUser(currentUserText.text);
+            SceneManager.LoadSceneAsync("Game");
         }
 
         private void OnEnable()

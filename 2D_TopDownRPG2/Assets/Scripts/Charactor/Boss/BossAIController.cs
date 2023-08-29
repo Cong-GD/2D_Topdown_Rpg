@@ -27,7 +27,7 @@ namespace CongTDev.TheBoss
         private IEnumerator BossFireCoroutine()
         {
             yield return WaitForPlayerInRange();
-            yield return BeforCombatState();
+            yield return BeforeCombatState();
             yield return combatHandler.StartCombatState();
             yield return EndCombatState();
         }
@@ -46,7 +46,7 @@ namespace CongTDev.TheBoss
             }
         }
 
-        private IEnumerator BeforCombatState()
+        private IEnumerator BeforeCombatState()
         {
             OnStartCombat.Invoke();
             yield break;
@@ -54,7 +54,7 @@ namespace CongTDev.TheBoss
 
         private IEnumerator EndCombatState()
         {
-            OnStartCombat.Invoke();
+            OnEndCombat.Invoke();
             yield break;
         }
 

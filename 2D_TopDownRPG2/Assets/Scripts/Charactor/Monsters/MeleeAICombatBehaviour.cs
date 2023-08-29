@@ -5,12 +5,12 @@ using UnityEngine;
 public class MeleeAICombatBehaviour : BaseAICombatBehaviour
 {
     [Header("Meele AI fields")]
-    [SerializeField] protected ActiveRuneSO firstRune;
+    [SerializeField] protected ActiveRune firstRune;
     [SerializeField] protected float movingRange;
     [SerializeField] protected float combatExitTime;
 
     [Header("Secondary Ability")]
-    [SerializeField] private ActiveRuneSO secondaryRune;
+    [SerializeField] private ActiveRune secondaryRune;
     [SerializeField] private float healThreshHold;
     [SerializeField] private float abilityCheckInterval;
 

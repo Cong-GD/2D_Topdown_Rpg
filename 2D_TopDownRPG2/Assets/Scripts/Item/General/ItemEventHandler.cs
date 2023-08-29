@@ -1,4 +1,6 @@
-﻿using CongTDev.EventManagers;
+﻿using CongTDev.AudioManagement;
+using CongTDev.EventManagers;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +31,8 @@ public class ItemEventHandler : MonoBehaviour
         EventManager<IItemSlot>.AddListener("OnSlotBeginDrag", OnSlotBeginDrag);
         EventManager<IItemSlot>.AddListener("OnSlotDrop", OnItemDrop);
         EventManager<IItemSlot>.AddListener("OnSlotEndDrag", OnSlotEndDrag);
+
+        EventManager<ObjectHolder<IItemSlot>>.AddListener("RequestCurrentDraggingSlot", SendCurrentDraggingSlot);
     }
 
     private void UnsubscribeEvent()
@@ -39,13 +43,14 @@ public class ItemEventHandler : MonoBehaviour
         EventManager<IItemSlot>.RemoveListener("OnSlotBeginDrag", OnSlotBeginDrag);
         EventManager<IItemSlot>.RemoveListener("OnSlotDrop", OnItemDrop);
         EventManager<IItemSlot>.RemoveListener("OnSlotEndDrag", OnSlotEndDrag);
+
+        EventManager<ObjectHolder<IItemSlot>>.RemoveListener("RequestCurrentDraggingSlot", SendCurrentDraggingSlot);
     }
 
     private void ShowTip(IItemSlot itemSlot)
     {
         itemToolTip.gameObject.SetActive(true);
         itemToolTip.ShowItemToolTip(itemSlot.BaseItem);
-        itemToolTip.transform.position = Input.mousePosition;
     }
 
     private void HideTip(IItemSlot _)
@@ -56,6 +61,7 @@ public class ItemEventHandler : MonoBehaviour
     private void OnSlotBeginDrag(IItemSlot itemSlot)
     {
         draggingImage.gameObject.SetActive(true);
+        AudioManager.Play("PickUpItem");
         draggingImage.sprite = itemSlot.BaseItem.Icon;
         _onDraggingSlot = itemSlot;
         _isDragging = true;
@@ -77,6 +83,8 @@ public class ItemEventHandler : MonoBehaviour
         if (!_isDragging)
             return;
 
+        AudioManager.Play("PutDownItem");
+
         if (_onDraggingSlot.BaseItem is IStackableItem source && itemSlot.BaseItem is IStackableItem dest && IStackableItem.TryStackItem(source, dest))
             return;
 
@@ -91,6 +99,11 @@ public class ItemEventHandler : MonoBehaviour
         draggingImage.gameObject.SetActive(false);
         _onDraggingSlot = null;
         _isDragging = false;
+    }
+
+    private void SendCurrentDraggingSlot(ObjectHolder<IItemSlot> holder)
+    {
+        holder.value = _onDraggingSlot;
     }
 
 }

@@ -28,11 +28,12 @@ public class FloatingText : PoolObject
         _followColider = damageBlock.Target.HitBox;
         _offset = new Vector2(0, _followColider.bounds.extents.y) + Random.insideUnitCircle * 0.5f;
         textMeshProUGUI.color = ColorHelper.GetDamageFeedBackTextColor(damageBlock.DamageType);
+        int roundedDamage = Mathf.FloorToInt(damageBlock.CurrentDamage);
         textMeshProUGUI.text = damageBlock.State switch
         {
-            DamageState.NormalDamage => $"{damageBlock.CurrentDamage}",
-            DamageState.CriticalDamage => $"{damageBlock.CurrentDamage}!",
-            DamageState.BlockDamage => $"( {damageBlock.CurrentDamage} )",
+            DamageState.NormalDamage => $"{roundedDamage}",
+            DamageState.CriticalDamage => $"{roundedDamage}!",
+            DamageState.BlockDamage => $"( {roundedDamage} )",
             DamageState.Miss => "Miss",
             _ => string.Empty
         };

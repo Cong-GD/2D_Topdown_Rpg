@@ -90,10 +90,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e919e0157c960f42b4aad3ad630e117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 6538319666902787961}
+  indicator: {fileID: 4384406785238630403}
   openingChest: {fileID: -790232570, guid: 05c0a47e8aa48684d9e322dc8ef8d162, type: 3}
   closingChest: {fileID: -1508776189, guid: 05c0a47e8aa48684d9e322dc8ef8d162, type: 3}
   spriteRenderer: {fileID: 4749226004115213497}
+  defaultInitialItems: []
+  saveFileName: 
 --- !u!1 &5305330906831471494
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6352343467157106825}
   - component: {fileID: 1699184118076346455}
+  - component: {fileID: 4384406785238630403}
   m_Layer: 0
   m_Name: Indicator
   m_TagString: Untagged
@@ -310,3 +313,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4384406785238630403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6538319666902787961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d9eab6ee97e454f961af14762d39b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

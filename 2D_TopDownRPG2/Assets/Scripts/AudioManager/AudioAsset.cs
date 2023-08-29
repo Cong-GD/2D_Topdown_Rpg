@@ -9,7 +9,8 @@ namespace CongTDev.AudioManagement
         {
             Master,
             Music,
-            SFX
+            SFX,
+            UI
         }
 
         [field: SerializeField] public AudioClip AudioClip { get; private set; }

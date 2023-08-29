@@ -1,32 +1,19 @@
-using System.Collections;
-using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NPC : BaseInteractable
 {
-    [SerializeField] private Canvas chatBox;
-    [TextArea]
-    public string message;
+    [SerializeField] private UnityEvent onCancelAssigned;
+    [SerializeField] private DialogueObject dialogueObject;
 
     public override void Interact()
     {
-        StopAllCoroutines();
-        StartCoroutine(ChatBoxDisplay());
+        DialoguePanel.ShowDialogue(dialogueObject);
     }
 
-    private IEnumerator ChatBoxDisplay()
+    public override void OnCancelAssigned()
     {
-        chatBox.gameObject.SetActive(true);
-        var textBox = chatBox.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-        textBox.text = "";
-        var wait = new WaitForSeconds(0.07f);
-        for (int i = 0; i < message.Length; i++)
-        {
-            textBox.text += message[i];
-            yield return wait;
-        }
-        yield return new WaitForSeconds(2);
-        chatBox.gameObject.SetActive(false);
+        base.OnCancelAssigned();
+        onCancelAssigned.Invoke();
     }
-
 }

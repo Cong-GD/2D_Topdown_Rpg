@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public static class Extension
 {
@@ -8,6 +9,11 @@ public static class Extension
     public static Action WrapAction<T>(this Action<T> action, T parameter)
     {
         return () => action?.Invoke(parameter);
+    }
+
+    public static Action UnityEventToAction(this UnityEvent action)
+    {
+        return () => action.Invoke();
     }
 }
 

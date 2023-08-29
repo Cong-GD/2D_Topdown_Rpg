@@ -25,6 +25,10 @@ public class ActiveAbilitySlot : ItemSlot<IActiveAbility>
         {
             backGround.gameObject.SetActive(false);
         }
+        if(!Item.IsReady())
+        {
+            RunCooldownAnim();
+        }
     }
 
     protected override void OnItemGetOut(IActiveAbility item)
@@ -34,6 +38,8 @@ public class ActiveAbilitySlot : ItemSlot<IActiveAbility>
         {
             backGround.gameObject.SetActive(true);
         }
+        _tween?.Kill();
+        cooldownMask.fillAmount = 0;
     }
 
     public Respond TryUseSlotAbility()
@@ -52,11 +58,13 @@ public class ActiveAbilitySlot : ItemSlot<IActiveAbility>
 
     public void RunCooldownAnim()
     {
-        if (IsSlotEmpty)
-            return;
-
         _tween?.Kill();
+        if (IsSlotEmpty || Item.IsReady())
+        {
+            cooldownMask.fillAmount = 0;
+            return;
+        }
         cooldownMask.fillAmount = 1;
-        _tween = cooldownMask.DOFillAmount(0, Item.GetCooldownTime()).SetEase(Ease.Linear);
+        _tween = cooldownMask.DOFillAmount(0, Item.CurrentCoolDown).SetEase(Ease.Linear);
     }
 }

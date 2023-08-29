@@ -4,7 +4,7 @@
 [RequireComponent(typeof(Collider2D))]
 public abstract class BaseInteractable : MonoBehaviour, IInteractable
 {
-    [SerializeField] protected GameObject indicator;
+    [SerializeField] protected BaseIndicator indicator;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -31,7 +31,7 @@ public abstract class BaseInteractable : MonoBehaviour, IInteractable
     {
         if(indicator != null)
         {
-            indicator.SetActive(true);
+            indicator.Active();
         }   
     }
 
@@ -39,7 +39,7 @@ public abstract class BaseInteractable : MonoBehaviour, IInteractable
     {
         if (indicator != null)
         {
-            indicator.SetActive(false);
+            indicator.Deactive();
         }
     }
 

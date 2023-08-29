@@ -197,6 +197,8 @@ MonoBehaviour:
   rb2d: {fileID: -4674386579153137028}
   moveSpeed: 7
   lifeTime: 4
+  soundPlayWhenStart: 
+  soundPlayWhenHit: HandHit
 --- !u!114 &5741492903010878918
 MonoBehaviour:
   m_ObjectHideFlags: 0

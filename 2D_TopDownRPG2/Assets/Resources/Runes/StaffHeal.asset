@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1842e9dabbaf54db8268e7c5c537aa, type: 3}
+  m_Name: StaffHeal
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Staff Heal
+  <Description>k__BackingField: Heal yourself base on attack power
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1b81c1b6c0d9c6e4da5d4ed1373a2884, type: 3}
+  <AbilityIcon>k__BackingField: {fileID: 610334438, guid: de68d4be32e29a743bb3d1d2b3bfaf4c, type: 3}
+  <Rarity>k__BackingField: 2
+  <LearnCost>k__BackingField: 200
+  <TargetType>k__BackingField: 0
+  <BaseCastDelay>k__BackingField: 0
+  <BaseManaConsume>k__BackingField: 50
+  <BaseCooldown>k__BackingField: 3
+  <MaxUseRange>k__BackingField: 0
+  <VfxWhenUse>k__BackingField: {fileID: 2054403495608458907, guid: fcf99504de905f7428b6e0d60639e416, type: 3}
+  <SFVWhenUse>k__BackingField: Heal
+  effectsApplyToCaster:
+  - {fileID: 11400000, guid: b5c366f3eb08a6846a7b2313c79a284a, type: 2}

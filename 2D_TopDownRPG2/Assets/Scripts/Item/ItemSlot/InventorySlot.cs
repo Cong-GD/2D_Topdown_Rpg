@@ -1,13 +1,18 @@
 ﻿using CongTDev.AbilitySystem;
+using CongTDev.AudioManagement;
 using CongTDev.EventManagers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.InputSystem;
 
 public class InventorySlot : ItemSlot<IItem>
 {
     #region Static
     public static readonly List<IStackableItem> onStackableItem = new();
+
+    private static OptionBox _optionBox;
 
     private static readonly IReadOnlyDictionary<string, IEnumerable<KeyValuePair<string, Action<InventorySlot>>>> _clickActionMaps
         = new Dictionary<string, IEnumerable<KeyValuePair<string, Action<InventorySlot>>>>()
@@ -35,13 +40,18 @@ public class InventorySlot : ItemSlot<IItem>
            }
         },
         {
-           RuneSO.ITEM_TYPE , new Dictionary<string, Action<InventorySlot>>()
+           Rune.ITEM_TYPE , new Dictionary<string, Action<InventorySlot>>()
            {
-               { "Acquire", AcquireAbility },
+               { "Learn", LearnAbility },
                { "Drop", Drop }
            }
         }
     };
+
+    public static void SetOptionBox(OptionBox optionBox)
+    {
+        _optionBox = optionBox;
+    }
 
     private static void UseItem(InventorySlot slot)
     {
@@ -58,12 +68,12 @@ public class InventorySlot : ItemSlot<IItem>
 
     private static void Drop(InventorySlot slot)
     {
-        slot.ClearSlot();
+        ConfirmPanel.Ask("Item will be deleted permanently. You sure bro?", slot.ClearSlot);
     }
 
     private static void EquipAbility(InventorySlot slot)
     {
-        switch(slot.Item)
+        switch (slot.Item)
         {
             case IActiveAbility:
                 EventManager<IItemSlot>.RaiseEvent("TryEquipActiveAbility", slot);
@@ -74,14 +84,29 @@ public class InventorySlot : ItemSlot<IItem>
         }
     }
 
-    private static void AcquireAbility(InventorySlot slot)
+    private static void LearnAbility(InventorySlot slot)
     {
-        if (slot.Item is not RuneSO rune)
+        if (slot.Item is not Rune rune)
             return;
 
-        slot.PushItem(rune.CreateItem());
-    } 
+
+        if (GameManager.PlayerGold >= rune.LearnCost)
+        {
+            ConfirmPanel.Ask($"Do you want to learn this ability with cost: {rune.LearnCost} G",
+                    () =>
+                    {
+                        GameManager.PlayerGold -= rune.LearnCost;
+                        AudioManager.Play("BuySell");
+                        slot.PushItem(rune.CreateItem());
+                    });
+        }
+        else
+        {
+            ConfirmPanel.Ask("Don't have enought gold to learn this ability");
+        }
+    }
     #endregion
+
 
     public override bool IsMeetSlotRequiment(IItem item)
     {
@@ -108,6 +133,7 @@ public class InventorySlot : ItemSlot<IItem>
 
     protected override void OnSlotRightCliked()
     {
+        base.OnSlotRightCliked();
         if (_clickActionMaps.TryGetValue(Item.ItemType, out var actionPairs))
         {
             actionPairs.First().Value.Invoke(this);
@@ -119,9 +145,26 @@ public class InventorySlot : ItemSlot<IItem>
         base.OnSlotLeftCliked();
         if (_clickActionMaps.TryGetValue(Item.ItemType, out var actionMap))
         {
-            var wrappedActionMap = actionMap.ToDictionary(x => x.Key, x => x.Value.WrapAction(this));
-            EventManager<IEnumerable<KeyValuePair<string, Action>>>.RaiseEvent("ShowInventoryItemFunction", wrappedActionMap);
+            StartCoroutine(SelectionCoroutine(actionMap));
         }
     }
 
+    private IEnumerator SelectionCoroutine(IEnumerable<KeyValuePair<string, Action<InventorySlot>>> actionMap)
+    {
+        if (_optionBox == null)
+            yield break;
+
+        _optionBox.ShowOptions(actionMap.ToDictionary(x => x.Key, x => x.Value.WrapAction(this)));
+        _optionBox.transform.position = transform.position;
+        yield return null;
+        while (_optionBox.IsShowing)
+        {
+            if (Mouse.current.press.wasReleasedThisFrame)
+            {
+                _optionBox.Disable();
+            }
+            yield return null;
+        }
+
+    }
 }

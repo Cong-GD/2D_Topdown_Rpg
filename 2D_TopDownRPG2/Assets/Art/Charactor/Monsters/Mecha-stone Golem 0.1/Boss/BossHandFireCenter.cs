@@ -1,5 +1,6 @@
 using CongTDev.AbilitySystem;
 using CongTDev.AbilitySystem.Spell;
+using CongTDev.AudioManagement;
 using CongTDev.ObjectPooling;
 using UnityEngine;
 
@@ -21,6 +22,7 @@ namespace CongTDev.TheBoss
             {
                 transform.position = ability.Caster.Owner.HitBox.bounds.center;
             }
+            AudioManager.Play("SmallExplosion");
             for (int i = 0; i < projectileCount; i++)
             {
                 var direction = Random.insideUnitCircle;

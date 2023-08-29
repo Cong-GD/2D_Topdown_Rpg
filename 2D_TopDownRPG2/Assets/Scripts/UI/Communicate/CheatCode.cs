@@ -1,4 +1,5 @@
 ﻿using CongTDev.AbilitySystem;
+using CongTDev.AudioManagement;
 using CongTDev.Communicate;
 using CongTDev.IOSystem;
 using UnityEngine;
@@ -26,6 +27,15 @@ public static class CheatCode
             case "/GetEquipment":
                 GetEquipmentCheat(code[1]);
                 break;
+            case "/Goto":
+                ConfirmPanel.Ask("You are going to teleport", () => GameManager.Instance.ChangeMap(code[1]));
+                break;
+            case "/GetGold":
+                if(int.TryParse(code[1], out var gold))
+                {
+                    ReceiveGold(gold);
+                }
+                break;
         }
     }
 
@@ -44,7 +54,7 @@ public static class CheatCode
     public static void GetRuneCheat(string runeName)
     {
         var path = FileNameData.GetRuneResourcePath(runeName);
-        var rune = Resources.Load<RuneSO>(path);
+        var rune = Resources.Load<Rune>(path);
 
         SendItemToMailBox(rune);
     }
@@ -57,5 +67,17 @@ public static class CheatCode
         {
             SendItemToMailBox(equipment.CreateItem());
         }
+    }
+
+    public static void ReceiveGold(int gold)
+    {
+        ConfirmPanel.Ask($"You have got {gold} gold!", GetGold, GetGold);
+
+        void GetGold()
+        {
+            GameManager.PlayerGold += gold;
+            AudioManager.Play("BuySell");
+        }
+        
     }
 }

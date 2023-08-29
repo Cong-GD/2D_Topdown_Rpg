@@ -12,6 +12,7 @@ namespace CongTDev.AudioManagement
         public const string MASTER_VOLUME = "MasterVolume";
         public const string MUSIC_VOLUME = "MusicVolume";
         public const string SFX_VOLUME = "SFXVolume";
+        public const string UI_VOLUME = "UIVolume";
         private const float MIN_VALUE = 0.0001f;
         private const float MAX_VALUE = 1f;
 
@@ -51,6 +52,17 @@ namespace CongTDev.AudioManagement
             }
         }
 
+        public static float UIVolume
+        {
+            get => Mathf.Clamp(PlayerPrefs.GetFloat(UI_VOLUME, MAX_VALUE), MIN_VALUE, MAX_VALUE);
+            set
+            {
+                value = Mathf.Clamp(value, MIN_VALUE, MAX_VALUE);
+                Mixer.SetFloat(UI_VOLUME, ValueToVolume(value));
+                PlayerPrefs.SetFloat(UI_VOLUME, value);
+            }
+        }
+
         static AudioManager()
         {
             Mixer = Resources.Load<AudioMixer>("Audio/AudioMixer");
@@ -64,10 +76,17 @@ namespace CongTDev.AudioManagement
                 { AudioAsset.MixerGroup.Master, mixerGroups.First((group) => group.name == "Master") },
                 { AudioAsset.MixerGroup.Music, mixerGroups.First((group) => group.name == "Music") },
                 { AudioAsset.MixerGroup.SFX, mixerGroups.First((group) => group.name == "SFX") },
+                { AudioAsset.MixerGroup.UI, mixerGroups.First((group) => group.name == "UI") },
             };
+            LoadVolume();
+        }
 
+        public static void LoadVolume()
+        {
             MasterVolume = MasterVolume;
             MusicVolume = MusicVolume;
+            SFXVolume = SFXVolume;
+            UIVolume = UIVolume;
         }
 
         public static float ValueToVolume(float value)
@@ -82,12 +101,17 @@ namespace CongTDev.AudioManagement
 
         public static PoolingAudioSource Play(string soundName)
         {
-            
-            if (!PoolManager.Get<PoolingAudioSource>(_audioSourcePrefab, out var audioSource))
-                return null;
-
             if (!_audioAssets.TryGetValue(soundName, out AudioAsset audioAsset))
-                return null;
+            {
+                Debug.LogWarning($"Sound \"{soundName}\" does not exits!");
+                return NullSource.Instance;
+            }
+
+            if (!PoolManager.Get<PoolingAudioSource>(_audioSourcePrefab, out var audioSource))
+            {
+                Debug.LogError("Fail to create audio source. Please check your resource floder");
+                return NullSource.Instance;
+            }  
 
             return audioSource.Play(audioAsset.AudioClip, _audioGroups[audioAsset.Mixer]);
         }

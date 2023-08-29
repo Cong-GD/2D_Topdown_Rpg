@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8b0a6e926a2434084847283f691c37, type: 3}
   m_Name: Tutorial armor
   m_EditorClassIdentifier: 
-  <EquipmentName>k__BackingField: Sumamo's staff
+  <EquipmentName>k__BackingField: Tutorial armor
   <EquipSlot>k__BackingField: 1
   <Description>k__BackingField: Tutorial armor
   <Icon>k__BackingField: {fileID: 21300000, guid: 0b4e7b6ae41f81844986df21bf32746b, type: 3}

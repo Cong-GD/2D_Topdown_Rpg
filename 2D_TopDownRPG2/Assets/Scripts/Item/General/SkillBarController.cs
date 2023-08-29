@@ -1,13 +1,10 @@
-using CongTDev.AbilitySystem;
 using CongTDev.EventManagers;
 using CongTDev.IOSystem;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 public class SkillBarController : MonoBehaviour
 {
-    private const string fileName = "SkillSets";
+    private const string FILE_NAME = "SkillSet";
 
     [SerializeField] private SkillSet skillSet1;
 
@@ -37,16 +34,23 @@ public class SkillBarController : MonoBehaviour
 
     private void SaveController()
     {
-        Directory.CreateDirectory(fileName);
-        SaveLoadHandler.SaveToFile(fileName + "SkillSet1", skillSet1);
-        //SaveLoadHandler.SaveToFile(fileName + "SkillSet2", skillSet2);
+        SaveLoadHandler.SaveToFile(FILE_NAME, skillSet1);
+        ////SaveLoadHandler.SaveToFile(fileName + "SkillSet2", skillSet2);
     }
 
     private void LoadController()
     {
-        var serializedSkilSet1 = (SkillSet.SerializedSkillSet)SaveLoadHandler.LoadFromFile(fileName + "SkillSet1");
-        //var serializedSkilSet2 = (SkillSet.SerializedSkillSet)SaveLoadHandler.LoadFromFile(fileName + "SkillSet2");
-        serializedSkilSet1.Load(skillSet1);
-        //serializedSkilSet2.Load(skillSet2);
+        try
+        {
+            var serializedSkilSet1 = (SkillSet.SerializedSkillSet)SaveLoadHandler.LoadFromFile(FILE_NAME);
+            //var serializedSkilSet2 = (SkillSet.SerializedSkillSet)SaveLoadHandler.LoadFromFile(fileName + "SkillSet2");
+            serializedSkilSet1.Load(skillSet1);
+            //serializedSkilSet2.Load(skillSet2);
+        }
+        catch
+        {
+            skillSet1.SetToDefaultValue();
+        }
+
     }
 }

@@ -7,5 +7,7 @@ namespace CongTDev.AbilitySystem.Spell
     {
         void KickOff(OrientationAbility ability, Vector2 direction);
     }
+
+
 }
 

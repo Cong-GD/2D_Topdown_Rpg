@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9494ceb600e8b49bb6ef5ea3f5ae64, type: 3}
+  m_Name: ExplosionAreaDamage
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Explosion Your Self
+  <Description>k__BackingField: Make an explosion at your position and deal damage
+    to all enemy around.
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1b81c1b6c0d9c6e4da5d4ed1373a2884, type: 3}
+  <AbilityIcon>k__BackingField: {fileID: -2059376221, guid: a8a95429c3a917b46875eda4cb18a2f1, type: 3}
+  <Rarity>k__BackingField: 3
+  <LearnCost>k__BackingField: 700
+  <TargetType>k__BackingField: 1
+  <BaseCastDelay>k__BackingField: 0.2
+  <BaseManaConsume>k__BackingField: 150
+  <BaseCooldown>k__BackingField: 15
+  <MaxUseRange>k__BackingField: 10
+  effectsApplyToTarget:
+  - {fileID: 11400000, guid: f0e9fe43013cc4c48a8c44b6075c2b6f, type: 2}
+  <SpellReleaseWhenUse>k__BackingField: {fileID: 6555834432224868396, guid: 22f8e1d9f4f4a0248a10f4a79ef9f7ed, type: 3}

@@ -38,9 +38,16 @@ namespace CongTDev.IOSystem
             {
                 return null;
             }
-
-            string json = File.ReadAllText(path);
-            return JsonUtility.FromJson<T>(json);
+            try
+            {
+                string json = File.ReadAllText(path);
+                return JsonUtility.FromJson<T>(json);
+            }
+            catch
+            {
+                return null;
+            }
+            
         }
     }
 

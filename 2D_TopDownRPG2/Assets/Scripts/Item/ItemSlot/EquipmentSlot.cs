@@ -1,4 +1,5 @@
-﻿using CongTDev.EventManagers;
+﻿using CongTDev.AudioManagement;
+using CongTDev.EventManagers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,8 @@ public class EquipmentSlot : ItemSlot<Equipment>
     {
         base.OnItemGetIn(item);
         item.Equip(PlayerController.Instance.Combat);
-        if(background != null)
+        AudioManager.Play("Equip");
+        if (background != null)
         {
             background.enabled = false;
         }   
@@ -27,6 +29,7 @@ public class EquipmentSlot : ItemSlot<Equipment>
     {
         base.OnItemGetOut(item);
         item.Unequip();
+        AudioManager.Play("Unequip");
         if (background != null)
         {
             background.enabled = true;
@@ -35,6 +38,7 @@ public class EquipmentSlot : ItemSlot<Equipment>
 
     protected override void OnSlotRightCliked()
     {
+        base.OnSlotRightCliked();
         EventManager<IItemSlot>.RaiseEvent(Inventory.TRY_ADD_ITEM_TO_INVENTROY, this);
     }
 }

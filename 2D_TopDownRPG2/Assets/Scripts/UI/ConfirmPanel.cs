@@ -2,38 +2,59 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class ConfirmPanel : GlobalReference<ConfirmPanel>
+public class ConfirmPanel : MonoBehaviour
 {
+    private static Action<string, Action, Action> _instanceCallback;
+
+    public static void Ask(string message, Action yesAction = null, Action noAction = null)
+    {
+        if(_instanceCallback != null)
+        {
+            _instanceCallback.Invoke(message, yesAction, noAction);
+        }
+        else
+        {
+            yesAction?.Invoke();
+        }
+    }
+
     [SerializeField] private TextMeshProUGUI messageText;
 
-    private Action yesAction;
+    private Action _yesAction;
 
-    private Action noAction;
+    private Action _noAction;
 
-    public void AskForComfirm(Action yesAction, Action noAction, string message)
+    private void Awake()
+    {
+        _instanceCallback = AskForConfirmInternal;
+    }
+
+    private void AskForConfirmInternal(string message, Action yesAction, Action noAction)
     {
         gameObject.SetActive(true);
         messageText.text = message;
-        this.yesAction = yesAction;
-        this.noAction = noAction;
+        this._yesAction = yesAction;
+        this._noAction = noAction;
+        Time.timeScale = 0f;
+        InputCentral.Disable();
     }
 
     public void YesButtonClicked()
     {
-        yesAction?.Invoke();
         Cancel();
+        _yesAction?.Invoke();
     }
 
     public void NoButtonClicked()
     {
-        noAction?.Invoke();
         Cancel();
+        _noAction?.Invoke();
     }
 
     public void Cancel()
     {
-        yesAction = null;
-        noAction = null;
+        Time.timeScale = 1f;
+        InputCentral.Enable();
         gameObject.SetActive(false);
     }
 }

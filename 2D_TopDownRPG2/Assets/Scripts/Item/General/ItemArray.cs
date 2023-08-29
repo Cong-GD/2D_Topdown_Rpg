@@ -1,5 +1,7 @@
 ﻿using CongTDev.IOSystem;
+using System;
 
+[Serializable]
 public class ItemArray : SerializedObject, ISerializable
 {
     private static readonly ItemArray instance = new();
@@ -10,19 +12,20 @@ public class ItemArray : SerializedObject, ISerializable
         return instance;
     }
 
+    [NonSerialized]
     public IItem[] items;
 
-    public JsonWrapper[] itemWrapper;
+    public string[] wrappedJson;
 
     public override object Deserialize()
     {
-        if(itemWrapper == null)
+        if(wrappedJson == null)
             return null;
 
-        items = new IItem[itemWrapper.Length];
-        for(int i = 0; i < itemWrapper.Length; i++)
+        items = new IItem[wrappedJson.Length];
+        for(int i = 0; i < wrappedJson.Length; i++)
         {
-            items[i] = (IItem)itemWrapper[i].ToObject();
+            items[i] = (IItem)JsonHelper.WrappedJsonToObject(wrappedJson[i]);
         }
         return this;
     }
@@ -34,10 +37,10 @@ public class ItemArray : SerializedObject, ISerializable
         if(items == null) 
             return SerializedNullObject.intance;
 
-        itemWrapper = new JsonWrapper[items.Length];
+        wrappedJson = new string[items.Length];
         for (int i = 0; i < items.Length; i++)
         {
-            itemWrapper[i] = items[i].ToJsonWrapper();
+            wrappedJson[i] = items[i].ToWrappedJson();
         }
         return this;
     }

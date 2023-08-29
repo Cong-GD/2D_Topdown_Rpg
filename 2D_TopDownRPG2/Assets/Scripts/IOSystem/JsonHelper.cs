@@ -17,7 +17,7 @@ namespace CongTDev.IOSystem
             { SerializedType.OrientationAbility, typeof(OrientationAbility.SerializedOrientationAbility) },
             { SerializedType.EquipmentManager, typeof(EquipmentManager.SerializedEquipmentManager) },
             { SerializedType.SkillSet, typeof(SkillSet.SerializedSkillSet) },
-            { SerializedType.SeflActiveAbility, typeof(SeflActiveAbility.SerializedSeflActiveAbility) },
+            { SerializedType.SeflActiveAbility, typeof(SelfActiveAbility.SerializedSeflActiveAbility) },
             { SerializedType.TargetingAbility, typeof(TargetingAbility.SerializedTargetingAbility) },
             { SerializedType.ConsumableItem, typeof(ConsumableItem.SerializedConsumableItem) },
             { SerializedType.ItemArray, typeof(ItemArray) },

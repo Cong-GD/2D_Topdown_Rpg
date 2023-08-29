@@ -36,9 +36,10 @@ public static class ColorHelper
     public static Color GetItemTypeColor(this IItem item)
         => item.ItemType switch
         {
-            RuneSO.ITEM_TYPE => data.rune,
+            Rune.ITEM_TYPE => data.rune,
             Equipment.ITEM_TYPE => data.equipment,
             IAbility.ITEM_TYPE => data.ability,
+            ConsumableItem.ITEM_TYPE => data.comsumable,
             _ => Color.white
         };
 

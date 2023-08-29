@@ -71,7 +71,7 @@ namespace CongTDev.TheBoss
                 if (PoolManager.Get<MonstersController>(monionPrefab, out var minion))
                 {
                     minion.transform.position = spawnPosition;
-                    minion.Initialize(statData);
+                    minion.Initialize(statData, PlayerLevelSystem.CurrentLevel);
                 }
             }
         }

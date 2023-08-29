@@ -1,4 +1,5 @@
 ﻿using CongTDev.AbilitySystem;
+using CongTDev.AudioManagement;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace CongTDev.TheBoss
         [Serializable]
         public class AbilityHandler
         {
-            public ActiveRuneSO rune;
+            public ActiveRune rune;
             public float prefixWait;
             public float suffixWait;
             public string animationName;
@@ -72,6 +73,11 @@ namespace CongTDev.TheBoss
         private IEnumerator PreStartCombat()
         {
             abilityCaster.Owner.Stats.SetStatBase(bossStats);
+            var levelModifiers = bossStats.growStat.GetGrowingStat(PlayerLevelSystem.CurrentLevel);
+            foreach( var modifier in levelModifiers )
+            {
+                abilityCaster.Owner.Stats.ApplyModifier(modifier.Key, modifier.Value);
+            }
             animator.Play("Unimmune");
             while (!abilityCaster.Owner.Health.IsFull)
             {
@@ -94,6 +100,8 @@ namespace CongTDev.TheBoss
         }
         private IEnumerator State2()
         {
+            var defenceBuff = new StatModifier(100, StatModifier.BonusType.Flat);
+            abilityCaster.Owner.Stats.ApplyModifier(Stat.Defence, defenceBuff);
             _allowAbilityUseTime = Time.time;
             _currentNode = 0;
             while (!IsDead())
@@ -105,8 +113,9 @@ namespace CongTDev.TheBoss
 
         private IEnumerator EndCombat()
         {
+            AudioManager.Play("BossDeath");
+            yield return 1.5f.Wait();
             animator.Play("Death");
-            yield return 2f.Wait();
         }
 
         private void InitAbilities()

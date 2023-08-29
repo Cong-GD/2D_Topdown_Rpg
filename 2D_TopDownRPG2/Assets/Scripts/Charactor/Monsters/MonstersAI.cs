@@ -68,7 +68,7 @@ public class MonstersAI : SeekerMovingAI
         StartPosition = transform.position;
         _wasTakenHit = false;
         float walkTime = 0;
-        yield return 1f.Wait();
+        yield return 0.3f.Wait();
         while (IsAlive())
         {
             var distanceToPlayer = Vector2.Distance(transform.position, PlayerPosition);

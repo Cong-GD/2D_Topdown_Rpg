@@ -1,3 +1,4 @@
+using CongTDev.AudioManagement;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -23,6 +24,7 @@ public class Door : MonoBehaviour
         {
             OpenDoor();
         }
+        AudioManager.Play("DoorOpenClose");
     }
 
     public void CloseDoor()

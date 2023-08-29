@@ -104,6 +104,8 @@ MonoBehaviour:
   rb2d: {fileID: 3893537305235573492}
   moveSpeed: 7
   lifeTime: 2.5
+  soundPlayWhenStart: PoisonMagicStart
+  soundPlayWhenHit: PoisonMagicHit
   explosionPrefab: {fileID: 4145007646324353331, guid: b8afb05c5be27c04999824d27c854557, type: 3}
   explosionRange: 0.5
   friendlyHit: 0

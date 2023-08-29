@@ -1,4 +1,4 @@
-
+using CongTDev.AudioManagement;
 using CongTDev.EventManagers;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,13 +19,21 @@ public abstract class ItemSlot<T> : MonoBehaviour, IItemSlot, IPointerEnterHandl
     protected virtual void OnItemGetIn(T item)
     {
         item.OnDestroy += ClearSlot;
-        iconUI.gameObject.SetActive(true);
-        iconUI.sprite = Item.Icon;
+
+        if(HasIconUI)
+        {
+            iconUI.gameObject.SetActive(true);
+            iconUI.sprite = Item.Icon;
+        }
+        
     }
     protected virtual void OnItemGetOut(T item)
     {
         item.OnDestroy -= ClearSlot;
-        iconUI.gameObject.SetActive(false);
+        if (HasIconUI)
+        {
+            iconUI.gameObject.SetActive(false);
+        }
     }
     protected virtual void OnSlotRightCliked()
     {
@@ -45,15 +53,15 @@ public abstract class ItemSlot<T> : MonoBehaviour, IItemSlot, IPointerEnterHandl
     {
         if (!IsSlotEmpty)
         {
-            OnItemGetOut(Item);
             IsSlotEmpty = true;
+            OnItemGetOut(Item);
         }
         var oldItem = Item;
         Item = item as T;
         if (Item is not null)
         {
-            OnItemGetIn(Item);
             IsSlotEmpty = false;
+            OnItemGetIn(Item);
         }
         return oldItem;
     }
@@ -99,6 +107,7 @@ public abstract class ItemSlot<T> : MonoBehaviour, IItemSlot, IPointerEnterHandl
     public virtual void OnEndDrag(PointerEventData eventData)
     {
         EventManager<IItemSlot>.RaiseEvent("OnSlotEndDrag", this);
+
         if (!IsSlotEmpty)
         {
             iconUI.gameObject.SetActive(true);
@@ -107,6 +116,7 @@ public abstract class ItemSlot<T> : MonoBehaviour, IItemSlot, IPointerEnterHandl
 
     public virtual void OnPointerClick(PointerEventData eventData)
     {
+        AudioManager.Play("ItemSlotClick");
         if (IsSlotEmpty)
             return;
 

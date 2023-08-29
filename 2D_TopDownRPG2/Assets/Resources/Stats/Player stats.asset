@@ -25,5 +25,5 @@ MonoBehaviour:
   growStat:
     Health: 200
     Mana: 100
-    AttackPower: 30
+    AttackPower: 25
     Defence: 10

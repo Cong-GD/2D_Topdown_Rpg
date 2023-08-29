@@ -152,6 +152,8 @@ MonoBehaviour:
   rb2d: {fileID: 1159646268299245157}
   moveSpeed: 10
   lifeTime: 4
+  soundPlayWhenStart: FireBallStart
+  soundPlayWhenHit: 
   explosionPrefab: {fileID: 6615159250939099705, guid: 745c8da999c8e334089869e747dcc131, type: 3}
   explosionRange: 0.49
   friendlyHit: 0

@@ -67,6 +67,15 @@ namespace CongTDev.Communicate
             return messageUI;
         }
 
+        public void OnSelected()
+        {
+            InputCentral.Disable();
+        }
+        public void OnDeselected()
+        {
+            InputCentral.Enable();
+        }
+
         private void TrimMessage(int newSize)
         {
             if (newSize < 0)

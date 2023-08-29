@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using CongTDev.EventManagers;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -7,7 +8,20 @@ namespace CongTDev.IOSystem
     public static class FileNameData
     {
         public readonly static string SavePath = Application.persistentDataPath;
-        public static string CurrentUser { get; private set; } = "Test";
+
+        private static string _currentUser = "Test";
+        public static string CurrentUser
+        {
+            get => _currentUser;
+            set
+            {
+                if (!IsThisUserExits(value))
+                {
+                    AddUser(value);
+                }
+                _currentUser = value;
+            }
+        }
 
         public static void SetUser(string username)
         {
@@ -52,6 +66,12 @@ namespace CongTDev.IOSystem
                 return false;
 
             return Directory.GetFiles(path).Any();
+        }
+
+        public static bool IsThisUserExits(string username)
+        {
+            string path = Path.Combine(SavePath, username);
+            return Directory.Exists(path);
         }
 
 

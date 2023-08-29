@@ -3,6 +3,7 @@ using CongTDev.IOSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
@@ -13,6 +14,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform contentCanvas;
     [SerializeField] private InventorySlot itemSlotPrefabs;
     [SerializeField] private List<BaseItemFactory> defaultIntialItems;
+    [SerializeField] private OptionBox optionBox;
+    [SerializeField] private TextMeshProUGUI goldText;
 
     private readonly List<InventorySlot> slots = new();
 
@@ -20,8 +23,20 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        LoadInventory();
+        InventorySlot.SetOptionBox(optionBox);
         SubscribeEvents();
+    }
+
+    private void OnEnable()
+    {
+        UpdateGoldValue();
+        GameManager.OnGoldChange += UpdateGoldValue;
+    }
+
+    private void OnDisable()
+    {
+        optionBox.Disable();
+        GameManager.OnGoldChange -= UpdateGoldValue;
     }
 
     private void OnDestroy()
@@ -62,7 +77,10 @@ public class Inventory : MonoBehaviour
 
         InventorySlot emptySlot = GetEmptySlot();
         if (emptySlot == null)
+        {
+            ConfirmPanel.Ask("Your inventory is full now!");
             return;
+        }
 
         IItemSlot.Swap(sourceSlot, emptySlot);
     }
@@ -107,6 +125,11 @@ public class Inventory : MonoBehaviour
             slots.RemoveAt(lastIndex);
             Destroy(lastSLot.gameObject);
         }
+    }
+
+    private void UpdateGoldValue()
+    {
+        goldText.text = $"Gold : {GameManager.PlayerGold}";
     }
 
     private void InitDefault()

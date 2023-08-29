@@ -14,6 +14,7 @@ public class ColorData : ScriptableObject
     public Color rune;
     public Color ability;
     public Color equipment;
+    public Color comsumable;
     [Space]
     [Header("Damage feedback text color")]
     public Color physicsDamageFeedBackText;

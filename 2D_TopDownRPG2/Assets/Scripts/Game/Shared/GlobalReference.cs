@@ -7,7 +7,7 @@ public class GlobalReference<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if( _reference == null)
+            if(!IsValidInstance())
             {
                 _reference = FindAnyObjectByType<T>();
             }
@@ -15,9 +15,14 @@ public class GlobalReference<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
+    public static bool IsValidInstance()
+    {
+        return _reference != null;
+    }
+
     protected virtual void Awake()
     {
-        if(_reference != null && !ReferenceEquals(_reference, this))
+        if(IsValidInstance() && !ReferenceEquals(_reference, this))
             Destroy(gameObject);
         else
         {

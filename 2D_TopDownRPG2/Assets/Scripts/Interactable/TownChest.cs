@@ -37,11 +37,6 @@ public class TownChest : BaseInteractable
         EventManager.AddListener("OnGameLoad", LoadStogare);
     }
 
-    private void Start()
-    {
-        LoadStogare();
-    }
-
     private void OnDestroy()
     {
         EventManager.RemoveListener("OnGameSave", SaveStogare);
@@ -85,7 +80,7 @@ public class TownChest : BaseInteractable
         chestStogare.gameObject.SetActive(IsOpening);
         if (IsOpening)
         {
-            chestStogare.ShowItem(_items);
+            chestStogare.ShowItems(_items);
         }
     }
 

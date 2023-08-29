@@ -8,6 +8,7 @@ namespace CongTDev.AudioManagement
         [SerializeField] private Slider masterSlider;
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider sfxSlider;
+        [SerializeField] private Slider uiSlider;
 
         private void OnEnable()
         {
@@ -26,6 +27,11 @@ namespace CongTDev.AudioManagement
                 sfxSlider.value = AudioManager.SFXVolume;
                 sfxSlider.onValueChanged.AddListener(OnSFXSliderChange);
             }
+            if (uiSlider != null)
+            {
+                uiSlider.value = AudioManager.UIVolume;
+                uiSlider.onValueChanged.AddListener(OnUIliderChange);
+            }
         }
 
         private void OnDisable()
@@ -42,6 +48,10 @@ namespace CongTDev.AudioManagement
             {
                 sfxSlider.onValueChanged.RemoveListener(OnSFXSliderChange);
             }
+            if (uiSlider != null)
+            {
+                uiSlider.onValueChanged.RemoveListener(OnUIliderChange);
+            }
         }
 
         public void OnMasterSliderChange(float value)
@@ -57,6 +67,10 @@ namespace CongTDev.AudioManagement
         public void OnSFXSliderChange(float value)
         {
             AudioManager.SFXVolume = value;
+        }
+        public void OnUIliderChange(float value)
+        {
+            AudioManager.UIVolume = value;
         }
     }
 }

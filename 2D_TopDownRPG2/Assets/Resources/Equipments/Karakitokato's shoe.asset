@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf8b0a6e926a2434084847283f691c37, type: 3}
   m_Name: Karakitokato's shoe
   m_EditorClassIdentifier: 
-  <EquipmentName>k__BackingField: Wood staff
+  <EquipmentName>k__BackingField: Karakitokato's shoe
   <EquipSlot>k__BackingField: 2
   <Description>k__BackingField: Shoe of Karakitokato. It's super fast!
   <Icon>k__BackingField: {fileID: 21300000, guid: 867030f363eb7a84caaef68c6a2538bd, type: 3}

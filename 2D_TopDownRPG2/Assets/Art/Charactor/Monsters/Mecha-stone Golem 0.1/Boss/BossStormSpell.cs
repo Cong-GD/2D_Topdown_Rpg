@@ -1,5 +1,6 @@
 ﻿using CongTDev.AbilitySystem;
 using CongTDev.AbilitySystem.Spell;
+using CongTDev.AudioManagement;
 using CongTDev.ObjectPooling;
 using System.Collections;
 using UnityEngine;
@@ -37,9 +38,10 @@ public class BossStormSpell : PoolObject, ISpell
         StartCoroutine(DamageCoroutine());
         while(Time.time < _endTime)
         {
+            AudioManager.Play("Storm").SetVolume(0.55f);
             var direction = (_target.Position - (Vector2)transform.position).normalized;
             rb2d.velocity = direction * speed;
-            yield return 1f.Wait();
+            yield return 0.5f.Wait();
         }
         ReturnToPool();
     }

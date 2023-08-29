@@ -1,15 +1,16 @@
 ﻿using CongTDev.IOSystem;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace CongTDev.AbilitySystem
 {
-    public class PassiveAbility : Ability<PassiveRuneSO>, IPassiveAbility
+    public class PassiveAbility : Ability<PassiveRune>, IPassiveAbility
     {
         private List<IEffect> _appliedEffect;
         private bool _isInstalled;
 
-        public PassiveAbility(PassiveRuneSO rune) : base(rune)
+        public PassiveAbility(PassiveRune rune) : base(rune)
         {
             AddSubType("Passive Ability");
             AddSubTypeByEffects(rune.EffectsApplyWhenEquip);
@@ -17,7 +18,13 @@ namespace CongTDev.AbilitySystem
 
         public override string GetDescription()
         {
-            return Rune.GetDescription();
+            var description = new StringBuilder();
+            description.AppendLine(Rune.Description);
+            foreach (var effect in Rune.EffectsApplyWhenEquip)
+            {
+                description.AppendLine(effect.EffectInfo.DesriptionWithColor);
+            }
+            return description.ToString();
         }
 
         public override void Install(AbilityCaster caster)
@@ -66,7 +73,7 @@ namespace CongTDev.AbilitySystem
 
             public override object Deserialize()
             {
-                PassiveRuneSO rune = (PassiveRuneSO)JsonHelper.WrappedJsonToObject(runeJson);
+                PassiveRune rune = (PassiveRune)JsonHelper.WrappedJsonToObject(runeJson);
                 return new PassiveAbility(rune);
             }
 

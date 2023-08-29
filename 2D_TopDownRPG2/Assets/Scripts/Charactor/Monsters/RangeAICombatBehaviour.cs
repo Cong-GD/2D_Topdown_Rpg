@@ -5,14 +5,14 @@ using UnityEngine;
 public class RangeAICombatBehaviour : BaseAICombatBehaviour
 {
     [Header("Range control fields")]
-    [SerializeField] protected ActiveRuneSO activeRuneSO;
+    [SerializeField] protected ActiveRune activeRuneSO;
     [SerializeField] protected float movingRange;
     [SerializeField] protected float movingAngle;
     [SerializeField] protected float aimTime;
     [SerializeField] protected float combatExitTime;
 
     [Header("Secondary ability")]
-    [SerializeField] private OrientationRuneSO damageZoneRune;
+    [SerializeField] private OrientationRune damageZoneRune;
     [SerializeField] private float secondAbilityStartUseTime;
     [Min(0.1f)]
     [SerializeField] protected float secondAbilityCheckInterval;

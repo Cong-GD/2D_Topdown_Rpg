@@ -16,7 +16,7 @@ namespace CongTDev.ObjectPooling
 
         [SerializeField] private List<PoolInfo> poolInfos;
 
-        private void Awake()
+        private void Start()
         {
             foreach (var poolInfo in poolInfos)
             {

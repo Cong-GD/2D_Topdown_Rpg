@@ -1,14 +1,15 @@
 ﻿using CongTDev.IOSystem;
 using CongTDev.ObjectPooling;
+using System.Text;
 using UnityEngine;
 
 namespace CongTDev.AbilitySystem
 {
-    public class TargetingAbility : ActiveAbility<TargetingRuneSO>
+    public class TargetingAbility : ActiveAbility<TargetingRune>
     {
         private Fighter _choosedTarget;
 
-        public TargetingAbility(TargetingRuneSO rune) : base(rune)
+        public TargetingAbility(TargetingRune rune) : base(rune)
         {
             AddSubType("Targeting");
             AddSubTypeByEffects(rune.EffectsApplyToTarget);
@@ -77,7 +78,16 @@ namespace CongTDev.AbilitySystem
 
         public override string GetDescription()
         {
-            return Rune.GetDescription();
+            var description = new StringBuilder();
+            description.AppendLine($"Mana consume: {Rune.BaseManaConsume}");
+            description.AppendLine($"Cast delay: {Rune.BaseCastDelay}");
+            description.AppendLine($"Cooldown: {Rune.BaseCooldown}");
+            description.AppendLine(Rune.Description);
+            foreach (var effect in Rune.EffectsApplyToTarget)
+            {
+                description.AppendLine(effect.EffectInfo.DesriptionWithColor);
+            }
+            return description.ToString();
         }
 
         #region IOSystem
@@ -97,7 +107,7 @@ namespace CongTDev.AbilitySystem
             }
             public override object Deserialize()
             {
-                var rune = (TargetingRuneSO)JsonHelper.WrappedJsonToObject(runeJson);
+                var rune = (TargetingRune)JsonHelper.WrappedJsonToObject(runeJson);
                 return new TargetingAbility(rune);
             }
 

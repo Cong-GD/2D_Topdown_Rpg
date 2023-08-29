@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace CongTDev.AbilitySystem
 {
-    public abstract class ActiveAbility<T> : Ability<T>, IActiveAbility where T : ActiveRuneSO
+    public abstract class ActiveAbility<T> : Ability<T>, IActiveAbility where T : ActiveRune
     {
         public float NextUseTime { get; protected set; } = Mathf.NegativeInfinity;
         public float CastDelay => Rune.BaseCastDelay;

@@ -13,13 +13,13 @@ public class StageIndicate : MonoBehaviour
     {
         gameObject.SetActive(true);
         stageText.text = startText;
-        anim.Play("StateStart");
+        anim.Play("StageStart");
     }
 
     public void IndicateStageEnd()
     {
         gameObject.SetActive(true);
         stageText.text = endText;
-        anim.Play("StateEnd");
+        anim.Play("StageEnd");
     }
 }

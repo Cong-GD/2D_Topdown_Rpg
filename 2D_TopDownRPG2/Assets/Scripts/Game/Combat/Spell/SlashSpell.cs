@@ -1,3 +1,4 @@
+using CongTDev.AudioManagement;
 using CongTDev.ObjectPooling;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace CongTDev.AbilitySystem.Spell
             transform.Translate((isLookingRight ? Vector2.right : Vector2.left) * _distance);
             
             render.flipX = !isLookingRight;
+            AudioManager.Play("Slash");
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

@@ -13,7 +13,6 @@ public class Fighter : MonoBehaviour
     public readonly ResourceBlock Health = new();
     public readonly ResourceBlock Mana = new();
     public readonly CharactorStat Stats = new();
-    public readonly ControlState StateOfControl = new();
 
     public enum Team
     {
@@ -94,7 +93,7 @@ public class Fighter : MonoBehaviour
         }
         damageBlock.Target.OnTakeDamage?.Invoke(damageBlock);
         Health.Draw(damageBlock.CurrentDamage);
-        DamageFeedback.Instance.DisplayDamageFeedback(damageBlock);
+        DamageFeedback.Display(damageBlock);
     }
 
     public void InstanciateFromStatsData(BaseStatData baseData)

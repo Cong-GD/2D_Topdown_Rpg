@@ -1,7 +1,7 @@
 ﻿using CongTDev.AbilitySystem;
 using CongTDev.EventManagers;
 using CongTDev.IOSystem;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,9 +10,8 @@ public class SkillSet : MonoBehaviour, ISerializable
     [SerializeField] private ActiveAbilitySlot[] activeAbilitySlots;
     [SerializeField] private ConsumableSlot consumableSlotX;
     [SerializeField] private ConsumableSlot consumableSlotC;
-    [SerializeField] private List<ActiveRuneSO> defaultAbility;
     [SerializeField] private ActiveAbilitySlot basicAbilitySlot;
-    [SerializeField] private ActiveRuneSO basicAbilityRune;
+    [SerializeField] private ActiveRune basicAbilityRune;
 
     private void OnEnable()
     {
@@ -25,10 +24,39 @@ public class SkillSet : MonoBehaviour, ISerializable
 
     private void Start()
     {
-        basicAbilitySlot.TryPushItem(basicAbilityRune.CreateItem(), out _);
-        AcquipDefaultAbility();
+        basicAbilitySlot.PushItem(basicAbilityRune.CreateItem());
     }
 
+    
+
+    private void SubscribeEvents()
+    {
+        EventManager<IItemSlot>.AddListener("TryEquipActiveAbility", AcquipAbility);
+        var abilityInput = InputCentral.InputActions.PlayerAbilityTrigger;
+        abilityInput.BasicAttack.performed += UseAbility0;
+        abilityInput.Ability1.performed += UseAbility1;
+        abilityInput.Ability2.performed += UseAbility2;
+        abilityInput.Ability3.performed += UseAbility3;
+        abilityInput.Ability4.performed += UseAbility4;
+        abilityInput.Ability5.performed += UseAbility5;
+        abilityInput.Consum1.performed += UseConsumX;
+        abilityInput.Consum2.performed += UseConsumC;
+    }
+
+
+    private void UnsubscribeEvents()
+    {
+        EventManager<IItemSlot>.RemoveListener("TryEquipActiveAbility", AcquipAbility);
+        var abilityInput = InputCentral.InputActions.PlayerAbilityTrigger;
+        abilityInput.BasicAttack.performed -= UseAbility0;
+        abilityInput.Ability1.performed -= UseAbility1;
+        abilityInput.Ability2.performed -= UseAbility2;
+        abilityInput.Ability3.performed -= UseAbility3;
+        abilityInput.Ability4.performed -= UseAbility4;
+        abilityInput.Ability5.performed -= UseAbility5;
+        abilityInput.Consum1.performed -= UseConsumX;
+        abilityInput.Consum2.performed -= UseConsumC;
+    }
     private void UseAbility0(InputAction.CallbackContext context)
     {
         basicAbilitySlot.TryUseSlotAbility();
@@ -56,28 +84,14 @@ public class SkillSet : MonoBehaviour, ISerializable
         activeAbilitySlots[4].TryUseSlotAbility();
     }
 
-    private void SubscribeEvents()
+    private void UseConsumX(InputAction.CallbackContext context)
     {
-        EventManager<IItemSlot>.AddListener("TryEquipActiveAbility", AcquipAbility);
-        var abilityInput = InputCentral.InputActions.PlayerAbilityTrigger;
-        abilityInput.BasicAttack.performed += UseAbility0;
-        abilityInput.Ability1.performed += UseAbility1;
-        abilityInput.Ability2.performed += UseAbility2;
-        abilityInput.Ability3.performed += UseAbility3;
-        abilityInput.Ability4.performed += UseAbility4;
-        abilityInput.Ability5.performed += UseAbility5;
+        consumableSlotX.UseItem();
     }
 
-    private void UnsubscribeEvents()
+    private void UseConsumC(InputAction.CallbackContext context)
     {
-        EventManager<IItemSlot>.RemoveListener("TryEquipActiveAbility", AcquipAbility);
-        var abilityInput = InputCentral.InputActions.PlayerAbilityTrigger;
-        abilityInput.BasicAttack.performed -= UseAbility0;
-        abilityInput.Ability1.performed -= UseAbility1;
-        abilityInput.Ability2.performed -= UseAbility2;
-        abilityInput.Ability3.performed -= UseAbility3;
-        abilityInput.Ability4.performed -= UseAbility4;
-        abilityInput.Ability5.performed -= UseAbility5;
+       consumableSlotC.UseItem();
     }
 
     private void AcquipAbility(IItemSlot inventorySlot)
@@ -94,18 +108,11 @@ public class SkillSet : MonoBehaviour, ISerializable
         }
     }
 
-    private void AcquipDefaultAbility()
+    public void SetToDefaultValue()
     {
-        foreach (var rune in defaultAbility)
+        foreach (var abilitySlot in activeAbilitySlots)
         {
-            foreach (var abilitySlot in activeAbilitySlots)
-            {
-                if (abilitySlot.IsSlotEmpty)
-                {
-                    abilitySlot.TryPushItem(rune.CreateItem(), out _);
-                    break;
-                }
-            }
+            abilitySlot.PushItem(null);
         }
     }
 

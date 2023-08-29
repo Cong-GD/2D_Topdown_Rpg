@@ -11,67 +11,87 @@ namespace CongTDev.AudioManagement
         [SerializeField] private AudioSource audioSource;
 
         private Func<bool> _predicate;
+        private Action _onComplete;
+        private Coroutine _checkingCoroutine;
 
-        private Action _onEndPlaying;
+        public virtual bool IsPlaying => audioSource.isPlaying;
 
-        private void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
-            if (!audioSource.isPlaying)
+            if (!IsPlaying)
             {
                 Stop();
             }
         }
 
-        public PoolingAudioSource Play(AudioClip audioClip, AudioMixerGroup mixerGroup = null)
+        public virtual PoolingAudioSource Play(AudioClip audioClip, AudioMixerGroup mixerGroup = null)
         {
             _predicate = null;
-            _onEndPlaying = null;
+            _onComplete = null;
             audioSource.outputAudioMixerGroup = mixerGroup;
             audioSource.clip = audioClip;
-            audioSource.loop = false;
             audioSource.Play();
             return this;
         }
 
-        public PoolingAudioSource While(Func<bool> predicate)
+        public virtual PoolingAudioSource SetVolume(float volume)
+        {
+            volume = Mathf.Clamp01(volume);
+            audioSource.volume = volume;
+            _onComplete += () => audioSource.volume = 1f;
+            return this;
+        }
+
+        public virtual PoolingAudioSource While(Func<bool> predicate)
         {
             if (predicate == null)
                 return this;
 
+            StopCoroutine();
             audioSource.loop = true;
+            _onComplete += () => audioSource.loop = false;
             _predicate = predicate;
-            StopAllCoroutines();
-            StartCoroutine(StopLoopCoroutine());
+            _checkingCoroutine = StartCoroutine(CheckingCoroutine());
             return this;
         }
 
-        public PoolingAudioSource WhileTrue()
+        public virtual PoolingAudioSource WhileTrue()
         {
             audioSource.loop = true;
-            StopAllCoroutines();
+            _onComplete += () => audioSource.loop = false;
+            StopCoroutine();
             return this;
         }
 
-        public PoolingAudioSource OnEndPlay(Action onEndPlaying)
+        public virtual PoolingAudioSource OnComplete(Action onComplete)
         {
-            _onEndPlaying = onEndPlaying;
+            _onComplete += onComplete;
             return this;
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             ReturnToPool();
-            _onEndPlaying?.Invoke();
-            _onEndPlaying = null;
+            _onComplete?.Invoke();
+            _onComplete = null;
         }
 
-        private IEnumerator StopLoopCoroutine()
+        private IEnumerator CheckingCoroutine()
         {
             while (_predicate != null && _predicate())
             {
                 yield return null;
             }
             Stop();
+        }
+
+        private void StopCoroutine()
+        {
+            if (_checkingCoroutine != null)
+            {
+                StopCoroutine(_checkingCoroutine);
+                _checkingCoroutine = null;
+            }
         }
     }
 }

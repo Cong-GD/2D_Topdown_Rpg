@@ -6,29 +6,27 @@ using System.Threading.Tasks;
 
 namespace CongTDev.EventManagers
 {
-    public sealed class CheckBox
+    public sealed class CheckBox : ObjectHolder<bool>
     {
-        private bool _checked;
-
         public CheckBox() 
         {
-            _checked = false;
+            value = false;
         }
         public void Check()
         {
-            _checked = true;
+            value = true;
         }
 
         public void Uncheck()
         {
-            _checked = false;
+            value = false;
         }
 
         public void ClearContext()
         {
-            _checked = false;
+            value = false;
         }
 
-        public bool HasChecked() => _checked;
+        public bool HasChecked() => value;
     }
 }

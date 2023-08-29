@@ -3,7 +3,7 @@
 namespace CongTDev.AbilitySystem
 {
     [CreateAssetMenu(fileName = "Recovery Effect", menuName = "Effects/Instant/Heal")]
-    public class HealEffect : BaseEffectAndFactorySO
+    public class HealEffect : BaseEffectAndFactory
     {
         [SerializeField] protected StatBasedValue basedValue;
 

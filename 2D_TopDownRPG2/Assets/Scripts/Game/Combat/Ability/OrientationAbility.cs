@@ -2,13 +2,13 @@
 using CongTDev.IOSystem;
 using CongTDev.ObjectPooling;
 using System;
-using UnityEngine;
+using System.Text;
 
 namespace CongTDev.AbilitySystem
 {
-    public class OrientationAbility : ActiveAbility<OrientationRuneSO>
+    public class OrientationAbility : ActiveAbility<OrientationRune>
     {
-        public OrientationAbility(OrientationRuneSO rune)
+        public OrientationAbility(OrientationRune rune)
             : base(rune)
         {
             AddSubType("Orientation");
@@ -56,7 +56,7 @@ namespace CongTDev.AbilitySystem
 
             Caster.Owner.Mana.Draw(Rune.BaseManaConsume);
 
-            if(PoolManager.Get<ISpell>(Rune.SpellReleaseWhenUse, out var spell))
+            if (PoolManager.Get<ISpell>(Rune.SpellReleaseWhenUse, out var spell))
             {
                 spell.KickOff(this, Caster.LookDirection);
             }
@@ -72,7 +72,16 @@ namespace CongTDev.AbilitySystem
 
         public override string GetDescription()
         {
-            return Rune.GetDescription();
+            var description = new StringBuilder();
+            description.AppendLine($"Mana consume: {Rune.BaseManaConsume}");
+            description.AppendLine($"Cast delay: {Rune.BaseCastDelay}");
+            description.AppendLine($"Cooldown: {Rune.BaseCooldown}");
+            description.AppendLine(Rune.Description);
+            foreach (var effect in Rune.EffectsApplyToTarget)
+            {
+                description.AppendLine(effect.EffectInfo.DesriptionWithColor);
+            }
+            return description.ToString();
         }
 
         #region IOSystem
@@ -85,23 +94,17 @@ namespace CongTDev.AbilitySystem
         [Serializable]
         public class SerializedOrientationAbility : SerializedObject
         {
-            public float currentLevel;
-            public float nearestUseTime;
             public string runeJson;
             public SerializedOrientationAbility() { }
             public SerializedOrientationAbility(OrientationAbility ability)
             {
-                nearestUseTime = ability.NextUseTime;
                 runeJson = ability.Rune.ToWrappedJson();
             }
 
             public override object Deserialize()
             {
-                var rune = (OrientationRuneSO)JsonHelper.WrappedJsonToObject(runeJson);
-                return new OrientationAbility(rune)
-                {
-                    NextUseTime = nearestUseTime
-                };
+                var rune = (OrientationRune)JsonHelper.WrappedJsonToObject(runeJson);
+                return new OrientationAbility(rune);
             }
 
             public override SerializedType GetSerializedType() => SerializedType.OrientationAbility;

@@ -4,7 +4,7 @@ using UnityEngine.Pool;
 namespace CongTDev.AbilitySystem
 {
     [CreateAssetMenu(fileName = "Damage", menuName = "Effects/Instant/Damage")]
-    public class DamageEffect : BaseEffectAndFactorySO
+    public class DamageEffect : BaseEffectAndFactory
     {
         [SerializeField] protected DamageType damageType;
         [SerializeField] protected StatBasedValue damageBased;

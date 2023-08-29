@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9494ceb600e8b49bb6ef5ea3f5ae64, type: 3}
+  m_Name: ClearMapSpell
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Clear map
+  <Description>k__BackingField: This is a cheat skill use to clear all monster.
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1b81c1b6c0d9c6e4da5d4ed1373a2884, type: 3}
+  <AbilityIcon>k__BackingField: {fileID: -1036877121, guid: 1f16be29f6c79814282f20b5a120d507, type: 3}
+  <Rarity>k__BackingField: 4
+  <LearnCost>k__BackingField: 10000
+  <TargetType>k__BackingField: 1
+  <BaseCastDelay>k__BackingField: 0
+  <BaseManaConsume>k__BackingField: 0
+  <BaseCooldown>k__BackingField: 1
+  <MaxUseRange>k__BackingField: 0
+  effectsApplyToTarget:
+  - {fileID: 11400000, guid: f0e9fe43013cc4c48a8c44b6075c2b6f, type: 2}
+  <SpellReleaseWhenUse>k__BackingField: {fileID: 6875234061665790127, guid: 36f8e4107ddfcbd45981924a082316e1, type: 3}

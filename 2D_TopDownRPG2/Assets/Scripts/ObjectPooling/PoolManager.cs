@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using CongTDev.EventManagers;
 
 namespace CongTDev.ObjectPooling
 {
@@ -12,6 +13,8 @@ namespace CongTDev.ObjectPooling
         {
             _pools = new();
             SceneManager.sceneUnloaded += ClearPool;
+            EventManager.AddListener("OnMapChanging", ClearPool);
+            EventManager.AddListener("OnMapChanged", ClearPool);
         }
 
         public static bool Get<T>(Prefab prefab, out T instance) where T : IPoolObject
@@ -29,7 +32,7 @@ namespace CongTDev.ObjectPooling
             catch
             {
                 string info = prefab == null ? "Null prefab" : $"prefab with id : {prefab.UniquePrefabID}";
-                Debug.LogError($"Error when try to get {nameof(T)} from pool by {info}");
+                Debug.LogError($"Error when try to get {typeof(T)} from pool by {info}");
                 instance = default;
                 return false;
             }
@@ -41,6 +44,7 @@ namespace CongTDev.ObjectPooling
             {
                 pool.ClearPool();
             }
+            _pools.Clear();
         }
 
         private static void ClearPool(Scene _)

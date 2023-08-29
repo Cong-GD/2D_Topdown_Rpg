@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a2babd5d1e9ad42b1682c7379f9993, type: 3}
+  m_Name: Medium Mana Potion
+  m_EditorClassIdentifier: 
+  <Icon>k__BackingField: {fileID: 21300000, guid: 2c7a59f9361de4d42961f3c5301f8d8f, type: 3}
+  <ItemName>k__BackingField: Medium Mana Potion
+  <Description>k__BackingField: A small mana potion.
+  <ItemRarity>k__BackingField: 1
+  <MaxStack>k__BackingField: 64
+  effects:
+  - {fileID: 11400000, guid: d718db01ed7b5224e8acc15fc42c9f76, type: 2}
+  types:
+  - Mana
+  <VFXWhenUse>k__BackingField: {fileID: 8870846077001531234, guid: ab085cc8ad5888b4881f1c836777ac1c, type: 3}
+  <SFXWhenUse>k__BackingField: 

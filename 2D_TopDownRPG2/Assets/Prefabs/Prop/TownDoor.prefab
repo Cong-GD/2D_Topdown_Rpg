@@ -316,6 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3235795549878402028}
   - component: {fileID: 6280964742308855187}
+  - component: {fileID: 8795143425199651596}
   m_Layer: 0
   m_Name: InteractIndicator
   m_TagString: Untagged
@@ -390,6 +391,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8795143425199651596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6787684647730122889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d9eab6ee97e454f961af14762d39b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6797347068633076838
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,7 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5dc016a4ce2a9242b2a9c26393b0556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  indicator: {fileID: 6787684647730122889}
+  indicator: {fileID: 8795143425199651596}
   openingDoor: {fileID: 2216237568388118418}
   closingDoor: {fileID: 3057050772326620854}
   defaultOpen: 1

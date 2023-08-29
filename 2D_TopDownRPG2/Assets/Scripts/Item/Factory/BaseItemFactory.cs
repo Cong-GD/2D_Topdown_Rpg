@@ -1,5 +1,4 @@
-﻿using CongTDev.IOSystem;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class BaseItemFactory : ScriptableObject
 {

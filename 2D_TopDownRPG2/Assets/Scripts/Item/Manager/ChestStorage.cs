@@ -8,12 +8,15 @@ public class ChestStorage : GlobalReference<ChestStorage>
 
     private readonly List<ChestSlot> slots = new();
 
-    private IItem[] showingItems;
+    private IItem[] _showingItems;
 
-    public void ShowItem(IItem[] items)
+    public void ShowItems(IItem[] items)
     {
+        if(items == null)
+            return;
+
         ChangeCapacity(items.Length);
-        showingItems = items;
+        _showingItems = items;
         for (int i = 0; i < items.Length; i++)
         {
             slots[i].PushItem(items[i]);
@@ -22,14 +25,14 @@ public class ChestStorage : GlobalReference<ChestStorage>
 
     private void OnDisable()
     {
-        if (showingItems == null)
+        if (_showingItems == null)
             return;
 
-        for (int i = 0; i < showingItems.Length; i++)
+        for (int i = 0; i < _showingItems.Length; i++)
         {
-            showingItems[i] = slots[i].Item;
+            _showingItems[i] = slots[i].Item;
         }
-        showingItems = null;
+        _showingItems = null;
     }
 
     private void ChangeCapacity(int newCapacity)

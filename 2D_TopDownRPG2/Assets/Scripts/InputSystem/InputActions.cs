@@ -152,6 +152,24 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Consum1"",
+                    ""type"": ""Button"",
+                    ""id"": ""9c35ec9f-8be0-4f64-93c3-0baa8e987a76"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Consum2"",
+                    ""type"": ""Button"",
+                    ""id"": ""edf161b5-adad-4bbb-959d-ab9810b400e7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -220,6 +238,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""BasicAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ad7d2f3-cbe0-416f-8c87-6d7713d9261e"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Consum1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""351ee90a-058e-482e-8c49-32ab208d183b"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Consum2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -285,6 +325,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_PlayerAbilityTrigger_Ability4 = m_PlayerAbilityTrigger.FindAction("Ability4", throwIfNotFound: true);
         m_PlayerAbilityTrigger_Ability5 = m_PlayerAbilityTrigger.FindAction("Ability5", throwIfNotFound: true);
         m_PlayerAbilityTrigger_BasicAttack = m_PlayerAbilityTrigger.FindAction("BasicAttack", throwIfNotFound: true);
+        m_PlayerAbilityTrigger_Consum1 = m_PlayerAbilityTrigger.FindAction("Consum1", throwIfNotFound: true);
+        m_PlayerAbilityTrigger_Consum2 = m_PlayerAbilityTrigger.FindAction("Consum2", throwIfNotFound: true);
         // Interact
         m_Interact = asset.FindActionMap("Interact", throwIfNotFound: true);
         m_Interact_Interact = m_Interact.FindAction("Interact", throwIfNotFound: true);
@@ -402,6 +444,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerAbilityTrigger_Ability4;
     private readonly InputAction m_PlayerAbilityTrigger_Ability5;
     private readonly InputAction m_PlayerAbilityTrigger_BasicAttack;
+    private readonly InputAction m_PlayerAbilityTrigger_Consum1;
+    private readonly InputAction m_PlayerAbilityTrigger_Consum2;
     public struct PlayerAbilityTriggerActions
     {
         private @InputActions m_Wrapper;
@@ -412,6 +456,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Ability4 => m_Wrapper.m_PlayerAbilityTrigger_Ability4;
         public InputAction @Ability5 => m_Wrapper.m_PlayerAbilityTrigger_Ability5;
         public InputAction @BasicAttack => m_Wrapper.m_PlayerAbilityTrigger_BasicAttack;
+        public InputAction @Consum1 => m_Wrapper.m_PlayerAbilityTrigger_Consum1;
+        public InputAction @Consum2 => m_Wrapper.m_PlayerAbilityTrigger_Consum2;
         public InputActionMap Get() { return m_Wrapper.m_PlayerAbilityTrigger; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -439,6 +485,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @BasicAttack.started += instance.OnBasicAttack;
             @BasicAttack.performed += instance.OnBasicAttack;
             @BasicAttack.canceled += instance.OnBasicAttack;
+            @Consum1.started += instance.OnConsum1;
+            @Consum1.performed += instance.OnConsum1;
+            @Consum1.canceled += instance.OnConsum1;
+            @Consum2.started += instance.OnConsum2;
+            @Consum2.performed += instance.OnConsum2;
+            @Consum2.canceled += instance.OnConsum2;
         }
 
         private void UnregisterCallbacks(IPlayerAbilityTriggerActions instance)
@@ -461,6 +513,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @BasicAttack.started -= instance.OnBasicAttack;
             @BasicAttack.performed -= instance.OnBasicAttack;
             @BasicAttack.canceled -= instance.OnBasicAttack;
+            @Consum1.started -= instance.OnConsum1;
+            @Consum1.performed -= instance.OnConsum1;
+            @Consum1.canceled -= instance.OnConsum1;
+            @Consum2.started -= instance.OnConsum2;
+            @Consum2.performed -= instance.OnConsum2;
+            @Consum2.canceled -= instance.OnConsum2;
         }
 
         public void RemoveCallbacks(IPlayerAbilityTriggerActions instance)
@@ -544,6 +602,8 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnAbility4(InputAction.CallbackContext context);
         void OnAbility5(InputAction.CallbackContext context);
         void OnBasicAttack(InputAction.CallbackContext context);
+        void OnConsum1(InputAction.CallbackContext context);
+        void OnConsum2(InputAction.CallbackContext context);
     }
     public interface IInteractActions
     {

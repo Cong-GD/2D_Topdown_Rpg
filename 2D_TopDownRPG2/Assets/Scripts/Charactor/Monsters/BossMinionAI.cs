@@ -10,7 +10,7 @@ public class BossMinionAI : SeekerMovingAI
 
     [Header("Ability handler")]
     [SerializeField] private MonstersController controller;
-    [SerializeField] private ActiveRuneSO abilityRune;
+    [SerializeField] private ActiveRune abilityRune;
     [SerializeField] private float abilityUseInterval;
     [SerializeField] private float attackRange;
     [SerializeField] private float aimTime;

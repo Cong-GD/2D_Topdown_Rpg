@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CongTDev.MainMenu
 {
@@ -51,9 +52,10 @@ namespace CongTDev.MainMenu
         {
             if (CheckInput(inputField.text))
             {
-                ConfirmPanel.Instance.AskForComfirm(StartGame, null,
+                ConfirmPanel.Ask(
                     "Username can't be changed.\n" +
-                    "Do you want to start game with this username?");
+                    "Do you want to start game with this username?",
+                    StartGame);
             }
         }
 
@@ -98,7 +100,8 @@ namespace CongTDev.MainMenu
         private void StartGame()
         {
             FileNameData.AddUser(inputField.text);
-            MainMenuController.Instance.StartGameWithUserName(inputField.text);
+            FileNameData.SetUser(inputField.text);
+            SceneManager.LoadSceneAsync("CutScene");
         }
     }
 }

@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8876e7c9a3150046b1ee0150164da77, type: 3}
   m_Name: BossStat
   m_EditorClassIdentifier: 
-  MaxHealth: 10000
+  MaxHealth: 22000
   MaxMana: 0
   MoveSpeed: 0
-  AttackPower: 200
-  Defence: 50
+  AttackPower: 300
+  Defence: 100
   BlockChance: 20
   Accuracy: 1000
   Evasion: 0
   CriticalChance: 0
   CritticalHitDamage: 0
-  CooldownReduction: 0
-  Abilities: []
+  growStat:
+    Health: 1500
+    Mana: 0
+    AttackPower: 50
+    Defence: 20

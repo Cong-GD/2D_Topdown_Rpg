@@ -1,3 +1,4 @@
+using CongTDev.AudioManagement;
 using CongTDev.ObjectPooling;
 using System.Collections;
 using UnityEngine;
@@ -12,12 +13,21 @@ namespace CongTDev.AbilitySystem.Spell
 
         protected OrientationAbility ability;
 
+        [Space]
+        [Header("Sound")]
+        [SerializeField] private string soundPlayWhenStart;
+        [SerializeField] private string soundPlayWhenHit;
+
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.TryGetComponent<Fighter>(out var fighter) && ability.IsRightTarget(fighter))
             {
                 OnHitTarget(fighter);
+                if (!string.IsNullOrEmpty(soundPlayWhenHit))
+                {
+                    AudioManager.Play(soundPlayWhenHit);
+                }
             }
         }
 
@@ -36,6 +46,11 @@ namespace CongTDev.AbilitySystem.Spell
             rb2d.velocity = direction * moveSpeed;
             var rot = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0, 0, rot);
+
+            if(!string.IsNullOrEmpty(soundPlayWhenStart))
+            {
+                AudioManager.Play(soundPlayWhenStart);
+            }
 
             StartCoroutine(LifeCheckCoroutine());
         }

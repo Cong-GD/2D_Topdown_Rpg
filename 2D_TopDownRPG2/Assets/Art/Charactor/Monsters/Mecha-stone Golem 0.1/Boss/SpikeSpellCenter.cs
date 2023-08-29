@@ -14,7 +14,7 @@ namespace CongTDev.AbilitySystem.Spell
         {
             foreach (var spawnPoint in spawnPoints)
             {
-                if(PoolManager.Get<SpikeSpell>(spikeSpellPrefab, out var spikeSpell))
+                if (PoolManager.Get<SpikeSpell>(spikeSpellPrefab, out var spikeSpell))
                 {
                     spikeSpell.KickOff(ability, spawnPoint.position);
                 }

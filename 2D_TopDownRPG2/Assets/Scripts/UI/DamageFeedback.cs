@@ -1,8 +1,16 @@
 using CongTDev.ObjectPooling;
+using System;
 using UnityEngine;
 
-public class DamageFeedback : GlobalReference<DamageFeedback>
+public class DamageFeedback : MonoBehaviour
 {
+    private static Action<DamageBlock> _instanceCallback;
+
+    public static void Display(DamageBlock damageBlock)
+    {
+        _instanceCallback?.Invoke(damageBlock);
+    }
+
     [SerializeField] private Prefab floatingTextPrefab;
 
     [SerializeField] private Prefab damageVFXPrefab;
@@ -11,6 +19,11 @@ public class DamageFeedback : GlobalReference<DamageFeedback>
 
     public bool isDisplayText;
     public bool isUseVFX;
+
+    private void Awake()
+    {
+        _instanceCallback = DisplayDamageFeedback;
+    }
 
     public void DisplayDamageFeedback(DamageBlock damageBlock)
     {

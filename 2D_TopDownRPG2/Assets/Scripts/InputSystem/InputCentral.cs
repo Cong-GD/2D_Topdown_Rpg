@@ -9,6 +9,11 @@
         InputActions.Enable();
     }
 
+    public static void Disable()
+    {
+        InputActions.Disable();
+    }
+
     public static void DisablePlayerMovement()
     {
         InputActions.PlayerMove.Disable();

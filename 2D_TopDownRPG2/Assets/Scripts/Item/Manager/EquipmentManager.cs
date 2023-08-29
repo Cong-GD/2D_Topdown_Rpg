@@ -117,8 +117,8 @@ public class EquipmentManager : MonoBehaviour
         {
             var weapon = (Equipment)weaponJson.ToObject();
             var shield = (Equipment)shieldJson.ToObject();
-            var shose = (Equipment)shieldJson.ToObject();
-            var arrmor = (Equipment)shieldJson.ToObject();
+            var shose = (Equipment)shoseJson.ToObject();
+            var arrmor = (Equipment)arrmorJson.ToObject();
             equipmentManager.equipmentSlotsMap[Equipment.Slot.Weapon].PushItem(weapon);
             equipmentManager.equipmentSlotsMap[Equipment.Slot.Shield].PushItem(shield);
             equipmentManager.equipmentSlotsMap[Equipment.Slot.Shoe].PushItem(shose);

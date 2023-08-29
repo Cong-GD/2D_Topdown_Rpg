@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d50cc5c87ec9f64782ee4d5433e1244, type: 3}
   m_Name: Barbari's staff
   m_EditorClassIdentifier: 
-  <EquipmentName>k__BackingField: Barbari's Sword
+  <EquipmentName>k__BackingField: Barbari's staff
   <EquipSlot>k__BackingField: 0
   <Description>k__BackingField: Staff of barbari.
   <Icon>k__BackingField: {fileID: 21300000, guid: f82e47d4e381c97499ad5265925c677f, type: 3}

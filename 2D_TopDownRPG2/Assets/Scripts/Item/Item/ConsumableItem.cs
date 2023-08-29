@@ -1,6 +1,10 @@
-﻿using CongTDev.IOSystem;
+﻿using CongTDev.AbilitySystem;
+using CongTDev.AudioManagement;
+using CongTDev.IOSystem;
+using CongTDev.ObjectPooling;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ConsumableItem : IItem, IStackableItem, IUsableItem
@@ -9,7 +13,10 @@ public class ConsumableItem : IItem, IStackableItem, IUsableItem
 
     private readonly ConsumableItemFactory sourceItem;
 
+    private int _count;
+
     public event Action OnDestroy;
+    public event Action OnCountChange;
 
     public ConsumableItem(ConsumableItemFactory sourceItem)
     {
@@ -25,9 +32,30 @@ public class ConsumableItem : IItem, IStackableItem, IUsableItem
 
     public int Capacity => sourceItem.MaxStack;
 
-    public int Count { get; private set; }
+    public int Count
+    {
+        get => _count;
+        set
+        {
+            _count = value;
+            OnCountChange?.Invoke();
+            if(_count == 0)
+            {
+                OnDestroy?.Invoke();
+            }
+        }
+    }
 
-    public string GetDescription() => sourceItem.Description;
+    public string GetDescription()
+    {
+        var stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine(sourceItem.Description);
+        foreach (BaseEffectAndFactory effect in sourceItem.Effects)
+        {
+            stringBuilder.AppendLine(effect.EffectInfo.DesriptionWithColor);
+        }
+        return stringBuilder.ToString();
+    }
 
     public string ItemType => ITEM_TYPE;
 
@@ -40,6 +68,28 @@ public class ConsumableItem : IItem, IStackableItem, IUsableItem
             user.ReceiveEffect(effectBuilder, user);
         }
         Get(1);
+        AudioManager.Play("UseItem");
+        TryPlayVFX(user);
+        TryPlaySFX();
+    }
+
+    private void TryPlayVFX(Fighter user)
+    {
+        if (sourceItem.VFXWhenUse == null)
+            return;
+
+        if (PoolManager.Get<PoolObject>(sourceItem.VFXWhenUse, out var instance))
+        {
+            instance.transform.position = user.Position;
+        }
+    }
+
+    private void TryPlaySFX()
+    {
+        if(string.IsNullOrEmpty(sourceItem.SFXWhenUse))
+            return;
+
+        AudioManager.Play(sourceItem.SFXWhenUse);
     }
 
     public bool IsFullStacked() => Count >= Capacity;

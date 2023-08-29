@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a316048d3d4d6149af405d91fd1761d, type: 3}
+  m_Name: Heal_200_0_-Attack
+  m_EditorClassIdentifier: 
+  <EffectInfo>k__BackingField:
+    <EffectTypeSelect>k__BackingField: 0
+    <Description>k__BackingField: Heal an amount by 200% your attack power
+    _descriptionColor: {r: 0.1605731, g: 0.8773585, b: 0.19087927, a: 0}
+  basedValue:
+    <BaseOn>k__BackingField: 3
+    <PercentValue>k__BackingField: 3
+    <FixedValue>k__BackingField: 0

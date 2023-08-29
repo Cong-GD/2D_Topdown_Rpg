@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CongTDev.AbilitySystem
 {
-    public abstract class Ability<T> where T : RuneSO
+    public abstract class Ability<T> where T : Rune
     {
         public readonly T Rune;
         public event Action OnDestroy;

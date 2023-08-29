@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8b0a6e926a2434084847283f691c37, type: 3}
+  m_Name: Barbari'sArmor
+  m_EditorClassIdentifier: 
+  <EquipmentName>k__BackingField: Barbari's armor
+  <EquipSlot>k__BackingField: 1
+  <Description>k__BackingField: Staff of Sumamo. It's maybe very strong
+  <Icon>k__BackingField: {fileID: 21300000, guid: b03f0ea6996beee43ae8423ce44efe69, type: 3}
+  <MainStats>k__BackingField:
+  - {fileID: 11400000, guid: c92648761ed895c4b83b4f053c2dd4bd, type: 2}
+  - {fileID: 11400000, guid: ab13ca0bf2754a04e94317ddd627cfe4, type: 2}
+  randomEffects:
+  - effectFactory: {fileID: 11400000, guid: a62e2457102c6664cb349428bfb7b42e, type: 2}
+    chanceToAppear: 24
+  - effectFactory: {fileID: 11400000, guid: c92648761ed895c4b83b4f053c2dd4bd, type: 2}
+    chanceToAppear: 30
+  - effectFactory: {fileID: 11400000, guid: fbf485025fa02c74aadcceb54ee5a1d9, type: 2}
+    chanceToAppear: 30
+  - effectFactory: {fileID: 11400000, guid: 28eea78535b08b04f8083254a62c16f1, type: 2}
+    chanceToAppear: 30

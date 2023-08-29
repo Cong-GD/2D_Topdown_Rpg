@@ -12,21 +12,6 @@ public class MonstersController : BaseCombatCharactorController, IPoolObject
 
     private FollowMonsterInfo _monsterInfo;
 
-    protected override void Awake()
-    {
-        base.Awake();
-        Combat.OnDead += DeathEventRaise;
-    }
-
-    protected override void OnDestroy()
-    {
-        base.OnDestroy();
-        if(Combat != null )
-        {
-            Combat.OnDead -= DeathEventRaise;
-        }
-    }
-
     private void OnDisable()
     {
         if(_monsterInfo != null)
@@ -37,8 +22,8 @@ public class MonstersController : BaseCombatCharactorController, IPoolObject
 
     public void Initialize(BaseStatData statData, int level = 1)
     {
-        Combat.Stats.ClearAllBonus();
         Combat.RemoveAllEffect();
+        Combat.Stats.ClearAllBonus();
         Combat.InstanciateFromStatsData(statData);
         SetLevel(statData, level);
         Combat.Health.Fill();
@@ -60,8 +45,9 @@ public class MonstersController : BaseCombatCharactorController, IPoolObject
         }
     }
 
-    private void DeathEventRaise(Fighter fighter)
+    protected override void OnDead(Fighter fighter)
     {
+        base.OnDead(fighter);
         StageSupportDeathEvent?.Invoke(fighter);
         StageSupportDeathEvent = null;
     }

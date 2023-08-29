@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 653512730195362062}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09, y: 1.16, z: 0}
+  m_LocalPosition: {x: 0.17, y: 1.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 3097669101724278261}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.73, y: 0.87, z: 0}
+  m_LocalPosition: {x: 0.76, y: 0.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,109 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3809899545487873341}
   combatHandler: {fileID: 7555962945771852663}
-  detectRange: 3.5
+  detectRange: 7
+  <OnStartCombat>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
+        m_MethodName: CloseDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CongTDev.AudioManagement.AudioPlayerHelper, Assembly-CSharp
+        m_MethodName: PlayeMusic
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BossFightMusic
+          m_BoolArgument: 1
+        m_CallState: 2
+  <OnEndCombat>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
+        m_MethodName: OpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: LootChest, Assembly-CSharp
+        m_MethodName: Unblock
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CongTDev.AudioManagement.AudioPlayerHelper, Assembly-CSharp
+        m_MethodName: StopMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &7555962945771852663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,7 +231,7 @@ MonoBehaviour:
   abilityHandlers:
   - rune: {fileID: 11400000, guid: 436960fd2984e5045881420ed8377d0e, type: 2}
     prefixWait: 1
-    suffixWait: 2
+    suffixWait: 0
     animationName: HandFire
     hasAnimation: 0
     animationHash: 0
@@ -146,74 +248,67 @@ MonoBehaviour:
     hasAnimation: 0
     animationHash: 0
   - rune: {fileID: 11400000, guid: 9fe5c5ab9c55af44fa142db5a9607a6e, type: 2}
-    prefixWait: 0.3
-    suffixWait: 1
+    prefixWait: 0.5
+    suffixWait: 0
+    animationName: Charge
+    hasAnimation: 0
+    animationHash: 0
+  - rune: {fileID: 11400000, guid: 4533a08a8b2cfae4d82c3d3805c612c9, type: 2}
+    prefixWait: 0.5
+    suffixWait: 0
+    animationName: Charge
+    hasAnimation: 0
+    animationHash: 0
+  - rune: {fileID: 11400000, guid: ec5048ab0cbdac84fa59a4e2100896df, type: 2}
+    prefixWait: 0.5
+    suffixWait: 0
     animationName: Charge
     hasAnimation: 0
     animationHash: 0
   workFlowState1:
-  - cooldown: 3
-    connect: 1
-  - cooldown: 3
-    connect: 2
-  - cooldown: 3
-    connect: 0
-  - cooldown: 3
-    connect: 0
-  OnStartCombat:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  OnEndCombat:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  - abilityToUse: 0
+    cooldown: 3
+  - abilityToUse: 4
+    cooldown: 3
+  - abilityToUse: 1
+    cooldown: 2
+  - abilityToUse: 2
+    cooldown: 3
+  - abilityToUse: 3
+    cooldown: 3
+  - abilityToUse: 5
+    cooldown: 3
+  - abilityToUse: 1
+    cooldown: 3
+  - abilityToUse: 0
+    cooldown: 3
+  - abilityToUse: 2
+    cooldown: 3
+  - abilityToUse: 3
+    cooldown: 3
+  workFlowState2:
+  - abilityToUse: 4
+    cooldown: 3
+  - abilityToUse: 5
+    cooldown: 1
+  - abilityToUse: 1
+    cooldown: 2
+  - abilityToUse: 2
+    cooldown: 2
+  - abilityToUse: 5
+    cooldown: 1
+  - abilityToUse: 3
+    cooldown: 2
+  - abilityToUse: 0
+    cooldown: 4
+  - abilityToUse: 3
+    cooldown: 1
+  - abilityToUse: 5
+    cooldown: 1
+  - abilityToUse: 1
+    cooldown: 2
+  - abilityToUse: 2
+    cooldown: 3
 --- !u!1 &5077443602198913594
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,6 +515,7 @@ MonoBehaviour:
   <HitBox>k__BackingField: {fileID: 7967223975958881095}
   <Movement>k__BackingField: {fileID: 1079547941219746799}
   team: 1
+  invisibility: 0
 --- !u!114 &2681309245198214399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,7 +541,7 @@ GameObject:
   - component: {fileID: 6842980857853282127}
   - component: {fileID: 7533613679952368972}
   - component: {fileID: 1079547941219746799}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: BossGolem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +558,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -9.5, y: -2.49, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7490813402652326133}
@@ -498,7 +594,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!61 &7533613679952368972
 BoxCollider2D:
   m_ObjectHideFlags: 0

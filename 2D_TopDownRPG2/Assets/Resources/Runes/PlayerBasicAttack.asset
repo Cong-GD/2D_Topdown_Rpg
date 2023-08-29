@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Basic attack
   <Description>k__BackingField: Fire a bullet deal damage when hit enemy
-  <Icon>k__BackingField: {fileID: 713082596, guid: 1f16be29f6c79814282f20b5a120d507, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 1b81c1b6c0d9c6e4da5d4ed1373a2884, type: 3}
   <AbilityIcon>k__BackingField: {fileID: 713082596, guid: 1f16be29f6c79814282f20b5a120d507, type: 3}
   <Rarity>k__BackingField: 0
   <TargetType>k__BackingField: 1
   <BaseCastDelay>k__BackingField: 0.3
   <BaseManaConsume>k__BackingField: 0
-  <BaseCooldown>k__BackingField: 0.6
+  <BaseCooldown>k__BackingField: 0.8
   <MaxUseRange>k__BackingField: 7
   effectsApplyToTarget:
-  - {fileID: 11400000, guid: 337a8527d79dff442a2aa3440342808c, type: 2}
+  - {fileID: 11400000, guid: 60e9af1c53549294a969669f14f27e57, type: 2}
   <SpellReleaseWhenUse>k__BackingField: {fileID: 200943339672918756, guid: 01f8c257e6882a6449291f5caf4aed28, type: 3}

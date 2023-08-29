@@ -1,3 +1,4 @@
+using CongTDev.AudioManagement;
 using UnityEngine;
 
 public class TownDoor : BaseInteractable
@@ -28,5 +29,6 @@ public class TownDoor : BaseInteractable
     public override void Interact()
     {
         IsOpening = !IsOpening;
+        AudioManager.Play("DoorOpenClose");
     }
 }
