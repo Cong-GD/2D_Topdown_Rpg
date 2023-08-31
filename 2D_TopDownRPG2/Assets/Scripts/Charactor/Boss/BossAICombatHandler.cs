@@ -1,5 +1,6 @@
 ﻿using CongTDev.AbilitySystem;
 using CongTDev.AudioManagement;
+using CongTDev.ObjectPooling;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -113,6 +114,7 @@ namespace CongTDev.TheBoss
 
         private IEnumerator EndCombat()
         {
+            PoolManager.ClearPool();
             AudioManager.Play("BossDeath");
             yield return 1.5f.Wait();
             animator.Play("Death");

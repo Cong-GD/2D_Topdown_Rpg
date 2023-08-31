@@ -1,19 +1,23 @@
 using UnityEngine;
-using UnityEngine.Events;
 
 public class NPC : BaseInteractable
 {
-    [SerializeField] private UnityEvent onCancelAssigned;
     [SerializeField] private DialogueObject dialogueObject;
+    [SerializeField] private GameObject shop;
 
     public override void Interact()
     {
+        if (shop.activeSelf)
+        {
+            shop.SetActive(false);
+            return;
+        }
         DialoguePanel.ShowDialogue(dialogueObject);
     }
 
     public override void OnCancelAssigned()
     {
         base.OnCancelAssigned();
-        onCancelAssigned.Invoke();
+        shop.SetActive(false);
     }
 }

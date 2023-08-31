@@ -68,7 +68,7 @@ public class InventorySlot : ItemSlot<IItem>
 
     private static void Drop(InventorySlot slot)
     {
-        ConfirmPanel.Ask("Item will be deleted permanently. You sure bro?", slot.ClearSlot);
+        ConfirmPanel.Ask("Item will be deleted permanently.\nAre you sure?", slot.ClearSlot);
     }
 
     private static void EquipAbility(InventorySlot slot)

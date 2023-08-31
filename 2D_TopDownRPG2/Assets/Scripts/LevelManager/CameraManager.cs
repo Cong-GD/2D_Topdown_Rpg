@@ -43,7 +43,7 @@ public class CameraManager : GlobalReference<CameraManager>
             float distanceToTarget = Vector3.Distance(currentPosition, followtranform.position);
             if(distanceToTarget <= Mathf.Epsilon)
             {
-                //yield break;
+                yield break;
             }
             float speedNeedToReach = distanceToTarget / remainTime;
             currentPosition = Vector3.MoveTowards(currentPosition, followtranform.position, speedNeedToReach);

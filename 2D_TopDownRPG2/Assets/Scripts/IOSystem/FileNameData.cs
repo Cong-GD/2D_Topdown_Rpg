@@ -43,6 +43,10 @@ namespace CongTDev.IOSystem
             string path = Path.Combine(SavePath, username);
             if (Directory.Exists(path))
             {
+                foreach(var file in Directory.GetFiles(path))
+                {
+                    File.Delete(file);
+                }
                 Directory.Delete(path);
                 return true;
             }

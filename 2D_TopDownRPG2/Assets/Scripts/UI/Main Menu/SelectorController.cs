@@ -42,6 +42,7 @@ namespace CongTDev.MainMenu
         public void DeleteCurrenUserExcute()
         {
             FileNameData.DeleteUser(currentUserText.text);
+            currentUserText.text = "";
             RefreshUserToggle();
         }
 

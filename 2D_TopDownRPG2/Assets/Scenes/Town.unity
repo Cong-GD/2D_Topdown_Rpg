@@ -20947,21 +20947,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 1902381834}
-  onCancelAssigned:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1359226734}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   dialogueObject:
     sentences:
     - Hello! I'm Merlida.
@@ -20988,6 +20973,7 @@ MonoBehaviour:
       choosenEvent:
         m_PersistentCalls:
           m_Calls: []
+  shop: {fileID: 1359226734}
 --- !u!58 &1089069283
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -23079,21 +23065,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 1503604891}
-  onCancelAssigned:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1158853388}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   dialogueObject:
     sentences:
     - Hey kid.
@@ -23119,6 +23090,7 @@ MonoBehaviour:
       choosenEvent:
         m_PersistentCalls:
           m_Calls: []
+  shop: {fileID: 1158853388}
 --- !u!58 &1234269076
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -50344,21 +50316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   indicator: {fileID: 173681050}
-  onCancelAssigned:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   dialogueObject:
     sentences:
     - I need some help!
@@ -50373,6 +50330,7 @@ MonoBehaviour:
       choosenEvent:
         m_PersistentCalls:
           m_Calls: []
+  shop: {fileID: 0}
 --- !u!58 &1906024953
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ public class ShopSlot : ItemSlot<IItem>
 
         if(holder.value.BaseItem is IAbility)
         {
-            ConfirmPanel.Ask("You can sell learned ability");
+            ConfirmPanel.Ask("You can't sell learned ability");
             return;
         }
 
