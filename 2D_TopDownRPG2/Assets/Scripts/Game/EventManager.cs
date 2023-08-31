@@ -29,10 +29,10 @@ namespace CongTDev.EventManagers
 
         public static void RemoveListener(string eventName, Action action)
         {
-            if (events.TryGetValue(eventName, out Action exittingAction))
+            if (events.ContainsKey(eventName))
             {
-                exittingAction -= action;
-                if (exittingAction == null)
+                events[eventName] -= action;
+                if (events[eventName] == null)
                 {
                     events.Remove(eventName);
                 }
@@ -66,10 +66,10 @@ namespace CongTDev.EventManagers
 
         public static void RemoveListener(string eventName, Action<T> action)
         {
-            if (events.TryGetValue(eventName, out Action<T> exittingAction))
+            if (events.ContainsKey(eventName))
             {
-                exittingAction -= action;
-                if (exittingAction == null)
+                events[eventName] -= action;
+                if (events[eventName] == null)
                 {
                     events.Remove(eventName);
                 }
