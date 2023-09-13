@@ -19,6 +19,11 @@ public class DialoguePanel : MonoBehaviour, IPointerClickHandler
             if (dialoguePanel != null)
             {
                 _showDialogueAction = dialoguePanel.ShowDialogueInternal;
+                _showDialogueAction.Invoke(dialogueObject);
+            }
+            else
+            {
+                Debug.LogWarning("Can't found Diablogue Panel in scene");
             }
         }
         else

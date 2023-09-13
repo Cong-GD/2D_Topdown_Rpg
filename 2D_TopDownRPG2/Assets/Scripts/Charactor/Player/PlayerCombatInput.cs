@@ -10,12 +10,6 @@ public class PlayerCombatInput : BaseMovementInput
     private void Awake()
     {
         _inputActions = InputCentral.InputActions;
-        _inputActions.PlayerAbilityTrigger.BasicAttack.started += TriggerBasicAttack;
-    }
-
-    private void TriggerBasicAttack(InputAction.CallbackContext context)
-    {
-        
     }
 
     private void Update()

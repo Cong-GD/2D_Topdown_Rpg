@@ -117,7 +117,7 @@ public class Movement : MonoBehaviour
     private IEnumerator BlockMovementCoroutine(float blockTime)
     {
         BlockMovement = true;
-        yield return new WaitForSeconds(blockTime);
+        yield return blockTime.Wait();
         BlockMovement = false;
     }
 }

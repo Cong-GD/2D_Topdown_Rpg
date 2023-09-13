@@ -21,10 +21,10 @@ namespace CongTDev.TheBoss
 
         private void Start()
         {
-            StartCoroutine(BossFireCoroutine());
+            StartCoroutine(BossFightCoroutine());
         }
 
-        private IEnumerator BossFireCoroutine()
+        private IEnumerator BossFightCoroutine()
         {
             yield return WaitForPlayerInRange();
             yield return BeforeCombatState();
